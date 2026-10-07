@@ -15,6 +15,9 @@ export const SCENE_CONFIG = {
   initialEarthRotation: -0.8,
 };
 
+// Reemplaza la imagen en public/ o cambia esta ruta por tu JPG/PNG/WebP.
+export const HOME_EARTH_IMAGE = '/earth-placeholder.svg';
+
 export type LaunchSite = {
   id: string;
   name: string;

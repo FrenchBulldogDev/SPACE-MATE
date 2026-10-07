@@ -1,7 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&display=swap');
+@font-face {
+  font-family: 'Public Sans';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/PublicSans-Variable.ttf') format('truetype');
+}
 
 :root {
-  font-family: 'Public Sans', Arial, sans-serif;
+  font-family: 'Public Sans', 'Microsoft YaHei', 'Yu Gothic', Arial, sans-serif;
   color: #fff;
   background: #000;
   font-synthesis: none;
@@ -24,6 +30,7 @@ button { cursor: pointer; color: inherit; }
 button:disabled { cursor: default; }
 a { color: inherit; text-decoration: none; }
 button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, canvas:focus-visible { outline: 3px solid var(--orange); outline-offset: 4px; }
+.mission-sidebar :is(button, a, input, select):focus-visible { outline-color: var(--navy); }
 ::selection { background: var(--orange); color: #000; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
 
@@ -35,6 +42,15 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .app-header nav a { display: flex; align-items: center; gap: 10px; height: 100%; width: fit-content; font-size: 17px; font-weight: 800; position: relative; }
 .app-header nav a:first-child { grid-column: 1; grid-row: 1; }
 .app-header nav a:last-child { grid-column: 3; grid-row: 1; justify-self: end; }
+.header-actions { grid-column: 3; grid-row: 1; justify-self: end; display: flex; align-items: center; gap: 24px; height: 100%; }
+.header-actions > a { height: 100%; }
+.language-picker { position: relative; display: flex; align-items: center; gap: 8px; padding: 0 10px; height: 38px; border: 1px solid var(--navy-border); flex-shrink: 0; }
+.language-picker > svg { color: var(--steel); flex-shrink: 0; pointer-events: none; }
+.language-picker select { background: var(--navy); color: #fff; min-height: 34px; height: 34px; width: 84px; font-size: 12px; padding: 0; border: 0; }
+.language-picker option { background: var(--navy); color: #fff; font-size: 14px; }
+.language-picker select:focus-visible { outline: none; }
+.language-picker:focus-within { outline: 2px solid var(--orange); outline-offset: 3px; }
+.language-short { display: none; }
 .app-header nav a:hover { color: var(--orange); }
 .app-header nav a.active::after { content: ''; position: absolute; height: 3px; background: var(--orange); bottom: 0; left: 0; right: 0; }
 .nav-dot { width: 6px; height: 6px; background: var(--orange); }
@@ -48,7 +64,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 
 /* Black hero, full-width index and white information block. */
 .landing { background: #000; overflow: hidden; min-height: calc(100svh - var(--header-height)); }
-.landing-hero { min-height: 650px; position: relative; display: flex; align-items: center; flex-direction: column; justify-content: center; text-align: center; padding: 95px 40px 56px; }
+.landing-hero { min-height: 650px; position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: center; flex-direction: column; justify-content: center; text-align: center; padding: 95px 40px 56px; }
+.hero-earth-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: .55; z-index: -2; pointer-events: none; }
+.landing-hero::after { content: ''; position: absolute; inset: 0; background: #0003; z-index: -1; pointer-events: none; }
+.hero-image-caption { position: absolute; left: 40px; bottom: 16px; font-size: 10px; line-height: 1.4; letter-spacing: .6px; color: var(--steel); text-align: left; max-width: calc(100% - 80px); }
 .hero-kicker { position: absolute; top: 28px; left: 40px; right: 40px; display: flex; align-items: center; justify-content: space-between; font-size: 11px; font-weight: 600; letter-spacing: 1.4px; color: #bbb; }
 .hero-kicker span:first-child { display: flex; align-items: center; gap: 10px; }
 .hero-kicker span:first-child::before { content: ''; width: 9px; height: 9px; background: var(--orange); }
@@ -56,6 +75,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .brand-mark.large { width: 128px; height: 128px; color: var(--orange); }
 .logo-placeholder > span { font-size: 10px; letter-spacing: 2px; color: #aaa; }
 .landing h1 { font-size: clamp(46px, 6.5vw, 94px); line-height: .99; letter-spacing: -4px; font-weight: 900; margin: 0 0 25px; }
+.landing h1 { max-width: 100%; overflow-wrap: anywhere; }
 .landing h1 span { color: #fff; }
 .hero-description { font-size: 16px; line-height: 1.7; max-width: 520px; color: #ccc; margin: 0 0 28px; }
 .start-button { min-width: 166px; min-height: 52px; font-size: 18px; }
@@ -72,6 +92,21 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .about-signature small { display: block; font-size: 12px; font-weight: 400; color: var(--steel); margin-top: 10px; line-height: 1.6; }
 .landing-footer { background: var(--navy); display: flex; justify-content: space-between; gap: 20px; padding: 30px 40px; color: var(--steel); font-size: 12px; }
 .landing-footer span:first-child { color: #fff; font-weight: 700; }
+.landing-footer { flex-wrap: wrap; }
+.privacy-link { border: 0; padding: 0; background: transparent; color: inherit; font-size: 12px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; line-height: 1.6; }
+.sidebar-bottom .privacy-link { margin-top: 18px; }
+.privacy-dialog { background: var(--navy); color: #fff; border: 1px solid var(--navy-border); border-top: 4px solid var(--orange); width: min(600px, calc(100vw - 36px)); max-height: 85svh; padding: 25px; overflow-y: auto; }
+.privacy-dialog::backdrop { background: #000b; }
+.privacy-heading { display: flex; align-items: center; gap: 12px; }
+.privacy-heading > svg { color: var(--orange); flex-shrink: 0; }
+.privacy-heading h2 { font-size: 23px; line-height: 1.3; margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.privacy-heading .icon-button { margin-left: auto; flex-shrink: 0; }
+.privacy-dialog h3 { font-size: 16px; margin: 0 0 10px; }
+.privacy-dialog p { font-size: 14px; line-height: 1.75; color: #ddd; }
+.privacy-dialog section { border-top: 1px solid var(--navy-border); margin-top: 22px; padding-top: 20px; }
+.privacy-dialog .privacy-status { color: var(--steel); font-size: 12px; }
+.privacy-dialog .button { font-size: 13px; }
+.privacy-dialog .button:disabled { color: #aaa; border-color: #777; cursor: default; background: transparent; }
 
 /* White mission controls alongside a black space viewport. */
 .explorer { height: calc(100svh - var(--header-height)); min-height: 0; display: grid; grid-template-columns: 325px minmax(0, 1fr); background: #000; overflow: hidden; }
@@ -79,6 +114,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .sidebar-title { display: flex; align-items: flex-start; gap: 12px; padding-bottom: 28px; }
 .sidebar-title .eyebrow { font-size: 10px; letter-spacing: 1.2px; color: #555; }
 .sidebar-title h2 { font-size: 23px; line-height: 1.12; font-weight: 900; letter-spacing: -.8px; margin: 6px 0 0; }
+.sidebar-title > div:nth-child(2) { min-width: 0; }
+.sidebar-title h2 { overflow-wrap: anywhere; }
 .sidebar-icon { display: flex; align-items: center; justify-content: center; width: 33px; height: 38px; background: var(--orange); color: #000; flex-shrink: 0; }
 .sidebar-section { border-top: 1px solid #ccc; padding: 24px 0; }
 .field-label { display: flex; align-items: center; gap: 9px; font-size: 14px; margin-bottom: 12px; font-weight: 800; }
@@ -199,6 +236,8 @@ input[type=date]::-webkit-calendar-picker-indicator { cursor: pointer; }
   .about-section { grid-template-columns: 1fr 2fr; gap: 26px; }
   .about-signature { grid-column: 2; }
   .brand { font-size: 13px; }
+  .header-actions { gap: 15px; }
+  .app-header nav a { font-size: 15px; }
 }
 @media (max-width: 760px) {
   :root { --header-height: 68px; }
@@ -206,8 +245,15 @@ input[type=date]::-webkit-calendar-picker-indicator { cursor: pointer; }
   .brand-mark { width: 39px; height: 39px; }
   .brand > span { display: none; }
   .app-header nav a { font-size: 14px; gap: 8px; }
+  .header-actions { gap: 8px; }
+  .app-header .header-actions > a { font-size: 12px; }
+  .language-picker { gap: 5px; height: 34px; padding: 0 7px; }
+  .language-picker > svg { width: 13px; height: 13px; }
+  .language-short { display: inline; font-size: 10px; font-weight: 700; }
+  .language-picker select { position: absolute; inset: 0; height: 100%; min-height: 0; width: 100%; opacity: 0; cursor: pointer; }
   .landing-hero { min-height: 660px; padding: 96px 22px 48px; }
   .hero-kicker { left: 22px; right: 22px; top: 24px; font-size: 9px; letter-spacing: 1px; }
+  .hero-image-caption { left: 22px; max-width: calc(100% - 44px); font-size: 9px; }
   .brand-mark.large { width: 110px; height: 110px; }
   .landing h1 { font-size: clamp(42px, 9vw, 64px); letter-spacing: -2.3px; }
   .hero-description { max-width: 390px; font-size: 15px; }
@@ -229,6 +275,7 @@ input[type=date]::-webkit-calendar-picker-indicator { cursor: pointer; }
   .sidebar-icon { width: 30px; }
   .panel-backdrop { display: block; position: absolute; inset: 0; border: 0; background: #0009; z-index: 40; }
   .mobile-config { display: flex; position: absolute; left: 18px; bottom: 24px; min-height: 44px; padding: 10px 13px; font-size: 12px; background: var(--orange); border-color: var(--orange); color: #000; }
+  .mobile-config { max-width: calc(100% - 152px); }
   .mobile-config:hover { background: #fff; border-color: #fff; }
   .viewport-heading { left: 22px; top: 25px; }
   .viewport-heading .eyebrow { font-size: 9px; letter-spacing: 1px; }

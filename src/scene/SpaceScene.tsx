@@ -5,6 +5,7 @@ import { LoaderCircle, AlertTriangle } from 'lucide-react';
 import { SCENE_CONFIG as C, type LaunchSite } from '../config';
 import { daysFromDate, lunarPosition, radians, surfaceDirection } from './math';
 import { loadBodyGeometry, loadBodyTexture, markedEarthTexture, pinTexture } from './assets';
+import { useLanguage } from '../i18n/LanguageProvider';
 
 export type Body = 'earth' | 'moon' | 'system';
 type Props = {
@@ -19,6 +20,9 @@ type Props = {
 type SceneAPI = { focus: (body: Body) => void; locate: (site: LaunchSite | null) => void; setDate: (date: string) => void };
 
 export default function SpaceScene(props: Props) {
+  const { t } = useLanguage();
+  const text = useRef(t);
+  text.current = t;
   const host = useRef<HTMLDivElement>(null);
   const earthLabel = useRef<HTMLDivElement>(null);
   const moonLabel = useRef<HTMLDivElement>(null);
@@ -27,6 +31,10 @@ export default function SpaceScene(props: Props) {
   const api = useRef<SceneAPI | null>(null);
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
   const [retry, setRetry] = useState(0);
+
+  useEffect(() => {
+    host.current?.querySelector('canvas')?.setAttribute('aria-label', t.sceneLabel);
+  }, [t.sceneLabel]);
 
   useEffect(() => {
     api.current?.locate(props.site);
@@ -51,7 +59,7 @@ export default function SpaceScene(props: Props) {
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.3;
-    renderer.domElement.setAttribute('aria-label', 'Escena 3D interactiva de la Tierra y la Luna');
+    renderer.domElement.setAttribute('aria-label', text.current.sceneLabel);
     renderer.domElement.setAttribute('tabindex', '0');
     container.appendChild(renderer.domElement);
 
@@ -173,7 +181,7 @@ export default function SpaceScene(props: Props) {
       const previousMoon = moon.position.clone();
 
       const beginTransition = (body: Body, toCamera: THREE.Vector3, toTarget: THREE.Vector3, toYaw = earthAngle) => {
-        transition = { start: performance.now(), duration: 1800, fromCamera: camera.position.clone(), toCamera,
+        transition = { start: performance.now(), duration: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 1 : 1800, fromCamera: camera.position.clone(), toCamera,
           fromTarget: controls.target.clone(), toTarget, fromYaw: earthAngle, toYaw, body, fromMoon: moon.position.clone() };
         controls.enabled = false;
         controls.minDistance = body === 'moon' ? C.moonRadius * 1.17 : C.earthRadius * 1.17;
@@ -403,10 +411,10 @@ export default function SpaceScene(props: Props) {
   }, [retry]);
 
   return <div className="space-scene" ref={host}>
-    <div className="body-label" ref={earthLabel}><span>01 / TIERRA</span><small>Planeta de origen</small></div>
-    <div className="body-label" ref={moonLabel}><span>02 / LUNA</span><small>Satélite natural</small></div>
+    <div className="body-label" ref={earthLabel}><span>01 / {t.earth.toLocaleUpperCase()}</span><small>{t.origin}</small></div>
+    <div className="body-label" ref={moonLabel}><span>02 / {t.moon.toLocaleUpperCase()}</span><small>{t.naturalSatellite}</small></div>
     {status !== 'ready' && <div className="scene-state" role="status">
-      {status === 'loading' ? <><LoaderCircle className="loading-icon" size={28} /><strong>Preparando el espacio</strong><span>Cargando tus modelos y texturas</span></> : <><AlertTriangle size={28} /><strong>No se pudo cargar la escena</strong><span>Comprueba que WebGL esté disponible y que los assets se puedan cargar.</span><button className="button primary" onClick={() => setRetry(v => v + 1)}>Reintentar</button></>}
+      {status === 'loading' ? <><LoaderCircle className="loading-icon" size={28} /><strong>{t.preparing}</strong><span>{t.loadingAssets}</span></> : <><AlertTriangle size={28} /><strong>{t.sceneError}</strong><span>{t.webglError}</span><button className="button primary" onClick={() => setRetry(v => v + 1)}>{t.retry}</button></>}
     </div>}
   </div>;
 }

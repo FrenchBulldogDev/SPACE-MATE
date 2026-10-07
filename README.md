@@ -30,11 +30,26 @@ npm test
 ## Variables para editar
 
 - `src/config.ts`: radios, distancia visual, inclinaciones, velocidades y catálogo inicial de sitios.
-- `src/App.tsx`: nombre, logo provisional y texto de quienes somos.
+- `src/App.tsx`: estructura de las páginas y logo provisional.
+- `src/i18n/translations.ts`: textos y placeholders en los siete idiomas.
+- `public/earth-placeholder.svg`: imagen provisional del fondo de Inicio; puede sustituirse por tu imagen.
+- `HOME_EARTH_IMAGE` en `src/config.ts`: ruta de la imagen de Inicio (para usar un JPG, PNG o WebP).
 - `src/scene/math.ts`: órbita elíptica ilustrativa y conversiones.
 - `src/scene/assets.ts`: carga, aislamiento y UV de assets.
 
 Los assets están excluidos de Git por la configuración original. Deben permanecer en `Assets` con sus nombres actuales al compilar; Vite los empaqueta en la compilación.
+
+## Idiomas
+
+El selector del encabezado ofrece Español, Francés, Portugués, Italiano, Chino simplificado, Inglés y Japonés, con los nombres de cada idioma en su propia lengua. La preferencia se guarda únicamente después de una selección explícita en `localStorage`, con la clave `moon-mission.language`, sin identificadores de usuario. Tiene una vigencia de 180 días; si caduca, se elimina en la siguiente visita. El panel «Privacidad y almacenamiento» permite borrarla conservando el idioma de la sesión actual. Si el almacenamiento no está disponible, la selección sigue funcionando durante la sesión. Cambiar de idioma no reinicia la escena ni borra la configuración de la misión.
+
+## Privacidad y publicación
+
+La fuente Public Sans se aloja en `public/fonts/`, junto con su licencia SIL OFL. No se utiliza Google Fonts desde el navegador. La aplicación actual no añade analítica, publicidad, cookies o integraciones externas. Sitios, coordenadas y fechas se mantienen solo en memoria.
+
+`config/securityHeaders.ts` aplica CSP, Referrer-Policy, X-Content-Type-Options, X-Frame-Options y Permissions-Policy en Vite y en la vista previa. `public/_headers` contiene la política para proveedores compatibles; otros servidores necesitan configurar las mismas cabeceras. El servidor de desarrollo conserva las excepciones locales necesarias para HMR. No debe publicarse el servidor Vite de desarrollo.
+
+El hosting definitivo requiere HTTPS, revisión de sus logs, cookies e integraciones, identificación del responsable y política de privacidad adaptada a su estado de EE. UU. y a sus públicos internacionales. La revisión técnica no constituye certificación legal ni conformidad completa WCAG. Consulta `PRIVACY_REVIEW.md`.
 
 ## Alcance científico
 
