@@ -1,7 +1,7 @@
 type CoordinateInput = number | string;
 type CoordinateAxis = "latitude" | "longitude";
 
-function parseCoordinate(value: CoordinateInput, axis: CoordinateAxis): number | null {
+export function parseCoordinate(value: CoordinateInput, axis: CoordinateAxis): number | null {
   const maxDegrees = axis === "latitude" ? 90 : 180;
   if (typeof value === "number") {
     return Number.isFinite(value) && Math.abs(value) <= maxDegrees ? value : null;
@@ -55,14 +55,14 @@ function parseCoordinate(value: CoordinateInput, axis: CoordinateAxis): number |
   return degrees < 0 ? -magnitude : magnitude;
 }
 
-function EarthCoordinates(latitude: number, longitude: number): { x: number; y: number } {
+export function EarthCoordinates(latitude: number, longitude: number): { x: number; y: number } {
   return {
     x: (longitude + 180) / 360,
     y: (90 - latitude) / 180,
   };
 }
 
-function MoonCoordinates(latitude: number, longitude: number): { x: number; y: number } {
+export function MoonCoordinates(latitude: number, longitude: number): { x: number; y: number } {
   return {
     x: (longitude + 180) / 360,
     y: (90 - latitude) / 180,
@@ -70,7 +70,7 @@ function MoonCoordinates(latitude: number, longitude: number): { x: number; y: n
 }
 
 
-function drawCoordinates(
+export function drawCoordinates(
   ctx: CanvasRenderingContext2D,
   width: number,
   height: number,

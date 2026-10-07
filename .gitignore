@@ -1,2 +1,9 @@
 Informative Sources
 Assets
+
+node_modules/
+dist/
+*.tsbuildinfo
+.env
+.env.local
+artifacts/
