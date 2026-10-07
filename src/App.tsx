@@ -26,17 +26,18 @@ function Header({ explore }: { explore: boolean }) {
 
 function Landing() {
   return <main className="landing">
-    <div className="landing-stars" aria-hidden="true" />
     <section className="landing-hero">
-      <div className="eyebrow"><span className="orange-line" /> TIERRA · LUNA · EXPLORACIÓN</div>
+      <div className="hero-kicker"><span>EXPLORACIÓN ESPACIAL</span><span>TIERRA / LUNA</span></div>
       <div className="logo-placeholder"><BrandMark large /><span>[TU LOGO]</span></div>
       <h1>[Nombre del<br /><span>proyecto]</span></h1>
       <p className="hero-description">[Una breve descripción de tu proyecto y de lo que quieres explorar.]</p>
       <a className="button primary start-button" href="#/explorer"><Play size={16} fill="currentColor" />Start</a>
-      <span className="hero-caption">Una nueva perspectiva de nuestro vecindario.</span>
-      <div className="hero-coordinate coordinate-left" aria-hidden="true">01 / EARTH<br /><span>28° 36′ N</span></div>
-      <div className="hero-coordinate coordinate-right" aria-hidden="true">02 / MOON<br /><span>384,400 KM</span></div>
     </section>
+    <div className="hero-index" aria-label="Contenido del explorador">
+      <div><span>PUNTO DE PARTIDA</span><strong>Tierra</strong></div>
+      <div><span>DESTINO</span><strong>Luna</strong></div>
+      <div><span>EXPLORACIÓN 3D</span><strong>Zoom y rotación</strong></div>
+    </div>
     <section className="about-section">
       <div className="section-number">01 — SOBRE NOSOTROS</div>
       <div className="about-content"><h2>[Quiénes somos]</h2><p>[Aquí puedes presentar a tu equipo, contar el propósito de la aplicación y explicar qué los inspira a explorar el espacio.]</p></div>
@@ -95,7 +96,7 @@ function Explorer() {
   return <main className="explorer">
     {mobilePanel && <button className="panel-backdrop" aria-label="Cerrar configuración" onClick={() => setMobilePanel(false)} />}
     <aside className={`mission-sidebar ${mobilePanel ? 'is-open' : ''}`} aria-label="Configuración de la exploración">
-      <div className="sidebar-title"><div className="sidebar-icon"><Settings2 size={20} /></div><div><span className="eyebrow">TU EXPLORACIÓN</span><h2>Configura la vista</h2></div><button className="icon-button mobile-close" aria-label="Cerrar configuración" onClick={() => setMobilePanel(false)}><X size={18} /></button></div>
+      <div className="sidebar-title"><div className="sidebar-icon"><Settings2 size={20} /></div><div><span className="eyebrow">01 / CONFIGURACIÓN</span><h2>Control de misión</h2></div><button className="icon-button mobile-close" aria-label="Cerrar configuración" onClick={() => setMobilePanel(false)}><X size={18} /></button></div>
       <div className="sidebar-section">
         <label htmlFor="launch-site" className="field-label"><MapPin size={16} />Sitio de lanzamiento</label>
         <div className="select-wrap"><select id="launch-site" value={siteId} onChange={event => selectSite(event.target.value)}>
@@ -128,7 +129,7 @@ function Explorer() {
     </aside>
     <section className="viewport" aria-label="Explorador orbital">
       <SpaceScene site={site} date={date} playing={playing} speed={speed} showOrbit={showOrbit} command={command} onActiveBody={setActiveBody} />
-      <div className="viewport-heading"><div><span className="eyebrow">UNA VENTANA AL ESPACIO</span><h1>Explorador orbital<span className="title-period">.</span></h1></div><div className="scene-badge"><span />3D INTERACTIVO</div></div>
+      <div className="viewport-heading"><div><span className="eyebrow">02 / EXPLORACIÓN ESPACIAL</span><h1>Explorador orbital<span className="title-period">.</span></h1></div><div className="scene-badge"><span />3D INTERACTIVO</div></div>
       <div className="viewport-tools"><button className="icon-button" onClick={() => focus('system')} aria-label="Ver sistema completo" title="Ver sistema completo"><Globe2 size={19} /></button><button className={`icon-button ${help ? 'selected' : ''}`} aria-expanded={help} aria-controls="scene-help" onClick={() => setHelp(v => !v)} aria-label="Ayuda de navegación"><CircleHelp size={19} /></button></div>
       {help && <div className="help-popover" id="scene-help"><strong>Muévete por el espacio</strong><p>Arrastra un astro para girarlo sobre su eje. Arrastra el espacio para cambiar la cámara.</p><p>Usa la rueda sobre la Tierra o la Luna para acercarte. En móvil, separa dos dedos.</p><p>Teclado: + / − para zoom, flechas para girar y Home para ver el sistema.</p></div>}
       <div className="scene-reticle reticle-top" aria-hidden="true" /><div className="scene-reticle reticle-bottom" aria-hidden="true" />

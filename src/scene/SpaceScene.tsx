@@ -86,11 +86,11 @@ export default function SpaceScene(props: Props) {
     const observer = new ResizeObserver(resize);
     observer.observe(container);
     resize();
-    scene.add(new THREE.AmbientLight(0x7186a4, 1.65));
+    scene.add(new THREE.AmbientLight(0xffffff, 1.2));
     const sunlight = new THREE.DirectionalLight(0xfff5e8, 3.1);
     sunlight.position.set(7, 6, 12); scene.add(sunlight);
-    const blueFill = new THREE.DirectionalLight(0x366aa6, 0.6);
-    blueFill.position.set(-8, -2, -5); scene.add(blueFill);
+    const fillLight = new THREE.DirectionalLight(0xffffff, 0.25);
+    fillLight.position.set(-8, -2, -5); scene.add(fillLight);
 
     // Deterministic star field. It carries no astronomical positional meaning.
     const stars = new Float32Array(1350 * 3);
@@ -105,7 +105,7 @@ export default function SpaceScene(props: Props) {
     }
     const starGeometry = new THREE.BufferGeometry();
     starGeometry.setAttribute('position', new THREE.BufferAttribute(stars, 3));
-    scene.add(new THREE.Points(starGeometry, new THREE.PointsMaterial({ color: 0xb8c8e3, size: 0.13, transparent: true, opacity: 0.62, sizeAttenuation: true })));
+    scene.add(new THREE.Points(starGeometry, new THREE.PointsMaterial({ color: 0xffffff, size: 0.13, transparent: true, opacity: 0.62, sizeAttenuation: true })));
 
     const initialize = async () => {
       const resources = await Promise.allSettled([
@@ -122,7 +122,7 @@ export default function SpaceScene(props: Props) {
       const baseEarthTexture = (resources[2] as PromiseFulfilledResult<THREE.Texture>).value;
       const lunarTexture = (resources[3] as PromiseFulfilledResult<THREE.Texture>).value;
       baseEarthTexture.anisotropy = lunarTexture.anisotropy = Math.min(renderer.capabilities.getMaxAnisotropy(), 8);
-      const earthMaterial = new THREE.MeshPhongMaterial({ map: baseEarthTexture, shininess: 7, specular: 0x182f42 });
+      const earthMaterial = new THREE.MeshPhongMaterial({ map: baseEarthTexture, shininess: 7, specular: 0x181818 });
       const earth = new THREE.Mesh(earthGeometry, earthMaterial);
       const earthTilt = new THREE.Group();
       const earthCenter = new THREE.Vector3(-1.8, 0, 0);
@@ -133,7 +133,7 @@ export default function SpaceScene(props: Props) {
       scene.add(moon);
 
       const atmosphere = new THREE.Mesh(new THREE.SphereGeometry(C.earthRadius * 1.028, 64, 32), new THREE.ShaderMaterial({
-        uniforms: { glowColor: { value: new THREE.Color('#2469b2') } },
+        uniforms: { glowColor: { value: new THREE.Color('#aaaaaa') } },
         vertexShader: 'varying vec3 vNormal; varying vec3 vPosition; void main(){ vec4 p=modelViewMatrix*vec4(position,1.0); vNormal=normalize(normalMatrix*normal); vPosition=p.xyz; gl_Position=projectionMatrix*p; }',
         fragmentShader: 'uniform vec3 glowColor; varying vec3 vNormal; varying vec3 vPosition; void main(){ float rim=1.0-max(dot(normalize(vNormal),normalize(-vPosition)),0.0); gl_FragColor=vec4(glowColor,pow(rim,3.0)*0.48); }',
         transparent: true, depthWrite: false,
@@ -142,7 +142,7 @@ export default function SpaceScene(props: Props) {
 
       const orbitPoints: THREE.Vector3[] = [];
       for (let i = 0; i <= 256; i++) orbitPoints.push(lunarPosition(i / 256 * Math.PI * 2).add(earthCenter));
-      const orbit = new THREE.Line(new THREE.BufferGeometry().setFromPoints(orbitPoints), new THREE.LineDashedMaterial({ color: 0x3f6892, transparent: true, opacity: 0.42, dashSize: 0.12, gapSize: 0.11 }));
+      const orbit = new THREE.Line(new THREE.BufferGeometry().setFromPoints(orbitPoints), new THREE.LineDashedMaterial({ color: 0x999999, transparent: true, opacity: 0.42, dashSize: 0.12, gapSize: 0.11 }));
       orbit.computeLineDistances(); scene.add(orbit);
       const pinMap = pinTexture();
       const pin = new THREE.Sprite(new THREE.SpriteMaterial({ map: pinMap, depthTest: true, depthWrite: false, toneMapped: false }));

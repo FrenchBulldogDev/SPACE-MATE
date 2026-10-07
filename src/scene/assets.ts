@@ -97,12 +97,12 @@ export function pinTexture(): THREE.CanvasTexture {
   const canvas = document.createElement('canvas');
   canvas.width = 128; canvas.height = 160;
   const ctx = canvas.getContext('2d')!;
-  ctx.shadowColor = 'rgba(255,80,36,.6)'; ctx.shadowBlur = 10;
+  ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0;
   ctx.beginPath(); ctx.moveTo(64, 148);
   ctx.bezierCurveTo(53, 122, 17, 83, 17, 55);
   ctx.arc(64, 55, 47, Math.PI, 0);
   ctx.bezierCurveTo(111, 83, 75, 122, 64, 148);
-  ctx.fillStyle = '#ff713b'; ctx.fill();
+  ctx.fillStyle = '#ff8000'; ctx.fill();
   ctx.shadowBlur = 0;
   ctx.beginPath(); ctx.arc(64, 54, 17, 0, Math.PI * 2);
   ctx.fillStyle = '#ffffff'; ctx.fill();
