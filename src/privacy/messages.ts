@@ -53,16 +53,6 @@ export const privacyMessages: Record<Language, typeof en> = {
     permissionsTitle: 'Autorizzazioni del browser', permissionsInfo: 'L’applicazione non richiede accesso a fotocamera, microfono o posizione. Le coordinate scelte non sono inviate a servizi esterni.',
     scopeTitle: 'Ambito dell’avviso', scopeInfo: 'Questo avviso descrive l’archiviazione dell’applicazione attuale. Prima della pubblicazione, il responsabile deve completare una politica sulla privacy con identità, contatti e trattamento dei dati di connessione da parte del servizio di hosting.',
   },
-  zh: {
-    title: '隐私与存储', close: '关闭隐私信息',
-    overview: '此版本不使用广告或分析 Cookie、跟踪工具或用户画像。字体、图片和模型由本站提供。',
-    languageTitle: '语言偏好',
-    languageInfo: '仅将您明确选择的语言保存在此设备上，有效期为 180 天。过期偏好将在下次访问时删除。我们不保存发射坐标或日期。',
-    saved: '已保存语言偏好。', empty: '未保存有效的语言偏好。', forget: '删除已保存的语言',
-    storageError: '浏览器阻止了删除操作。您可以在浏览器设置中清除此网站的数据。',
-    permissionsTitle: '浏览器权限', permissionsInfo: '应用不请求摄像头、麦克风或位置信息权限，也不向外部服务发送您选择的坐标。',
-    scopeTitle: '说明范围', scopeInfo: '本说明仅涉及当前应用的存储行为。发布之前，运营方必须完善隐私政策，说明其身份、联系方式以及托管服务商如何处理连接数据。',
-  },
   ja: {
     title: 'プライバシーと保存', close: 'プライバシー情報を閉じる',
     overview: 'このバージョンは広告・分析用Cookie、追跡ツール、ユーザープロファイルを使用しません。フォント、画像、モデルはこのサイトから配信されます。',

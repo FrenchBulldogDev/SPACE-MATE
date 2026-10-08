@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { CalendarDays, ChevronDown, CircleHelp, Crosshair, Earth, Globe2, Languages, Layers3, MapPin, Moon, Orbit, Pause, Play, RotateCcw, Settings2, X } from 'lucide-react';
+import { CalendarDays, ChevronDown, CircleHelp, Crosshair, Earth, Globe2, Languages, Layers3, MapPin, Moon, Orbit, Pause, Play, RotateCcw, Settings2, UserRound, X } from 'lucide-react';
 import SpaceScene, { type Body } from './scene/SpaceScene';
 import { HOME_EARTH_IMAGE, LAUNCH_SITES, type LaunchSite } from './config';
 import { parseCoordinate } from '../Scripts/coordinates';
@@ -58,10 +58,38 @@ function Landing({ onPrivacy }: { onPrivacy: () => void }) {
       <div><span>{t.destination}</span><strong>{t.moon}</strong></div>
       <div><span>{t.exploration3d}</span><strong>{t.navigationMode}</strong></div>
     </div>
-    <section className="about-section">
-      <div className="section-number">{t.aboutNumber}</div>
-      <div className="about-content"><h2>{t.aboutTitle}</h2><p>{t.aboutDescription}</p></div>
-      <div className="about-signature"><Orbit size={25} /><span>{t.team}<small>{t.teamMotto}</small></span></div>
+    <section className="about-section" aria-labelledby="about-title">
+      <header className="about-heading">
+        <span className="section-number">{t.aboutNumber}</span>
+        <h2 id="about-title">{t.aboutTitle}</h2>
+        <p>{t.aboutDescription}</p>
+      </header>
+
+      <div className="developer-section">
+        <h3>{t.developedBy}</h3>
+        <div className="developer-grid">
+          {[1, 2, 3].map(index => <article className="profile-card" key={index}>
+            <div className="profile-photo" role="img" aria-label={`${t.photoPlaceholder} ${index}`}>
+              <UserRound aria-hidden="true" />
+              <span>{t.photoPlaceholder}</span>
+            </div>
+            <h4>{t.personPlaceholder}</h4>
+            <p>{t.personDescriptionPlaceholder}</p>
+          </article>)}
+        </div>
+      </div>
+
+      <div className="collaboration-section">
+        <h3>{t.collaborationThanks}</h3>
+        <div className="collaboration-grid">
+          {[1, 2, 3].map(index => <article className="collaborator-card" key={index}>
+            <div className="collaborator-photo" role="img" aria-label={`${t.photoPlaceholder} ${index}`}>
+              <UserRound aria-hidden="true" />
+            </div>
+            <h4>{t.collaboratorPlaceholder}</h4>
+          </article>)}
+        </div>
+      </div>
     </section>
     <footer className="landing-footer"><span>{t.projectName}</span><button className="privacy-link" onClick={onPrivacy}>{privacyMessages[language].title}</button><span>{t.footer}</span></footer>
   </main>;

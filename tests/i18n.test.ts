@@ -5,8 +5,8 @@ import { loadSavedLanguage } from '../src/i18n/LanguageProvider.tsx';
 import { LAUNCH_SITES } from '../src/config.ts';
 import { LANGUAGE_MAX_AGE_MS } from '../src/i18n/languageStorage.ts';
 
-test('Exactly the requested seven languages are available with complete translations', () => {
-  assert.deepEqual(LANGUAGES.map(item => item.code), ['es', 'fr', 'pt', 'it', 'zh', 'en', 'ja']);
+test('Exactly the requested six languages are available with complete translations', () => {
+  assert.deepEqual(LANGUAGES.map(item => item.code), ['es', 'fr', 'pt', 'it', 'en', 'ja']);
   const expected = Object.keys(translations.es).sort();
   for (const { code } of LANGUAGES) {
     assert.equal(isLanguage(code), true);
@@ -19,13 +19,14 @@ test('Exactly the requested seven languages are available with complete translat
       assert.ok(translations[code].siteRegions[site.id]);
     }
   }
-  for (const invalid of ['de', '', null, undefined, 'constructor']) assert.equal(isLanguage(invalid), false);
+  for (const invalid of ['zh', 'de', '', null, undefined, 'constructor']) assert.equal(isLanguage(invalid), false);
 });
 
 test('Saved language is restored; absent, invalid or inaccessible storage uses Spanish', () => {
   const memory = (value: string | null) => ({ getItem(key: string) { assert.equal(key, LANGUAGE_STORAGE_KEY); return value; } });
   for (const { code } of LANGUAGES) assert.equal(loadSavedLanguage(memory(JSON.stringify({ version: 1, language: code, expiresAt: Date.now() + LANGUAGE_MAX_AGE_MS }))), code);
   assert.equal(loadSavedLanguage(memory(null)), 'es');
+  assert.equal(loadSavedLanguage(memory(JSON.stringify({ version: 1, language: 'zh', expiresAt: Date.now() + LANGUAGE_MAX_AGE_MS }))), 'es');
   assert.equal(loadSavedLanguage(memory('de')), 'es');
   assert.equal(loadSavedLanguage(memory('fr')), 'es'); // Legacy unbounded records are no longer reused.
   assert.equal(loadSavedLanguage({ getItem() { throw new Error('Storage disabled'); } }), 'es');
