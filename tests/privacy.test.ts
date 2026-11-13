@@ -42,7 +42,7 @@ test('Expired, malformed and legacy records are pruned without touching unrelate
     assert.deepEqual([...storage.records], [['unrelated', 'keep']]);
   }
   const valid = memoryStorage();
-  saveChosenLanguage('ja', valid, 1000);
+  saveChosenLanguage('it', valid, 1000);
   pruneLanguagePreference(valid, 2000);
   assert.equal(valid.records.size, 1);
   pruneLanguagePreference(valid, 1000 + LANGUAGE_MAX_AGE_MS);

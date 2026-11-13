@@ -98,6 +98,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .profile-photo::after { content: ''; position: absolute; left: 0; bottom: 0; width: 42%; height: 5px; background: var(--orange); }
 .profile-photo svg { width: 54px; height: 54px; stroke-width: 1.2; color: #fff; }
 .profile-photo span { font-size: 10px; font-weight: 700; letter-spacing: 1.8px; }
+.profile-photo.has-photo::before { display: none; }
+.profile-photo > img, .collaborator-photo > img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .profile-card h4 { font-size: 20px; line-height: 1.25; margin: 20px 0 8px; }
 .profile-card > p { font-size: 14px; line-height: 1.7; color: #555; margin: 0; }
 .collaboration-section { margin: 68px -40px 0; padding: 46px 40px 52px; background: var(--navy); color: #fff; border-top: 5px solid var(--orange); }

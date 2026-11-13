@@ -41,7 +41,7 @@ Los assets están excluidos de Git por la configuración original. Deben permane
 
 ## Idiomas
 
-El selector del encabezado ofrece Español, Francés, Portugués, Italiano, Inglés y Japonés, con los nombres de cada idioma en su propia lengua. La preferencia se guarda únicamente después de una selección explícita en `localStorage`, con la clave `moon-mission.language`, sin identificadores de usuario. Tiene una vigencia de 180 días; si caduca, se elimina en la siguiente visita. El panel «Privacidad y almacenamiento» permite borrarla conservando el idioma de la sesión actual. Si el almacenamiento no está disponible, la selección sigue funcionando durante la sesión. Cambiar de idioma no reinicia la escena ni borra la configuración de la misión.
+El selector del encabezado ofrece Español, Francés, Portugués, Italiano e Inglés, con los nombres de cada idioma en su propia lengua. La preferencia se guarda únicamente después de una selección explícita en `localStorage`, con la clave `moon-mission.language`, sin identificadores de usuario. Tiene una vigencia de 180 días; si caduca, se elimina en la siguiente visita. El panel «Privacidad y almacenamiento» permite borrarla conservando el idioma de la sesión actual. Si el almacenamiento no está disponible, la selección sigue funcionando durante la sesión. Cambiar de idioma no reinicia la escena ni borra la configuración de la misión.
 
 ## Privacidad y publicación
 

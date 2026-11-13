@@ -53,14 +53,4 @@ export const privacyMessages: Record<Language, typeof en> = {
     permissionsTitle: 'Autorizzazioni del browser', permissionsInfo: 'L’applicazione non richiede accesso a fotocamera, microfono o posizione. Le coordinate scelte non sono inviate a servizi esterni.',
     scopeTitle: 'Ambito dell’avviso', scopeInfo: 'Questo avviso descrive l’archiviazione dell’applicazione attuale. Prima della pubblicazione, il responsabile deve completare una politica sulla privacy con identità, contatti e trattamento dei dati di connessione da parte del servizio di hosting.',
   },
-  ja: {
-    title: 'プライバシーと保存', close: 'プライバシー情報を閉じる',
-    overview: 'このバージョンは広告・分析用Cookie、追跡ツール、ユーザープロファイルを使用しません。フォント、画像、モデルはこのサイトから配信されます。',
-    languageTitle: '言語の設定',
-    languageInfo: '明示的に選択した言語だけを、この端末に180日間有効な設定として保存します。期限切れの設定は次回の訪問時に削除されます。打ち上げ地点の座標や日付は保存しません。',
-    saved: '言語の設定が保存されています。', empty: '有効な言語設定は保存されていません。', forget: '保存した言語を削除',
-    storageError: 'ブラウザーが削除をブロックしました。ブラウザー設定からこのサイトのデータを削除できます。',
-    permissionsTitle: 'ブラウザーの権限', permissionsInfo: 'カメラ、マイク、位置情報へのアクセスは要求しません。選択した座標を外部サービスに送信しません。',
-    scopeTitle: 'この説明の範囲', scopeInfo: 'この説明は現在のアプリの保存動作に関するものです。公開前に運営者は、運営主体、連絡先、ホスティング事業者による接続データの取り扱いを明示したプライバシーポリシーを整備する必要があります。',
-  },
 };

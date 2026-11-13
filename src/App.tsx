@@ -8,6 +8,7 @@ import { useLanguage } from './i18n/LanguageProvider';
 import { isLanguage, LANGUAGES } from './i18n/translations';
 import PrivacyPanel from './privacy/PrivacyPanel';
 import { privacyMessages } from './privacy/messages';
+import { COLLABORATOR_ASSETS, TEAM_MEMBER_ASSETS } from './team';
 
 function BrandMark({ large = false }: { large?: boolean }) {
   return <svg className={large ? 'brand-mark large' : 'brand-mark'} viewBox="0 0 100 100" fill="none" aria-hidden="true">
@@ -68,26 +69,33 @@ function Landing({ onPrivacy }: { onPrivacy: () => void }) {
       <div className="developer-section">
         <h3>{t.developedBy}</h3>
         <div className="developer-grid">
-          {[1, 2, 3].map(index => <article className="profile-card" key={index}>
-            <div className="profile-photo" role="img" aria-label={`${t.photoPlaceholder} ${index}`}>
-              <UserRound aria-hidden="true" />
-              <span>{t.photoPlaceholder}</span>
-            </div>
-            <h4>{t.personPlaceholder}</h4>
-            <p>{t.personDescriptionPlaceholder}</p>
-          </article>)}
+          {TEAM_MEMBER_ASSETS.map((profile, index) => {
+            const member = t.teamMembers[index];
+            return <article className="profile-card" key={profile.id}>
+              <div className={`profile-photo${profile.photo ? ' has-photo' : ''}`} role={profile.photo ? undefined : 'img'} aria-label={profile.photo ? undefined : `${t.photoPlaceholder} ${index + 1}`}>
+                {profile.photo
+                  ? <img src={profile.photo} alt={member.name} />
+                  : <><UserRound aria-hidden="true" /><span>{t.photoPlaceholder}</span></>}
+              </div>
+              <h4>{member.name}</h4>
+              <p>{member.description}</p>
+            </article>;
+          })}
         </div>
       </div>
 
       <div className="collaboration-section">
         <h3>{t.collaborationThanks}</h3>
         <div className="collaboration-grid">
-          {[1, 2, 3].map(index => <article className="collaborator-card" key={index}>
-            <div className="collaborator-photo" role="img" aria-label={`${t.photoPlaceholder} ${index}`}>
-              <UserRound aria-hidden="true" />
-            </div>
-            <h4>{t.collaboratorPlaceholder}</h4>
-          </article>)}
+          {COLLABORATOR_ASSETS.map((profile, index) => {
+            const collaborator = t.collaborators[index];
+            return <article className="collaborator-card" key={profile.id}>
+              <div className={`collaborator-photo${profile.photo ? ' has-photo' : ''}`} role={profile.photo ? undefined : 'img'} aria-label={profile.photo ? undefined : `${t.photoPlaceholder} ${index + 1}`}>
+                {profile.photo ? <img src={profile.photo} alt={collaborator.name} /> : <UserRound aria-hidden="true" />}
+              </div>
+              <h4>{collaborator.name}</h4>
+            </article>;
+          })}
         </div>
       </div>
     </section>
@@ -157,7 +165,7 @@ function Explorer({ onPrivacy }: { onPrivacy: () => void }) {
         {siteId === 'custom' && <form className="custom-coordinates" onSubmit={locateCustom}>
           <label htmlFor="site-name">{t.customName} <span>{t.optional}</span></label>
           <input id="site-name" value={customName} onChange={e => setCustomName(e.target.value)} placeholder={t.defaultCustomSite} maxLength={80} />
-          <div className="coordinate-fields"><div><label htmlFor="latitude">{t.latitude}</label><input id="latitude" value={latitude} onChange={e => setLatitude(e.target.value)} placeholder="28.6084" required aria-describedby={error ? 'coordinate-error' : undefined} /></div><div><label htmlFor="longitude">{t.longitude}</label><input id="longitude" value={longitude} onChange={e => setLongitude(e.target.value)} placeholder="-80.6043" required aria-describedby={error ? 'coordinate-error' : undefined} /></div></div>
+          <div className="coordinate-fields"><div><label htmlFor="latitude">{t.latitude}</label><input id="latitude" value={latitude} onChange={e => setLatitude(e.target.value)} inputMode="decimal" required aria-describedby={error ? 'coordinate-error' : undefined} /></div><div><label htmlFor="longitude">{t.longitude}</label><input id="longitude" value={longitude} onChange={e => setLongitude(e.target.value)} inputMode="decimal" required aria-describedby={error ? 'coordinate-error' : undefined} /></div></div>
           {error && <p className="form-error" id="coordinate-error" role="alert">{t.coordinatesError}</p>}
           <button className="button primary" type="submit"><Crosshair size={16} />{t.locateSite}</button>
         </form>}

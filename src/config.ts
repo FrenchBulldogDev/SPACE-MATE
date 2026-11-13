@@ -26,12 +26,6 @@ export type LaunchSite = {
   longitude: number;
 };
 
-// Catálogo inicial de referencia. No representa lanzamientos del día.
-// Puede sustituirse por datos validados de una API sin cambiar el visualizador.
-export const LAUNCH_SITES: LaunchSite[] = [
-  { id: 'kennedy', name: 'Kennedy Space Center · LC-39A', region: 'Florida, Estados Unidos', latitude: 28.6084, longitude: -80.6043 },
-  { id: 'kourou', name: 'Centro Espacial de Guayana', region: 'Kourou, Guayana Francesa', latitude: 5.236, longitude: -52.775 },
-  { id: 'vandenberg', name: 'Vandenberg · SLC-4E', region: 'California, Estados Unidos', latitude: 34.6321, longitude: -120.6107 },
-  { id: 'baikonur', name: 'Cosmódromo de Baikonur', region: 'Kazajistán', latitude: 45.9203, longitude: 63.3422 },
-  { id: 'tanegashima', name: 'Centro Espacial de Tanegashima', region: 'Japón', latitude: 30.4008, longitude: 130.9778 },
-];
+// Este catálogo queda vacío hasta recibir sitios y coordenadas desde una fuente validada.
+// Las coordenadas personalizadas introducidas por el usuario siguen disponibles en la interfaz.
+export const LAUNCH_SITES: LaunchSite[] = [];
