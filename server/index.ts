@@ -5,12 +5,13 @@ import path from 'node:path';
 import { horizonsMiddleware } from './horizons';
 import { securityHeaders } from '../config/securityHeaders';
 import { landingMiddleware } from './landingApi';
+import { monthlyMiddleware } from './monthlyEphemeris';
 
 const root = path.resolve('dist');
-const mime: Record<string, string> = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json', '.svg': 'image/svg+xml', '.jpg': 'image/jpeg', '.png': 'image/png', '.ttf': 'font/ttf', '.stl': 'application/octet-stream' };
+const mime: Record<string, string> = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json', '.svg': 'image/svg+xml', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.jfif': 'image/jpeg', '.png': 'image/png', '.ttf': 'font/ttf', '.stl': 'application/octet-stream' };
 const server = createServer((request, response) => {
   for (const [key, value] of Object.entries(securityHeaders())) response.setHeader(key, value);
-  landingMiddleware(request,response,()=>horizonsMiddleware(request, response, () => {
+  monthlyMiddleware(request,response,()=>landingMiddleware(request,response,()=>horizonsMiddleware(request, response, () => {
     void (async () => {
       if (request.method !== 'GET' && request.method !== 'HEAD') { response.writeHead(405).end(); return; }
       let pathname: string;
@@ -25,7 +26,7 @@ const server = createServer((request, response) => {
         if (request.method === 'HEAD') response.end(); else createReadStream(file).on('error', () => response.destroy()).pipe(response);
       } catch { response.writeHead(404).end(); }
     })();
-  }));
+  })));
 });
 server.requestTimeout = 400000;
 server.listen(Number(process.env.PORT || 4173), process.env.HOST || '127.0.0.1', () => console.log('Moon Mission server ready'));

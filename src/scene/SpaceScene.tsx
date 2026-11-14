@@ -171,7 +171,7 @@ export default function SpaceScene(props: Props) {
 
       const orbitPoints: THREE.Vector3[] = [];
       for (const point of data.points) orbitPoints.push(displayedPosition(point.moon.position, mode));
-      // Open 28-day ephemeris arc: never force the endpoints into a fake ellipse.
+      // Open ephemeris arc: never force the endpoints into a fake ellipse.
       const dash = mode === 'public' ? 0.12 : 1.2;
       const orbit = new THREE.Line(new THREE.BufferGeometry().setFromPoints(orbitPoints), new THREE.LineDashedMaterial({ color: 0x999999, transparent: true, opacity: 0.42, dashSize: dash, gapSize: dash }));
       orbit.computeLineDistances(); scene.add(orbit);
@@ -193,7 +193,12 @@ export default function SpaceScene(props: Props) {
       };
       let transition: Transition | null = null;
       const announceBody = (body: Body) => { if (focused !== body) { focused = body; state.current.onActiveBody(body); } };
+      let previousBodyTimestamp: number | null = null;
+      const unchangedTranslation = new THREE.Vector3();
       const updateBodies = () => {
+        // Camera navigation while paused needs no new astronomical solution.
+        if (previousBodyTimestamp === timestamp) return unchangedTranslation;
+        previousBodyTimestamp = timestamp;
         const next = frameAt(data, timestamp, mode);
         const translation = next.earth.clone().sub(earthCenter);
         camera.position.add(translation); controls.target.add(translation);

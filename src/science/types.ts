@@ -22,7 +22,8 @@ export type Ephemeris = {
   fetchedAt: string;
   queries: string[];
   points: EphemerisPoint[];
-  daily: EphemerisPoint[]; // Initial point + the next 28 days: 29 points.
+  daily: EphemerisPoint[]; // One sample per day from the beginning of coverage.
+  arrivalMonth?: string; // Monthly calculations include preceding departures.
   lunarAttitudes?: { time: number; greenwich: StateVector; northPole: StateVector }[];
 };
 export type DisplayMode = 'public' | 'real';

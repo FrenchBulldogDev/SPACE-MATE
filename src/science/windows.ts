@@ -12,6 +12,11 @@ const derivative = (p: number[]) => p.slice(1).map((c, i) => c * (i + 1));
 export function rootsOnUnitInterval(coefficients: number[]): number[] {
   const magnitude = Math.max(...coefficients.map(Math.abs));
   if (!magnitude) return [];
+  // On [0,1], the nonconstant terms cannot exceed their absolute sum.
+  // If even that bound cannot cancel the constant term, no root exists.
+  // The guard keeps borderline floating-point cases on the full isolator.
+  const variation = coefficients.slice(1).reduce((sum, c) => sum + Math.abs(c), 0);
+  if (Math.abs(coefficients[0]) > variation * (1 + 1e-12)) return [];
   const p = coefficients.map(c => c / magnitude);
   while (p.length > 1 && Math.abs(p[p.length - 1]) < 1e-15) p.pop();
   if (p.length === 1) return [];

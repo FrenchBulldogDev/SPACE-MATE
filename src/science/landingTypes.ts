@@ -14,5 +14,6 @@ export type LandingReport = {
   processed: number; excluded: number; unverified: number; searched: number;
   historyIds: string[]; createdAt: string;
   limitations: string[];
+  arrivalMonth?: string;
 };
 export type LandingJob = { id: string; status: 'running' | 'complete' | 'error'; completed: number; total: number; stage: string; error?: string; report?: LandingReport };

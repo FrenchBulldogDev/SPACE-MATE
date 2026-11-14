@@ -4,6 +4,7 @@ import type { LaunchSite } from '../config';
 import { useLanguage } from '../i18n/LanguageProvider';
 import { scienceMessages } from './messages';
 import type { Ephemeris, ProximityMinimum, ProximityReport } from './types';
+import { calendarMessages } from './calendarMessages';
 
 export function downloadJSON(value: unknown, filename: string) {
   const url = URL.createObjectURL(new Blob([JSON.stringify(value, null, 2)], { type: 'application/json' }));
@@ -38,11 +39,11 @@ export default function OrbitAnalysisPanel({ data, status, retry, site, onInstan
   return <section className="orbital-analysis" aria-label={c.ephemeris}>
     <h3>{c.ephemeris}</h3>
     <p className="field-hint">{c.frame}</p>
-    {status === 'loading' && <p className="analysis-status" role="status"><LoaderCircle className="loading-icon" size={16} />{c.loading}</p>}
+    {status === 'loading' && <p className="analysis-status" role="status"><LoaderCircle className="loading-icon" size={16} />{calendarMessages[language].loading}</p>}
     {status === 'error' && <><p className="field-hint" role="alert">{c.apiError}</p><button className="button" onClick={retry}>{c.retry}</button></>}
     {data && <>
       <p className="ephemeris-period"><time>{time(data.start)}</time><span>→</span><time>{time(data.stop)} UTC</time></p>
-      <p className="field-hint">{c.sampleCount}</p>
+      <p className="field-hint">{number(data.points.length,0)} {calendarMessages[language].samples} · {data.stepSeconds / 60} min · {data.daily.length} {calendarMessages[language].markers}</p>
       <div className="analysis-actions"><button className="text-button" onClick={() => downloadJSON(data, `moon-ephemeris-${data.id}.json`)}><Download size={14} />{c.download}</button><button className="text-button" onClick={retry}>{c.refresh}</button></div>
       <details className="daily-data"><summary>{c.daily}</summary><div className="data-scroll"><table><thead><tr><th>{c.time}</th><th>{c.ra}</th><th>{c.dec}</th><th>{c.radius}</th></tr></thead><tbody>{data.daily.map(p => <tr key={p.time}><td>{new Date(p.time).toISOString().slice(0, 16).replace('T', ' ')}</td><td>{number(p.spherical.rightAscensionRadians * 180 / Math.PI, 4)}</td><td>{number(p.spherical.declinationRadians * 180 / Math.PI, 4)}</td><td>{number(p.spherical.radiusMeters / 1000)}</td></tr>)}</tbody></table></div></details>
       <h3 className="analysis-heading">{c.analysis}</h3>

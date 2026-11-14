@@ -1,6 +1,6 @@
 # Moon Mission Browser
 
-Interfaz web adaptativa en React, TypeScript y Three.js. Incluye portada con placeholders y un explorador 3D usando los STL y las texturas de `Assets`.
+Interfaz web adaptativa en React, TypeScript y Three.js. Incluye portada con fotos del equipo, fondo y logo de `Assets`, un explorador 3D con los modelos y texturas locales, y un quiz opcional durante el cálculo de aterrizajes.
 
 ## Ejecutar
 
@@ -39,15 +39,15 @@ Escucha en `http://127.0.0.1:4173` (`HOST` y `PORT` configurables). El runtime `
 - Modo público general por defecto: la distancia media Tierra–Luna vuelve a ser 8,8 unidades visuales. Escala física: 3.185,5 km por unidad, para tamaños y distancias. Cambiar de modo conserva el instante; los cálculos no dependen de la compresión.
 - Aceleraciones de `60×`, `3.600×` y `86.400×` permiten recorrer las efemérides. La reproducción se detiene al final del intervalo; no extrapola ni repite una órbita artificial.
 - Seleccionar un sitio calcula todos los mínimos locales de distancia. «Ver este instante» sitúa y pausa el visor en un resultado. Los datos diarios y los cálculos pueden descargarse como JSON.
-- La fecha es ahora **fecha estimada de aterrizaje**, no fecha de lanzamiento ni control del inicio de las efemérides. El selector deshabilita cada día sin candidatos aceptados, incluidos los huecos entre días disponibles. Mientras el análisis no termina o faltan datos, permanece bloqueado.
+- La **fecha estimada de aterrizaje** se elige con tres listas: año, mes y día (UTC; febrero de 1962 a diciembre de 2100). Año y mes permanecen disponibles durante la carga. Cambiarlos limpia fecha, marcador, resultados y solicitudes anteriores; se calcula únicamente el período elegido. Los días sin candidatos aceptados, incluidos los huecos entre días disponibles, quedan deshabilitados. Un mes terminado sin candidatos indica explícitamente que no hay ventanas estimadas disponibles. Los fallos de adquisición se muestran como errores.
 
 ## Variables para editar
 
 - `src/config.ts`: radios y velocidades en SI, conversión uniforme a unidades del visor, inclinaciones y catálogo inicial de sitios.
-- `src/App.tsx`: estructura de las páginas y logo provisional.
+- `src/App.tsx`: estructura de las páginas, portada y explorador.
 - `src/i18n/translations.ts` y `src/science/messages.ts`: textos en los cinco idiomas.
-- `public/earth-placeholder.svg`: imagen provisional del fondo de Inicio; puede sustituirse por tu imagen.
-- `HOME_EARTH_IMAGE` en `src/config.ts`: ruta de la imagen de Inicio (para usar un JPG, PNG o WebP).
+- `Assets/Fondo.jpeg`: imagen del fondo de Inicio; `HOME_EARTH_IMAGE` en `src/config.ts` la incorpora a la compilación.
+- `src/team.ts`: fotos de los seis perfiles; `Assets/Space Mate.svg`: logo de la portada y el encabezado.
 - `src/scene/referenceFrame.ts`: único cambio de ejes entre ICRF y Three.js, orientación terrestre y lunar, y compresión visual.
 - `src/science/`: interpolación, marcos terrestres, búsqueda de mínimos y panel de resultados.
 - `server/horizons.ts`: consulta, validación y almacenamiento persistente de efemérides.
@@ -55,7 +55,13 @@ Escucha en `http://127.0.0.1:4173` (`HOST` y `PORT` configurables). El runtime `
 
 Los assets están excluidos de Git por la configuración original. Deben permanecer en `Assets` con sus nombres actuales al compilar; Vite los empaqueta en la compilación.
 
-## Idiomas
+## Quiz durante los cálculos
+
+Mientras se calculan los posibles sitios de aterrizaje, el explorador ofrece **Hacer el quiz**. Incluye las 23 preguntas de `Assets/txt/txt/` con su ilustración del mismo número en `Assets/quiz fotos 23/quiz fotos 23/`; la opción con asterisco define la respuesta correcta. Muestra corrección inmediata, puntuación y reinicio, sin detener el cálculo. Se puede cerrar y reabrir conservando el avance durante la sesión del explorador y terminarlo aunque el análisis ya esté listo.
+
+Las preguntas se conservan en español; los controles están traducidos a los cinco idiomas. El contenido del quiz se carga al abrirlo y las imágenes al mostrar cada pregunta. Las respuestas y la puntuación no se guardan en almacenamiento persistente.
+
+## Idiomas de la interfaz
 
 El selector del encabezado ofrece Español, Francés, Portugués, Italiano e Inglés, con los nombres de cada idioma en su propia lengua. La preferencia se guarda únicamente después de una selección explícita en `localStorage`, con la clave `moon-mission.language`, sin identificadores de usuario. Tiene una vigencia de 180 días; si caduca, se elimina en la siguiente visita. El panel «Privacidad y almacenamiento» permite borrarla conservando el idioma de la sesión actual. Si el almacenamiento no está disponible, la selección sigue funcionando durante la sesión. Cambiar de idioma no reinicia la escena ni borra la configuración de la misión.
 
@@ -71,7 +77,7 @@ El hosting definitivo requiere HTTPS, revisión de sus logs, cookies e integraci
 
 La integración sigue la API enlazada en `LOOKUP.md`: [NASA/JPL Horizons](https://ssd-api.jpl.nasa.gov/doc/horizons.html). La Luna es `301`; el observador es **`500@399`, centro de la Tierra**, no el baricentro Tierra–Luna (`3`). Se solicitan estados geométricos, sin correcciones de propagación de luz ni aberración, en ICRF ecuatorial (`REF_PLANE=FRAME`), con tiempo UT —UTC en el rango admitido— y salida km/s. Se convierten a metros y m/s una sola vez. Las esféricas se derivan de esos mismos vectores: radio, ascensión recta y declinación geométricas; no se mezclan con coordenadas aparentes.
 
-Se conservan **8.065 estados cada 300 segundos durante 28 días**, incluidos ambos extremos, y **29 muestras diarias**. Se reutiliza la serie reciente que aún cubra más de 27 días futuros; «Actualizar datos NASA/JPL» inicia una serie nueva desde el minuto actual. Elegir aterrizaje no desplaza ni recalcula esta serie. Los 28 días son un intervalo de muestreo solicitado, no una afirmación de que todos los meses lunares duren exactamente 28 días. La trayectoria dibujada es un arco abierto de esas posiciones; no se fuerza su cierre ni se ajusta una elipse que descarte perturbaciones.
+El explorador carga el **mes civil elegido**, con estados cada 300 segundos y diez días previos para incluir los vuelos que llegan a principios de mes. Ese margen se comprueba contra la velocidad efectiva mediana histórica y una separación conservadora de 510 millones de metros. Sólo se aceptan llegadas desde el primer día del mes hasta el inicio del siguiente, excluido. El número de muestras y marcadores diarios se muestra dinámicamente. «Actualizar datos NASA/JPL» vuelve a consultar el intervalo elegido. La API y las herramientas originales de series de 28 días siguen disponibles. La trayectoria dibujada conserva las posiciones JPL y no fuerza una elipse repetida.
 
 **Vínculo de ejes:** se consultan también los estados ICRF de dos puntos de la superficie terrestre (Greenwich ecuatorial y polo norte), con el mismo observador geocéntrico y los mismos tiempos. Sus vectores proporcionan una base terrestre ortonormal y su derivada. Esto incorpora la orientación terrestre de JPL y sus EOP en lugar de inventar un ángulo inicial o usar una rotación sidérea aislada. La posición WGS84 del sitio se transforma con esa base. El visor utiliza la misma orientación y el mismo cambio de ejes, `ICRF (X,Y,Z) → Three.js (X,Z,−Y)`, para Tierra y Luna. La Tierra está en `(0,0,0)` porque el marco es geocéntrico; su movimiento heliocéntrico común se cancela en esta descripción relativa. La orientación lunar procede de los estados JPL de su meridiano 0° y polo norte en el marco ME: mantiene la cara próxima hacia la Tierra e incorpora la libración.
 
@@ -114,7 +120,45 @@ El backend ejecuta un barrido global de 10° (648 centros), añade ocho lugares 
 
 Los rayos permanecen exclusivamente en el backend. Se construye una malla de elevaciones y un BVH; cada rayo Tierra/superficie o Sol/superficie se intersecta con los triángulos en 3D, con curvatura lunar. Las caras de cráter que obstruyen el enlace se excluyen para ese instante. Si un rayo abandona la cobertura antes de salir de la envolvente potencial de relieve, su resultado es **desconocido**, nunca despejado. El modelo también prueba la ocultación del Sol por la Tierra y el ángulo de incidencia sobre la normal local del terreno; exige más de 1° de elevación efectiva solar y usa altura de antena/panel de referencia de 2 m.
 
-Las direcciones Tierra/Sol y el marco lunar ME se obtienen de JPL durante 56 días, cada 30 minutos, con interpolación de posiciones y velocidades. Se usa la misma orientación lunar para el mapa, el marcador y el cálculo; incorpora la libración real y sustituye el anclaje idealizado sin libraciones de la primera etapa. Si no está disponible, el visor espera o informa del fallo en vez de colocar marcadores con un marco inventado.
+Las direcciones Tierra/Sol y el marco lunar ME se obtienen de JPL cada 30 minutos, con interpolación de posiciones y velocidades. En el explorador se cubre hasta un ciclo lunar completo después del final del mes elegido; las herramientas originales conservan su intervalo predeterminado de 56 días. Se usa la misma orientación lunar para el mapa, el marcador y el cálculo; incorpora la libración real y sustituye el anclaje idealizado sin libraciones de la primera etapa. Si no está disponible, el visor espera o informa del fallo en vez de colocar marcadores con un marco inventado.
+
+## Cálculo mensual y reutilización eficiente
+
+### Optimización sin cambiar el modelo
+
+La malla global de 10°, el refinamiento de 0,25°, el DEM de 512×512, los pasos de 5/30 minutos, las efemérides JPL, el ciclo lunar y el requisito de más de 24,5 horas conjuntas se conservan.
+
+- La malla 3D usa buffers numéricos preasignados y calcula la trigonometría una vez por fila y columna. Conserva exactamente los vértices Float32 y todos los triángulos originales.
+- Se construye una sola estructura de conectividad por tamaño de rejilla (caché acotada a dos tamaños). Cada parche recibe índices y límites independientes, que se ajustan íntegramente a sus alturas reales mediante [`MeshBVH.refit`](https://github.com/gkjohnson/three-mesh-bvh/blob/master/API.md#refit-1). No se reutilizan alturas ni obstrucciones entre lugares.
+- Las muestras de visibilidad se evalúan a demanda. Si una llegada ya incumple el intervalo conjunto inicial, se descarta sin trazar el resto del ciclo. Los candidatos que superan ese filtro se comprueban con los mismos rayos y cobertura completa.
+- Los porcentajes y continuidades se obtienen con sumas acumuladas y el siguiente intervalo fallido, evitando recorrer repetidamente las mismas muestras. Los estados desconocidos siguen impidiendo aceptar una ventana.
+- Los coeficientes de Hermite del entorno lunar se reutilizan. La búsqueda de mínimos omite sólo polinomios cuya cota matemática demuestra que no contienen raíces en el intervalo; los casos próximos al límite conservan el aislador completo.
+- Antes de leer una serie antigua completa se consulta su cabecera; las series sin cobertura útil se omiten. Las solicitudes de progreso reutilizan la validación ya hecha de las series temporales internas. El visor pausado reutiliza la solución astronómica del mismo instante.
+
+La comparación con datos reales de noviembre de 2026 conservó idénticas las 286 combinaciones del barrido reducido de 16 sectores, incluyendo todos los valores numéricos de cada candidato. Las pruebas adicionales contrastan la malla y los rayos con el algoritmo anterior, las continuidades con el recorrido completo y el aislamiento entre parches. Las mediciones se resumen en `artifacts/performance/summary.json`; no representan una garantía de tiempo para otros equipos o para la malla global.
+
+Para capturar y comparar mediciones bajo demanda:
+
+```sh
+npm run analyze:landing -- --month=2026-11 --smoke --benchmark=referencia
+npm run analyze:landing -- --month=2026-11 --smoke --benchmark=comparacion --compare=referencia
+```
+
+Estos comandos escriben perfiles y resultados de prueba únicamente cuando se solicita `--benchmark`; el explorador mantiene sus datos mensuales temporales.
+
+Se aprovechan primero los estados JPL existentes que se solapen con el intervalo solicitado. Si la fase de las muestras antiguas difiere de la nueva, se interpola con Hermite **dentro de su cobertura**; se consultan a JPL sólo los tramos faltantes. No se avanza mes a mes para llegar a un año lejano. Las referencias históricas y el DEM lunar se reutilizan; la posición terrestre de cada oportunidad de salida se calcula una sola vez.
+
+Conocer la forma de la órbita inicial ayuda a interpolar localmente y a reutilizar posiciones y velocidades. Repetir esa órbita en otros meses o años omitiría los cambios orbitales, de orientación terrestre/lunar y de iluminación. Por eso los tramos sin cobertura usan nuevas efemérides, sin extrapolar ni interpretar un fallo como una ventana viable. Referencia: [manual de NASA/JPL Horizons](https://ssd.jpl.nasa.gov/horizons/manual.html).
+
+Los cálculos mensuales son temporales: las series, resultados, respuestas nuevas y estados auxiliares no se acumulan en archivos. Al cambiar de mes/año se cancelan consultas y barridos anteriores y se libera su memoria. Se conserva como máximo una serie anterior durante hasta 60 segundos para transferir datos solapados; se descarta al completar la siguiente carga. Las pestañas comparten un cálculo del mismo período y la cancelación de una no interrumpe a otra. Las sesiones abandonadas expiran. Los archivos originales de `data/horizons/`, los informes guardados previamente y el relieve reutilizable se conservan.
+
+Para comprobar un mes con datos reales sin guardar un informe mensual intermedio:
+
+```sh
+npm run analyze:landing -- --month=2026-11 --smoke
+```
+
+`--smoke` reduce la malla únicamente para verificación; el explorador conserva el barrido global de 10°. Las ventanas mostradas siguen siendo estimaciones del modelo histórico y geométrico, no ventanas operativas certificadas para un vehículo.
 
 Por llegada se consideran como máximo **27,321661 días**, un ciclo sidéreo medio. Si la comunicación se mantiene todo el ciclo se marca como despejada durante el ciclo y se detiene la evaluación; no se afirma visibilidad eterna. Se muestran continuidad inicial y porcentaje durante el ciclo para comunicación e iluminación por separado. Para aceptar un candidato se exige más de 24 horas conjuntas, incluyendo un margen conservador de un paso temporal (30 minutos). La incertidumbre temporal declarada es al menos ±30 minutos: puede haber interrupciones más cortas que el muestreo, relieve subpíxel y errores adicionales no acotados. La iluminación es una oportunidad de generación, no un presupuesto eléctrico: no se inventan baterías, eficiencia de paneles ni consumos. La visibilidad al centro terrestre no garantiza una estación concreta ni un presupuesto RF. No se implementan repetidores.
 

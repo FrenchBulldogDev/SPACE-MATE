@@ -13,13 +13,13 @@ const STEP_SECONDS = 300;
 const DURATION_MS = 28 * 86400000;
 const pending = new Map<string, Promise<Ephemeris>>();
 
-export function horizonsParameters(start: number, command: string): URLSearchParams {
+export function horizonsParameters(start: number, command: string, stop = start + DURATION_MS): URLSearchParams {
   const values: Record<string, string> = {
     COMMAND: command, CENTER: '500@399', MAKE_EPHEM: 'YES', OBJ_DATA: 'NO',
     EPHEM_TYPE: 'VECTORS', REF_SYSTEM: 'ICRF', REF_PLANE: 'FRAME',
     TIME_TYPE: 'UT', OUT_UNITS: 'KM-S', VEC_TABLE: '2', VEC_CORR: 'NONE',
     START_TIME: new Date(start).toISOString().slice(0, 19).replace('T', ' '),
-    STOP_TIME: new Date(start + DURATION_MS).toISOString().slice(0, 19).replace('T', ' '),
+    STOP_TIME: new Date(stop).toISOString().slice(0, 19).replace('T', ' '),
     STEP_SIZE: '5 m', CSV_FORMAT: 'YES', TIME_DIGITS: 'FRACSEC', CAL_TYPE: 'GREGORIAN',
   };
   return new URLSearchParams({ format: 'json', ...Object.fromEntries(Object.entries(values).map(([key, value]) => [key, `'${value}'`])) });
@@ -41,16 +41,17 @@ export function parseVectors(result: string, start: number, expectedCount = 8065
   });
 }
 
-async function query(start: number, command: string) {
-  const url = `${endpoint}?${horizonsParameters(start, command)}`;
+export async function query(start: number, command: string, stop = start + DURATION_MS, signal?: AbortSignal) {
+  const url = `${endpoint}?${horizonsParameters(start, command, stop)}`;
   // JPL asks clients to serialize requests. A fixed target/center whitelist
   // prevents this endpoint from becoming an arbitrary proxy.
   const work = serializeJpl(async () => {
-    const response = await fetch(url, { signal: AbortSignal.timeout(120000), headers: { Accept: 'application/json' } });
+    signal?.throwIfAborted();
+    const response = await fetch(url, { signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(120000)]) : AbortSignal.timeout(120000), headers: { Accept: 'application/json' } });
     if (!response.ok) throw new Error(`Horizons HTTP ${response.status}`);
     const payload = await response.json() as { result?: string; error?: string; signature?: { source?: string; version?: string } };
     if (payload.error || !payload.result) throw new Error(`Horizons: ${payload.error || 'empty response'}`);
-    return { url, raw: payload.result, states: parseVectors(payload.result, start) };
+    return { url, raw: payload.result, states: parseVectors(payload.result, start, (stop - start) / 300000 + 1) };
   });
   return work;
 }

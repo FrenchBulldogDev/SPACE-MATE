@@ -1,30 +1,31 @@
 import { useEffect, useState } from 'react';
 import { validateEphemeris } from './ephemeris';
+import { monthBounds } from './calendar';
 import type { Ephemeris } from './types';
 
-const nowAtMinute = () => { const now = new Date(); now.setUTCSeconds(0, 0); return now.toISOString(); };
-const requests = new Map<string, Promise<Ephemeris>>();
-
-export function useEphemeris(date: string) {
-  const [initialStart] = useState(nowAtMinute);
+export function useEphemeris(month: string) {
   const [generation, setGeneration] = useState(0);
-  const start = date ? `${date}T00:00:00.000Z` : initialStart;
-  const [state, setState] = useState<{ data: Ephemeris | null; status: 'loading' | 'ready' | 'error' }>({ data: null, status: 'loading' });
+  const [refreshMonth, setRefreshMonth] = useState('');
+  const [state, setState] = useState<{ month: string; generation: number; data: Ephemeris | null; status: 'loading' | 'ready' | 'error' }>({ month, generation, data: null, status: 'loading' });
   useEffect(() => {
+    const controller = new AbortController(), lease = crypto.randomUUID();
     let active = true;
-    setState({ data: null, status: 'loading' });
-    let request = requests.get(start);
-    if (!request || generation) {
-      request = fetch(date ? `/api/ephemeris?${new URLSearchParams({ start, ...(generation ? { refresh: '1' } : {}) })}` : `/api/ephemeris/latest${generation ? '?refresh=1' : ''}`)
-        .then(async response => {
-          if (!response.ok) throw new Error('Horizons acquisition failed');
-          const value: unknown = await response.json(); validateEphemeris(value); return value;
-        });
-      requests.set(start, request);
-      void request.catch(() => { if (requests.get(start) === request) requests.delete(start); });
-    }
-    void request.then(data => { if (active) setState({ data, status: 'ready' }); }).catch(() => { if (active) setState({ data: null, status: 'error' }); });
-    return () => { active = false; };
-  }, [start, generation]);
-  return { ...state, defaultStart: state.data?.start ?? Date.parse(initialStart), retry: () => setGeneration(n => n + 1) };
+    const params = new URLSearchParams({ month, lease, ...(generation && refreshMonth === month ? { refresh: '1' } : {}) });
+    const endpoint = `/api/ephemeris/month?${params}`;
+    setState({ month, generation, data: null, status: 'loading' });
+    void fetch(endpoint, { signal: controller.signal }).then(async response => {
+      if (!response.ok) throw new Error('Horizons acquisition failed');
+      const value: unknown = await response.json(); validateEphemeris(value);
+      if (value.arrivalMonth !== month) throw new Error('Wrong arrival month');
+      if (active) setState({ month, generation, data: value, status: 'ready' });
+    }).catch(() => { if (active) setState({ month, generation, data: null, status: 'error' }); });
+    const heartbeat = setInterval(() => {
+      void fetch(endpoint, { method: 'POST' }).then(response => { if (active && response.status === 410) setGeneration(n => n + 1); }).catch(() => {});
+    }, 60000);
+    const release = () => { void fetch(endpoint, { method: 'DELETE', keepalive: true }).catch(() => {}); };
+    window.addEventListener('pagehide', release);
+    return () => { active = false; controller.abort(); clearInterval(heartbeat); window.removeEventListener('pagehide', release); release(); };
+  }, [month, generation, refreshMonth]);
+  const current = state.month === month && state.generation === generation;
+  return { data: current ? state.data : null, status: current ? state.status : 'loading' as const, defaultStart: monthBounds(month).start, retry: () => { setRefreshMonth(month); setGeneration(n => n + 1); } };
 }

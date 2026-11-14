@@ -1,5 +1,6 @@
 import type { Ephemeris, EphemerisPoint, StateVector, Vec3 } from './types';
 import { dot, length } from './vectors';
+import { monthBounds } from './calendar';
 
 export function spherical(position: Vec3) {
   const radiusMeters = length(position);
@@ -45,7 +46,9 @@ export function interpolateEphemeris(data: Ephemeris, time: number): EphemerisPo
 
 export function validateEphemeris(value: unknown): asserts value is Ephemeris {
   const data = value as Ephemeris;
-  if (!data || data.version !== 1 || data.source !== 'NASA/JPL Horizons' || data.frame !== 'ICRF' || data.center !== '500@399' || data.corrections !== 'NONE' || data.timeScale !== 'UTC' || typeof data.id !== 'string' || !Number.isFinite(data.start) || !Number.isFinite(data.stop) || data.stop - data.start !== 28 * 86400000 || data.stepSeconds !== 300 || !Array.isArray(data.points) || data.points.length !== 8065 || !Array.isArray(data.daily) || data.daily.length !== 29) throw new Error('Invalid Horizons dataset metadata');
+  const bounds = data?.arrivalMonth ? monthBounds(data.arrivalMonth) : null;
+  const duration = bounds ? bounds.stop - bounds.departureStart : 28 * 86400000;
+  if (!data || data.version !== 1 || data.source !== 'NASA/JPL Horizons' || data.frame !== 'ICRF' || data.center !== '500@399' || data.corrections !== 'NONE' || data.timeScale !== 'UTC' || typeof data.id !== 'string' || !Number.isFinite(data.start) || !Number.isFinite(data.stop) || data.stop - data.start !== duration || (bounds && (data.start !== bounds.departureStart || data.stop !== bounds.stop)) || data.stepSeconds !== 300 || !Array.isArray(data.points) || data.points.length !== duration / 300000 + 1 || !Array.isArray(data.daily) || data.daily.length !== duration / 86400000 + 1) throw new Error('Invalid Horizons dataset metadata');
   for (let i = 0; i < data.points.length; i++) {
     const p = data.points[i];
     if (p.time !== data.start + i * 300000) throw new Error('Missing, unordered or mismatched UTC samples');
@@ -58,5 +61,5 @@ export function validateEphemeris(value: unknown): asserts value is Ephemeris {
     const s = spherical(p.moon.position);
     if (!p.spherical || Math.abs(p.spherical.radiusMeters - s.radiusMeters) > 1e-5 || Math.abs(p.spherical.rightAscensionRadians - s.rightAscensionRadians) > 1e-12 || Math.abs(p.spherical.declinationRadians - s.declinationRadians) > 1e-12) throw new Error('Spherical and Cartesian coordinates disagree');
   }
-  for (let i = 0; i < 29; i++) if (JSON.stringify(data.daily[i]) !== JSON.stringify(data.points[i * 288])) throw new Error('Invalid daily sample');
+  for (let i = 0; i < data.daily.length; i++) if (JSON.stringify(data.daily[i]) !== JSON.stringify(data.points[i * 288])) throw new Error('Invalid daily sample');
 }

@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { fromArrayBuffer } from 'geotiff';
-import { BufferGeometry, Float32BufferAttribute, DoubleSide, Ray, Vector3 } from 'three';
+import { Box3, BufferGeometry, BufferAttribute, DoubleSide, Ray } from 'three';
 import { MeshBVH } from 'three-mesh-bvh';
 import type { Vec3 } from '../src/science/types';
 import { dot, length, normalize, sub } from '../src/science/vectors';
@@ -13,7 +13,35 @@ export const lunarPoint = (lat: number, lon: number, height = 0): Vec3 => {
 };
 export type TerrainGrid = { width: number; height: number; west: number; east: number; south: number; north: number; heights: number[]; source: string; fetchedAt: string };
 
-export async function loadTerrain(latitude: number, longitude: number): Promise<TerrainGrid> {
+const topologies = new Map<string, ReturnType<typeof MeshBVH.serialize>>();
+function gridTopology(width: number, height: number) {
+  const key = `${width}:${height}`;
+  if (!topologies.has(key)) {
+    // Connectivity is identical for every DEM of this size. Partition a flat
+    // grid once; each real patch gets private node bounds, fully refitted to
+    // its actual, unchanged 3D triangles before any ray can use it.
+    const vertices = new Float32Array(width * height * 3);
+    const indices = new Uint32Array((width - 1) * (height - 1) * 6);
+    let next = 0;
+    for (let y = 0; y < height; y++) for (let x = 0; x < width; x++) {
+      const i = y * width + x;
+      vertices[3 * i] = x; vertices[3 * i + 1] = y;
+      if (x && y) {
+        indices[next++] = i; indices[next++] = i - 1; indices[next++] = i - width;
+        indices[next++] = i - 1; indices[next++] = i - width - 1; indices[next++] = i - width;
+      }
+    }
+    const geometry = new BufferGeometry();
+    geometry.setAttribute('position', new BufferAttribute(vertices, 3)); geometry.setIndex(new BufferAttribute(indices, 1));
+    topologies.set(key, MeshBVH.serialize(new MeshBVH(geometry, { targetLeafSize: 32 }), { cloneBuffers: false }));
+    geometry.dispose();
+    while (topologies.size > 2) topologies.delete(topologies.keys().next().value!);
+  }
+  return topologies.get(key)!;
+}
+
+export async function loadTerrain(latitude: number, longitude: number, signal?: AbortSignal): Promise<TerrainGrid> {
+  signal?.throwIfAborted();
   if (!Number.isFinite(latitude) || !Number.isFinite(longitude) || Math.abs(latitude) > 88 || Math.abs(longitude) > 178.8) throw new Error('Unsupported local DEM extent');
   const bbox = [longitude - 2, latitude - 2, longitude + 2, latitude + 2];
   // 4° / 512 ≈ 237 m north-south, ~2x the native 256 ppd global LOLA DEM.
@@ -23,7 +51,7 @@ export async function loadTerrain(latitude: number, longitude: number): Promise<
   try { return JSON.parse(await readFile(file, 'utf8')); } catch {}
   // Stream the TIFF directly. The service's JSON href points to an internal
   // /arcgis output path which is not reachable through Trek's public proxy.
-  const image = await fetch(source, { signal: AbortSignal.timeout(90000) });
+  const image = await fetch(source, { signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(90000)]) : AbortSignal.timeout(90000) });
   if (!image.ok) throw new Error('Moon Trek DEM download failed');
   const bytes = await image.arrayBuffer(), tiff = await fromArrayBuffer(bytes), raster = await tiff.getImage();
   if (raster.getSamplesPerPixel() !== 1 || raster.getWidth() !== 512 || raster.getHeight() !== 512 || raster.getSampleFormat(0) !== 3) throw new Error('DEM must be single-band floating-point elevations, not a rendered map');
@@ -42,18 +70,35 @@ export class TerrainMask {
   bvh: MeshBVH;
   anchor: Vec3;
   resolutionMeters: number;
+  private readonly ray = new Ray();
   constructor(public grid: TerrainGrid, latitude: number, longitude: number) {
     if(grid.width<3||grid.height<3||grid.heights.length!==grid.width*grid.height||grid.heights.some(h=>!Number.isFinite(h)||Math.abs(h)>15000))throw new Error('Invalid or incomplete numeric DEM');
     this.anchor = lunarPoint(latitude, longitude);
     this.resolutionMeters = 1737400 * Math.PI / 180 * Math.max((grid.east - grid.west) / grid.width, (grid.north - grid.south) / grid.height);
-    const vertices: number[] = [], indices: number[] = [];
-    for (let y = 0; y < grid.height; y++) for (let x = 0; x < grid.width; x++) {
-      const lat = grid.north - (y + 0.5) / grid.height * (grid.north - grid.south), lon = grid.west + (x + 0.5) / grid.width * (grid.east - grid.west);
-      vertices.push(...sub(lunarPoint(lat, lon, grid.heights[y * grid.width + x]), this.anchor));
-      if (x && y) { const i = y * grid.width + x; indices.push(i, i - 1, i - grid.width, i - 1, i - grid.width - 1, i - grid.width); }
+    // The same vertices and triangles, allocated once. Latitude/longitude
+    // trigonometry depends on the row/column, not on each of 262,144 heights.
+    const vertices = new Float32Array(grid.width * grid.height * 3);
+    const cosLon = new Float64Array(grid.width), sinLon = new Float64Array(grid.width);
+    for (let x = 0; x < grid.width; x++) {
+      const lon = (grid.west + (x + 0.5) / grid.width * (grid.east - grid.west)) * Math.PI / 180;
+      cosLon[x] = Math.cos(lon); sinLon[x] = Math.sin(lon);
     }
-    this.geometry = new BufferGeometry(); this.geometry.setAttribute('position', new Float32BufferAttribute(vertices, 3)); this.geometry.setIndex(indices);
-    this.bvh = new MeshBVH(this.geometry, { targetLeafSize: 8 });
+    for (let y = 0; y < grid.height; y++) {
+      const lat = (grid.north - (y + 0.5) / grid.height * (grid.north - grid.south)) * Math.PI / 180;
+      const cosLat = Math.cos(lat), sinLat = Math.sin(lat);
+      for (let x = 0; x < grid.width; x++) {
+        const i = y * grid.width + x, r = 1737400 + grid.heights[i], k = i * 3;
+        vertices[k] = r * cosLat * cosLon[x] - this.anchor[0];
+        vertices[k + 1] = r * cosLat * sinLon[x] - this.anchor[1];
+        vertices[k + 2] = r * sinLat - this.anchor[2];
+      }
+    }
+    const topology = gridTopology(grid.width, grid.height);
+    this.geometry = new BufferGeometry(); this.geometry.setAttribute('position', new BufferAttribute(vertices, 3));
+    this.geometry.setIndex(new BufferAttribute(topology.index!.slice(), 1));
+    this.bvh = MeshBVH.deserialize({ ...topology, roots: topology.roots.map(root => root.slice(0)) }, this.geometry, { setIndex: false });
+    this.bvh.refit();
+    this.geometry.boundingBox = this.bvh.getBoundingBox(new Box3());
   }
   surface(latitude: number, longitude: number, height = 2) {
     const g = this.grid;
@@ -72,13 +117,15 @@ export class TerrainMask {
     const inner = 1737400 - 20000, discInner = b*b - r*r + inner*inner;
     if (b < 0 && discInner > 0) return 'blocked';
     const exit = -b + Math.sqrt(Math.max(0, b*b - r*r + (1737400 + 20000)**2));
-    const ray = new Ray(new Vector3(...sub(origin, this.anchor)), new Vector3(...direction));
+    const ray = this.ray;
+    ray.origin.set(origin[0] - this.anchor[0], origin[1] - this.anchor[1], origin[2] - this.anchor[2]);
+    ray.direction.set(direction[0], direction[1], direction[2]);
     if (this.bvh.raycastFirst(ray, DoubleSide, 0.05, Math.min(exit, length(sub(target, origin))))) return 'blocked';
     // A clear local patch is NOT assumed clear beyond its boundary. Missing
     // coverage is explicitly excluded from the accepted candidate set.
     for (let i = 0; i <= 32; i++) {
-      const point = origin.map((v,k) => v + direction[k] * exit * i / 32) as Vec3;
-      const lat = Math.atan2(point[2],Math.hypot(point[0],point[1]))*180/Math.PI, lon=Math.atan2(point[1],point[0])*180/Math.PI;
+      const x = origin[0] + direction[0] * exit * i / 32, y = origin[1] + direction[1] * exit * i / 32, z = origin[2] + direction[2] * exit * i / 32;
+      const lat = Math.atan2(z,Math.hypot(x,y))*180/Math.PI, lon=Math.atan2(y,x)*180/Math.PI;
       const g=this.grid, edgeLon=(g.east-g.west)/g.width, edgeLat=(g.north-g.south)/g.height;
       if (lon <= g.west+edgeLon || lon >= g.east-edgeLon || lat <= g.south+edgeLat || lat >= g.north-edgeLat) return 'unknown';
     }

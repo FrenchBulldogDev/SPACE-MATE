@@ -30,7 +30,7 @@ export const SCENE_CONFIG = {
 };
 
 // Reemplaza la imagen en public/ o cambia esta ruta por tu JPG/PNG/WebP.
-export const HOME_EARTH_IMAGE = '/earth-placeholder.svg';
+export const HOME_EARTH_IMAGE = new URL('../Assets/Fondo.jpeg', import.meta.url).href;
 
 export type LaunchSite = {
   id: string;
