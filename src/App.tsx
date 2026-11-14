@@ -9,6 +9,7 @@ import { isLanguage, LANGUAGES } from './i18n/translations';
 import PrivacyPanel from './privacy/PrivacyPanel';
 import { privacyMessages } from './privacy/messages';
 import { COLLABORATOR_ASSETS, TEAM_MEMBER_ASSETS } from './team';
+import spaceMateLogo from '../Assets/SPACE MATE.svg';
 
 function BrandMark({ large = false }: { large?: boolean }) {
   return <svg className={large ? 'brand-mark large' : 'brand-mark'} viewBox="0 0 100 100" fill="none" aria-hidden="true">
@@ -22,7 +23,7 @@ function BrandMark({ large = false }: { large?: boolean }) {
 function Header({ explore }: { explore: boolean }) {
   const { t, language, setLanguage } = useLanguage();
   return <header className="app-header">
-    <a className="brand" href="#/" aria-label={t.goHome}><BrandMark /><span>{t.projectName}</span></a>
+    <a className="brand" href="#/" aria-label={t.goHome}><img className="brand-logo" src={spaceMateLogo} alt="" /><span>{t.projectName}</span></a>
     <nav aria-label={t.navigation}>
       <a href="#/" className={!explore ? 'active' : ''}>{t.home}</a>
       <div className="header-actions">
@@ -48,7 +49,7 @@ function Landing({ onPrivacy }: { onPrivacy: () => void }) {
     <section className="landing-hero">
       <img className="hero-earth-image" src={HOME_EARTH_IMAGE} alt={t.earthImageAlt} />
       <div className="hero-kicker"><span>{t.heroKicker}</span><span>{t.worlds}</span></div>
-      <div className="logo-placeholder"><BrandMark large /><span>{t.yourLogo}</span></div>
+      <div className="logo-placeholder"><img className="hero-logo" src={spaceMateLogo} alt="SPACE-MATE" /></div>
       <h1>{t.titleLine1}<br /><span>{t.titleLine2}</span></h1>
       <p className="hero-description">{t.heroDescription}</p>
       <a className="button primary start-button" href="#/explorer"><Play size={16} fill="currentColor" />{t.start}</a>
