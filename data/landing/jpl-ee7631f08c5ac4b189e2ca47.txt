@@ -1,0 +1,141 @@
+
+Calling TDBMUT with LBND,LMJD=-0.107032430300001E+10  0.391564872337962E+05
+Calling TDBMUT with LBND,LMJD=-0.107003967000000E+10  0.391597815972222E+05
+Calling TDBMUT with LBND,LMJD=-0.104233577200000E+10  0.394804285648148E+05
+Calling TDBMUT with LBND,LMJD=-0.104204874000000E+10  0.394837506944444E+05
+Calling TDBMUT with LBND,LMJD=-0.961280880000007E+09  0.404185638888888E+05
+Calling TDBMUT with LBND,LMJD=-0.960910939999983E+09  0.404228456018521E+05
+Calling TDBMUT with LBND,LMJD=-0.854173619999984E+09  0.416582312500002E+05
+Calling TDBMUT with LBND,LMJD=-0.853776302999993E+09  0.416628298263890E+05
+Calling TDBMUT with LBND,LMJD= 0.742597499999982E+09  0.601393784722220E+05
+Calling TDBMUT with LBND,LMJD= 0.746065980000003E+09  0.601795229166667E+05
+Calling TDBMUT with LBND,LMJD= 0.747315731000005E+09  0.601939876273149E+05
+Calling TDBMUT with LBND,LMJD= 0.758949600000009E+09  0.603286388888890E+05
+Calling TDBMUT with LBND,LMJD= 0.761249099999982E+09  0.603552534722220E+05
+Calling TDBMUT with LBND,LMJD= 0.761916233000006E+09  0.603629749189815E+05
+Calling TDBMUT with LBND,LMJD= 0.790193460000001E+09  0.606902576388889E+05
+Calling TDBMUT with LBND,LMJD= 0.794176440000013E+09  0.607363569444446E+05
+
+*******************************************************************************
+Ephemeris / API_USER Sat Nov 14 11:40:37 2026 Pasadena, USA      / Horizons
+*******************************************************************************
+Target body name: Moon (301)                      {source: DE441}
+Target point    : (user defined coordinates below)
+Center body name: Earth (399)                     {source: DE441}
+Center-site name: BODY CENTER
+*******************************************************************************
+Start time      : A.D. 1966-Jan-31 11:41:37.0000 UT 
+Stop  time      : A.D. 2025-Mar-02 08:34:00.0000 UT 
+Step-size       : DISCRETE TIME-LIST
+*******************************************************************************
+Target geodetic : 0.0, 90.0, 1.06385E-13          {E-lon(deg),Lat(deg),Alt(km)}
+Target cylindric: 0.0, 1.06385E-13, 1737.4        {E-lon(deg),Dxy(km),Dz(km)}
+Target radii    : 1737.4, 1737.4, 1737.4 km       {Equator_a, b, pole_c}       
+Center geodetic : 0.0, 0.0, 0.0                   {E-lon(deg),Lat(deg),Alt(km)}
+Center cylindric: 0.0, 0.0, 0.0                   {E-lon(deg),Dxy(km),Dz(km)}
+Center radii    : 6378.137, 6378.137, 6356.752 km {Equator_a, b, pole_c}
+Output units    : KM-S
+Calendar mode   : Mixed Julian/Gregorian
+Output type     : GEOMETRIC cartesian states
+Output format   : 2 (position and velocity)
+EOP file        : eop.261113.p270209
+EOP coverage    : DATA-BASED 1962-JAN-20 TO 2026-NOV-13. PREDICTS-> 2027-FEB-08
+Reference frame : ICRF
+*******************************************************************************
+            JDUT ,            Calendar Date (UT ),                      X,                      Y,                      Z,                     VX,                     VY,                     VZ,
+**************************************************************************************************************************************************************************************************
+$$SOE
+2439156.987233796, A.D. 1966-Jan-31 11:41:37.0000,  1.807156675563457E+05,  3.059085223293165E+05,  1.339748596920978E+05, -9.368418067282754E-01,  3.523615340700664E-01,  2.519093517355950E-01,
+2439160.281597222, A.D. 1966-Feb-03 18:45:30.0000, -1.128949436158707E+05,  3.042172340799014E+05,  1.586597714366257E+05, -1.016133082637632E+00, -3.815070703881759E-01, -9.646851055477243E-02,
+2439480.928564815, A.D. 1966-Dec-21 10:17:08.0000,  3.867927744687363E+05,  1.088068620860600E+05,  2.939548201714758E+04, -2.851099060389365E-01,  8.173500826068766E-01,  4.381793688728795E-01,
+2439484.250694444, A.D. 1966-Dec-24 18:01:00.0000,  2.151699644061870E+05,  2.966829910237332E+05,  1.377600588743338E+05, -8.657425335454395E-01,  4.285624996524093E-01,  2.812779622527395E-01,
+2440419.063888889, A.D. 1969-Jul-16 13:32:00.0000, -2.893165517672432E+05,  2.485566702019514E+05,  1.332864751624736E+05, -6.653396835837482E-01, -6.246291540583645E-01, -3.469974882457931E-01,
+2440423.345601852, A.D. 1969-Jul-20 20:17:40.0000, -3.852719125614794E+05, -4.855400500883322E+04, -2.926688249221569E+04,  2.016849269593654E-01, -8.672860883235844E-01, -4.688665876616254E-01,
+2441658.731250000, A.D. 1972-Dec-07 05:33:00.0000,  4.233268619169839E+03, -3.672262476190783E+05, -1.689095713278773E+05,  9.724824459669885E-01, -9.132218444685954E-03,  8.913624709501294E-02,
+2441663.329826389, A.D. 1972-Dec-11 19:54:57.0000,  3.259892791182256E+05, -2.050549772332664E+05, -6.224140720676541E+04,  4.996565278792208E-01,  7.706948176955236E-01,  4.079171795900909E-01,
+2460139.878472222, A.D. 2023-Jul-14 09:05:00.0000,  1.145196950640707E+05,  3.361859774197827E+05,  1.732571478803929E+05, -9.402489152864252E-01,  2.704247772661379E-01,  1.893592533820529E-01,
+2460180.022916667, A.D. 2023-Aug-23 12:33:00.0000, -2.540814991601856E+05, -2.644798996717219E+05, -1.275585076176621E+05,  8.000384043005722E-01, -5.263374922855821E-01, -3.158643313300360E-01,
+2460194.487627315, A.D. 2023-Sep-06 23:42:11.0000,  1.045672265775343E+05,  3.336188597251322E+05,  1.755506271570748E+05, -9.450096474501335E-01,  2.717141758239457E-01,  1.866380904545984E-01,
+2460329.138888889, A.D. 2024-Jan-19 15:20:00.0000,  2.584967433909455E+05,  2.491608355749773E+05,  1.270393499650174E+05, -7.223152627926716E-01,  6.361843728152691E-01,  3.647077611000923E-01,
+2460355.753472222, A.D. 2024-Feb-15 06:05:00.0000,  2.921342736147775E+05,  2.070962595801789E+05,  1.052697723463314E+05, -6.022662808300838E-01,  7.493611797332381E-01,  4.219963873350221E-01,
+2460363.474918982, A.D. 2024-Feb-22 23:23:53.0000, -2.928358542445273E+05,  2.408325169291951E+05,  1.402967254928576E+05, -6.864072816741535E-01, -6.192747596284873E-01, -3.152673685955112E-01,
+2460690.757638889, A.D. 2025-Jan-15 06:11:00.0000, -2.542125023045750E+05,  2.558524240416548E+05,  1.404057915444314E+05, -8.014632695430706E-01, -5.551838637445781E-01, -3.026669360263387E-01,
+2460736.856944445, A.D. 2025-Mar-02 08:34:00.0000,  3.517750385169425E+05,  7.395951449472361E+04,  4.435673372349468E+04, -2.498703270865226E-01,  9.276160793824849E-01,  5.066065683829729E-01,
+$$EOE
+**************************************************************************************************************************************************************************************************
+ 
+TIME
+
+ Times PRIOR to 1962 are UT1, a mean-solar time closely related to the
+prior but now-deprecated GMT. Times AFTER 1962 are in UTC, the current
+civil or "wall-clock" atomic time-scale. UTC is kept within 0.9 seconds
+of UT1 using integer leap-seconds for 1972 and later years.
+
+  Conversion from the internal Barycentric Dynamical Time (TDB) of solar
+system dynamics to the discontinuous civil UT time-scale has not been
+determined for UTC times after the next July or January 1st. Therefore,
+the last known leap-second is used as a constant over future intervals,
+a condition noted here as "UT~".
+
+  Future but as yet undetermined leap-seconds can be expected to change
+time-tags in the "UT~" interval and, in general, the UT scale may not be
+suitable for purposes that assume time-tag continuity in the ephemeris.
+Output in continuous TDB and TT timescales may instead be requested,
+though these are not linked to Earth's rotation.
+
+  Time-tags refer to the UT time-scale conversion from TDB on Earth
+regardless of observer location within the solar system, although clock
+rates may differ due to the local gravity field and no analog to "UT"
+may be defined for that location.
+ 
+CALENDAR SYSTEM
+
+  Mixed calendar mode was active such that calendar dates after AD 1582-Oct-15
+(if any) are in the modern Gregorian system. Dates prior to 1582-Oct-5 (if any)
+are in the Julian calendar system, which is automatically extended for dates
+prior to its adoption on 45-Jan-1 BC.  The Julian calendar is useful for
+matching historical dates. The Gregorian calendar more accurately corresponds
+to the Earth's orbital motion and seasons. A "Gregorian-only" calendar mode is
+available if such physical events are the primary interest.
+
+REFERENCE FRAME AND COORDINATES
+
+  International Celestial Reference Frame (ICRF)
+
+    The ICRF is an adopted reference frame whose axes are defined relative to 
+    fixed extragalactic radio sources distributed across the sky.
+
+    The ICRF was aligned with the prior FK5/J2000 dynamical system at the ~0.02 
+    arcsecond level but is not identical and has no associated standard epoch.
+
+  Symbol meaning:
+
+    JDUT     Julian Day Number, Universal Time
+      X      X-component of position vector (km)
+      Y      Y-component of position vector (km)
+      Z      Z-component of position vector (km)
+      VX     X-component of velocity vector (km/sec)                           
+      VY     Y-component of velocity vector (km/sec)                           
+      VZ     Z-component of velocity vector (km/sec)                           
+
+ABERRATIONS AND CORRECTIONS
+
+ Geometric state vectors have NO corrections or aberrations applied.
+
+Computations by ...
+
+    Solar System Dynamics Group, Horizons On-Line Ephemeris System
+    4800 Oak Grove Drive, Jet Propulsion Laboratory
+    Pasadena, CA  91109   USA
+
+    General site: https://ssd.jpl.nasa.gov/
+    Mailing list: https://ssd.jpl.nasa.gov/email_list.html
+    System news : https://ssd.jpl.nasa.gov/horizons/news.html
+    User Guide  : https://ssd.jpl.nasa.gov/horizons/manual.html
+    Connect     : browser        https://ssd.jpl.nasa.gov/horizons/app.html#/x
+                  API            https://ssd-api.jpl.nasa.gov/doc/horizons.html
+                  command-line   telnet ssd.jpl.nasa.gov 6775
+                  e-mail/batch   https://ssd.jpl.nasa.gov/ftp/ssd/horizons_batch.txt
+                  scripts        https://ssd.jpl.nasa.gov/ftp/ssd/SCRIPTS
+    Inquiries   : Jon.D.Giorgini@jpl.nasa.gov
+*******************************************************************************

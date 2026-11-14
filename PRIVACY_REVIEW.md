@@ -12,11 +12,13 @@ Se reforzó la aplicación local y su compilación estática. Esta revisión no 
 | --- | --- | --- |
 | Cookies de aplicación | El código no crea cookies | Sin analítica ni publicidad incorporadas |
 | `moon-mission.language` en localStorage | Idioma elegido explícitamente; JSON con versión, idioma y caducidad | Vigencia de 180 días; borrado al volver a visitar tras caducar; borrado manual disponible |
-| Coordenadas, fecha y nombre del sitio | Estado temporal de la interfaz | No se persisten ni se transmiten a una API |
+| Coordenadas, altura y nombre del sitio | Mínimos geométricos locales en Web Worker; coordenadas y altura enviadas al servidor del mismo origen para candidatos de aterrizaje | El nombre permanece en la interfaz. Coordenadas y altura se usan temporalmente en el backend, no se envían a NASA/JPL ni se guardan en texto en los informes; su hash identifica el cálculo. Las URL de petición pueden aparecer en logs del hosting. Una descarga solicitada puede incluirlos |
+| Intervalo de efemérides | Consulta del navegador a `/api/ephemeris` y del servidor a NASA/JPL Horizons | Se guardan efemérides públicas, fechas, metadatos y respuestas originales en `data/horizons/`; no se envía el sitio del usuario |
+| Relieve y candidatos de aterrizaje | JPL para los marcos Tierra/Luna/Sol y posiciones históricas públicas; Moon Trek para DEM lunares numéricos | Se conservan respuestas, GeoTIFF, metadatos e informes en `data/landing/` y `data/terrain/`. Los puntos lunares consultados son públicos y no incluyen las coordenadas terrestres del usuario |
 | Public Sans | Tipografía local en `public/fonts/` | Se eliminó Google Fonts; se conserva la licencia SIL OFL |
 | Modelos, texturas e imágenes | Assets del proyecto | Servidos desde el mismo origen |
 | Cámara, micrófono, ubicación, pagos y USB | No utilizados | La aplicación no los solicita; Permissions-Policy los deshabilita en los servidores verificados |
-| Integración con OpenAI / API de lanzamientos | No implementada actualmente | Requiere nueva evaluación antes de incorporarla |
+| Integración con OpenAI / API de lanzamientos | No implementada actualmente | Horizons es una API de efemérides, no de programación de lanzamientos |
 
 No se guarda el idioma predeterminado al iniciar. Cambiar de idioma sigue funcionando si el navegador bloquea el almacenamiento. El control de borrado elimina exclusivamente la clave de esta aplicación, conserva el idioma de la sesión actual y no borra otros datos del navegador. Las antiguas preferencias sin caducidad se eliminan al cargar.
 

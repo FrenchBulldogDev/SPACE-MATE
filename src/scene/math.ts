@@ -1,5 +1,5 @@
-import { Vector3 } from 'three';
-import { SCENE_CONFIG } from '../config';
+import { Quaternion, Vector3 } from 'three';
+import { METERS_PER_SCENE_UNIT, PHYSICS, SCENE_CONFIG } from '../config';
 
 export const radians = (degrees: number) => degrees * Math.PI / 180;
 
@@ -10,17 +10,39 @@ export function surfaceDirection(latitude: number, longitude: number): Vector3 {
   return new Vector3(Math.cos(lat) * Math.cos(lon), Math.sin(lat), -Math.cos(lat) * Math.sin(lon));
 }
 
-export function lunarPosition(meanAnomaly: number): Vector3 {
-  const e = SCENE_CONFIG.orbitEccentricity;
-  let eccentricAnomaly = meanAnomaly;
-  for (let i = 0; i < 7; i++) {
-    eccentricAnomaly -= (eccentricAnomaly - e * Math.sin(eccentricAnomaly) - meanAnomaly) / (1 - e * Math.cos(eccentricAnomaly));
-  }
+// Trayectoria circular provisional; el siguiente motor podrá reemplazarla.
+export function lunarPosition(phase: number): Vector3 {
   const a = SCENE_CONFIG.orbitSemiMajorAxis;
-  const x = a * (Math.cos(eccentricAnomaly) - e);
-  const z = a * Math.sqrt(1 - e * e) * Math.sin(eccentricAnomaly);
+  const x = a * Math.cos(phase);
+  const z = -a * Math.sin(phase); // Movimiento progrado alrededor de +Y.
   const inclination = radians(SCENE_CONFIG.orbitInclinationDegrees);
   return new Vector3(x, z * Math.sin(inclination), z * Math.cos(inclination));
+}
+
+// Longitud lunar 0° (+X) hacia la Tierra; eje norte normal al plano orbital.
+// La inclinación se aplica al marco completo, sin perder el anclaje en latitud.
+export function lunarOrientation(phase: number): Quaternion {
+  const plane = new Quaternion().setFromAxisAngle(new Vector3(1, 0, 0), -radians(SCENE_CONFIG.orbitInclinationDegrees));
+  return plane.multiply(new Quaternion().setFromAxisAngle(new Vector3(0, 1, 0), phase + Math.PI));
+}
+
+// Traslación heliocéntrica circular de muestra, con origen visual en la Tierra
+// de la época inicial para conservar precisión y distancias locales pequeñas.
+export function earthPosition(seconds: number): Vector3 {
+  const radius = PHYSICS.earthSunDistanceMeters / METERS_PER_SCENE_UNIT;
+  const phase = seconds * PHYSICS.earthTranslationMetersPerSecond / PHYSICS.earthSunDistanceMeters;
+  return new Vector3(-2 * radius * Math.sin(phase / 2) ** 2, 0, -radius * Math.sin(phase));
+}
+
+export function bodyState(seconds: number) {
+  const phase = SCENE_CONFIG.initialMoonPhase + seconds * PHYSICS.moonRotationRadiansPerSecond;
+  const earth = earthPosition(seconds);
+  return {
+    earth,
+    moon: lunarPosition(phase).add(earth),
+    earthRotation: SCENE_CONFIG.initialEarthRotation + seconds * PHYSICS.earthRotationRadiansPerSecond,
+    moonOrientation: lunarOrientation(phase),
+  };
 }
 
 export function daysFromDate(date: string): number | null {

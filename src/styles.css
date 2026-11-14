@@ -230,6 +230,41 @@ input[type=date]::-webkit-calendar-picker-indicator { cursor: pointer; }
 .speed-picker svg { position: absolute; right: 0; pointer-events: none; color: #fff; }
 .scale-label { font-size: 9px; color: #aaa; letter-spacing: 1.5px; pointer-events: none; }
 .scene-reticle { display: none; }
+.view-mode-section { padding: 0 0 24px; }
+.height-label { margin-top: 14px; }
+.site-source { display: inline-block; margin: 10px 0; color: var(--orange); font-size: 12px; text-underline-offset: 3px; }
+.site-height-note { margin-top: 12px !important; }
+.orbital-analysis { border-top: 1px solid #ccc; padding: 24px 0; }
+.orbital-analysis h3 { font-size: 16px; margin: 0 0 12px; line-height: 1.4; }
+.orbital-analysis .analysis-heading { margin-top: 25px; }
+.analysis-status { display: flex; gap: 9px; align-items: center; font-size: 12px; line-height: 1.7; }
+.analysis-status svg { flex-shrink: 0; }
+.ephemeris-period { display: grid; gap: 5px; font-size: 12px; font-weight: 650; line-height: 1.6; }
+.ephemeris-period span { color: #777; }
+.analysis-actions { display: grid; gap: 14px; margin: 18px 0; }
+.daily-data, .minimum-list { margin: 20px 0; font-size: 12px; }
+.daily-data summary, .minimum-list summary { cursor: pointer; font-weight: 700; line-height: 1.6; }
+.data-scroll { overflow-x: auto; max-height: 340px; margin-top: 12px; }
+.data-scroll table { border-collapse: collapse; font-size: 10px; white-space: nowrap; }
+.data-scroll th, .data-scroll td { text-align: left; padding: 8px; border-bottom: 1px solid #ddd; }
+.data-scroll th { background: #f0f0f6; position: sticky; top: 0; }
+.minimum-heading { font-size: 12px; font-weight: 800; margin: 20px 0 10px; }
+.minimum-card { display: grid; gap: 9px; border: 1px solid #ccc; border-left: 3px solid var(--orange); padding: 14px; margin: 12px 0; }
+.minimum-card time { font-size: 11px; line-height: 1.6; }
+.minimum-card strong { font-size: 17px; font-variant-numeric: tabular-nums; }
+.minimum-card small { font-size: 11px; color: #666; line-height: 1.6; }
+.minimum-card .above-horizon { color: #245f24; }
+.minimum-card .text-button { margin-top: 5px; text-align: left; font-size: 11px; }
+.analysis-caveat { border-top: 1px solid #ccc; padding-top: 16px; margin: 20px 0 0; font-size: 11px; line-height: 1.7; color: #555; }
+.ephemeris-scene-state { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 100px 35px; color: #ddd; text-align: center; font-size: 14px; line-height: 1.7; }
+.ephemeris-scene-state p { max-width: 420px; }
+.scene-clock { position: absolute; left: 38px; top: 120px; display: grid; gap: 5px; pointer-events: none; }
+.scene-clock span { font-size: 9px; letter-spacing: 1px; color: #aaa; }
+.scene-clock time { font-size: 11px; color: #ddd; font-variant-numeric: tabular-nums; }
+.landing-analysis progress { width: 100%; height: 8px; accent-color: var(--orange); margin-top: 15px; }
+select:disabled { color: #666; background: #eee; cursor: not-allowed; }
+.landing-analysis .minimum-card { gap: 10px; }
+.speed-picker select { width: 94px; }
 .scene-state { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 14px; background: #000; text-align: center; z-index: 10; padding: 35px; color: var(--orange); }
 .scene-state strong { color: #fff; font-size: 23px; font-weight: 800; }
 .scene-state > span { font-size: 14px; line-height: 1.7; color: #bbb; max-width: 340px; }
@@ -315,7 +350,8 @@ input[type=date]::-webkit-calendar-picker-indicator { cursor: pointer; }
   .playback-text { display: none; }
   .playback-divider { margin: 0; }
   .play-toggle { width: 30px; height: 30px; }
-  .speed-picker select { width: 45px; font-size: 12px; }
+  .speed-picker select { width: 80px; font-size: 12px; }
+  .scene-clock { left: 22px; top: 110px; }
   .scale-label { display: none; }
   .scene-topography { right: 21px; bottom: 112px; }
 }

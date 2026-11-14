@@ -17,6 +17,7 @@ export default function PrivacyPanel({ open, onClose }: { open: boolean; onClose
     <p>{copy.overview}</p>
     <section><h3>{copy.languageTitle}</h3><p>{copy.languageInfo}</p><p className="privacy-status" role="status">{hasSavedLanguage ? copy.saved : copy.empty}</p><button className="button" disabled={!hasSavedLanguage} onClick={() => setClearError(!forgetLanguage())}>{copy.forget}</button>{clearError && <p role="alert">{copy.storageError}</p>}</section>
     <section><h3>{copy.permissionsTitle}</h3><p>{copy.permissionsInfo}</p></section>
+    <section><h3>{copy.ephemerisTitle}</h3><p>{copy.ephemerisInfo}</p></section>
     <section><h3>{copy.scopeTitle}</h3><p>{copy.scopeInfo}</p></section>
   </dialog>;
 }

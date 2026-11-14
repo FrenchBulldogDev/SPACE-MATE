@@ -1,0 +1,2661 @@
+{
+  "verifiedAt": "2026-11-14T18:49:00.948Z",
+  "ephemerisId": "ea770d664ee922b8485d91d8",
+  "reports": [
+    {
+      "site": {
+        "id": "kennedy",
+        "name": "NASA / SpaceX · Kennedy LC-39A",
+        "region": "Florida, USA",
+        "latitude": 28.608422,
+        "longitude": -80.604133,
+        "source": "https://www.nasa.gov/wp-content/uploads/2023/04/sp-4029.pdf"
+      },
+      "report": {
+        "ephemerisId": "ea770d664ee922b8485d91d8",
+        "minima": [
+          {
+            "time": 1794692665611.35,
+            "rhoMeters": 399276661.0249867,
+            "centerDistanceMeters": 401014061.0249867,
+            "radialVelocityMetersPerSecond": -1.3877401068581545e-9,
+            "curvatureMetersPerSecondSquared": 0.02545968993488427,
+            "elevationDegrees": 36.786615319869654,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1794782413136.9497,
+            "rhoMeters": 396980104.4755225,
+            "centerDistanceMeters": 398717504.4755225,
+            "radialVelocityMetersPerSecond": 3.1171606517455556e-9,
+            "curvatureMetersPerSecondSquared": 0.026157375180435233,
+            "elevationDegrees": 40.25916853871794,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1794871986003.35,
+            "rhoMeters": 393345637.196305,
+            "centerDistanceMeters": 395083037.196305,
+            "radialVelocityMetersPerSecond": 6.498491724362653e-10,
+            "curvatureMetersPerSecondSquared": 0.026844481760185144,
+            "elevationDegrees": 44.54504895754351,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1794961389190.42,
+            "rhoMeters": 388484137.70246065,
+            "centerDistanceMeters": 390221537.70246065,
+            "radialVelocityMetersPerSecond": 2.5680821657870484e-9,
+            "curvatureMetersPerSecondSquared": 0.027398768753444987,
+            "elevationDegrees": 49.474951897797276,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795050650320.7004,
+            "rhoMeters": 382625697.27970326,
+            "centerDistanceMeters": 384363097.27970326,
+            "radialVelocityMetersPerSecond": 9.152678782718823e-10,
+            "curvatureMetersPerSecondSquared": 0.027724370496418373,
+            "elevationDegrees": 54.89993925438371,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795139810793.1697,
+            "rhoMeters": 376122850.25103956,
+            "centerDistanceMeters": 377860250.25103956,
+            "radialVelocityMetersPerSecond": -2.704383950119349e-9,
+            "curvatureMetersPerSecondSquared": 0.027759367396209694,
+            "elevationDegrees": 60.67666795814843,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795228920855.6094,
+            "rhoMeters": 369439465.6784255,
+            "centerDistanceMeters": 371176865.6784255,
+            "radialVelocityMetersPerSecond": 1.6427550082217812e-9,
+            "curvatureMetersPerSecondSquared": 0.02747963682143034,
+            "elevationDegrees": 66.6423773031598,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795318036761.8967,
+            "rhoMeters": 363118577.62450165,
+            "centerDistanceMeters": 364855977.62450165,
+            "radialVelocityMetersPerSecond": -1.831777473645586e-11,
+            "curvatureMetersPerSecondSquared": 0.026913579859160514,
+            "elevationDegrees": 72.58676506788488,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795407216354.7437,
+            "rhoMeters": 357724839.2583583,
+            "centerDistanceMeters": 359462239.2583583,
+            "radialVelocityMetersPerSecond": -1.1430224602552153e-9,
+            "curvatureMetersPerSecondSquared": 0.02615864133617029,
+            "elevationDegrees": 78.23555352986172,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795496508608.4365,
+            "rhoMeters": 353764817.55748713,
+            "centerDistanceMeters": 355502217.55748713,
+            "radialVelocityMetersPerSecond": 2.4736145495955193e-9,
+            "curvatureMetersPerSecondSquared": 0.02538241410015891,
+            "elevationDegrees": 83.27495582714397,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795585935082.8713,
+            "rhoMeters": 351600630.7605724,
+            "centerDistanceMeters": 353338030.7605724,
+            "radialVelocityMetersPerSecond": -2.3042642397995306e-9,
+            "curvatureMetersPerSecondSquared": 0.024809173899584896,
+            "elevationDegrees": 87.42036172300513,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795675471273.4822,
+            "rhoMeters": 351383372.93132144,
+            "centerDistanceMeters": 353120772.93132144,
+            "radialVelocityMetersPerSecond": -1.0086328845192912e-9,
+            "curvatureMetersPerSecondSquared": 0.02463477899649233,
+            "elevationDegrees": 88.41813940214652,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795765048071.259,
+            "rhoMeters": 353031858.0521177,
+            "centerDistanceMeters": 354769258.0521177,
+            "radialVelocityMetersPerSecond": -5.147169301275176e-10,
+            "curvatureMetersPerSecondSquared": 0.024931727137445164,
+            "elevationDegrees": 85.2262132042182,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795854583253.48,
+            "rhoMeters": 356264994.1932899,
+            "centerDistanceMeters": 358002394.1932899,
+            "radialVelocityMetersPerSecond": 1.666841068497255e-9,
+            "curvatureMetersPerSecondSquared": 0.025609802210234622,
+            "elevationDegrees": 81.32264481495767,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795944019905.6465,
+            "rhoMeters": 360673423.9030419,
+            "centerDistanceMeters": 362410823.9030419,
+            "radialVelocityMetersPerSecond": 1.2516127900812684e-9,
+            "curvatureMetersPerSecondSquared": 0.02645462513929697,
+            "elevationDegrees": 76.5892254352227,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796033342189.4377,
+            "rhoMeters": 365803915.4118399,
+            "centerDistanceMeters": 367541315.4118399,
+            "radialVelocityMetersPerSecond": 1.8169618073183048e-9,
+            "curvatureMetersPerSecondSquared": 0.027235588262659073,
+            "elevationDegrees": 71.13570591151279,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796122568195.2812,
+            "rhoMeters": 371232285.76555926,
+            "centerDistanceMeters": 372969685.76555926,
+            "radialVelocityMetersPerSecond": 6.134541993048404e-10,
+            "curvatureMetersPerSecondSquared": 0.027767285442141545,
+            "elevationDegrees": 65.23391339094144,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796211736294.4424,
+            "rhoMeters": 376610900.55940706,
+            "centerDistanceMeters": 378348300.55940706,
+            "radialVelocityMetersPerSecond": 3.3445837445686895e-9,
+            "curvatureMetersPerSecondSquared": 0.027956108586481006,
+            "elevationDegrees": 59.1771144069079,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796300894908.5833,
+            "rhoMeters": 381687868.95377934,
+            "centerDistanceMeters": 383425268.95377934,
+            "radialVelocityMetersPerSecond": -2.8204215684278798e-9,
+            "curvatureMetersPerSecondSquared": 0.02778299907423879,
+            "elevationDegrees": 53.233853908616155,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796390096331.0498,
+            "rhoMeters": 386302640.8555167,
+            "centerDistanceMeters": 388040040.8555167,
+            "radialVelocityMetersPerSecond": -1.922094451208221e-9,
+            "curvatureMetersPerSecondSquared": 0.02729679142191695,
+            "elevationDegrees": 47.649530870243005,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796479391486.82,
+            "rhoMeters": 390365938.49137074,
+            "centerDistanceMeters": 392103338.49137074,
+            "radialVelocityMetersPerSecond": 1.3519148652770679e-9,
+            "curvatureMetersPerSecondSquared": 0.026601368526093627,
+            "elevationDegrees": 42.659642643279746,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796568822269.0586,
+            "rhoMeters": 393832251.8908319,
+            "centerDistanceMeters": 395569651.8908319,
+            "radialVelocityMetersPerSecond": 2.5444131265759045e-9,
+            "curvatureMetersPerSecondSquared": 0.02583653490006275,
+            "elevationDegrees": 38.49742958844388,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796658409933.1223,
+            "rhoMeters": 396672183.9153238,
+            "centerDistanceMeters": 398409583.9153238,
+            "radialVelocityMetersPerSecond": -2.9391707735136174e-9,
+            "curvatureMetersPerSecondSquared": 0.025155753407224046,
+            "elevationDegrees": 35.3869409039213,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796748142162.204,
+            "rhoMeters": 398850475.5134377,
+            "centerDistanceMeters": 400587875.5134377,
+            "radialVelocityMetersPerSecond": 1.6174006039172037e-9,
+            "curvatureMetersPerSecondSquared": 0.024705705148869137,
+            "elevationDegrees": 33.51761873628183,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796837967611.7666,
+            "rhoMeters": 400313369.3305172,
+            "centerDistanceMeters": 402050769.3305172,
+            "radialVelocityMetersPerSecond": -1.8597935988655077e-9,
+            "curvatureMetersPerSecondSquared": 0.024582711946002176,
+            "elevationDegrees": 33.00623161953784,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796927807525.66,
+            "rhoMeters": 400985972.629686,
+            "centerDistanceMeters": 402723372.629686,
+            "radialVelocityMetersPerSecond": 2.050742554659799e-11,
+            "curvatureMetersPerSecondSquared": 0.024807550513017224,
+            "elevationDegrees": 33.865012429392294,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1797017582521.0767,
+            "rhoMeters": 400777738.6880061,
+            "centerDistanceMeters": 402515138.6880061,
+            "radialVelocityMetersPerSecond": 1.929074347237976e-10,
+            "curvatureMetersPerSecondSquared": 0.025327287806129865,
+            "elevationDegrees": 35.997567996123664,
+            "aboveHorizon": true
+          }
+        ],
+        "global": {
+          "time": 1795675471273.4822,
+          "rhoMeters": 351383372.93132144,
+          "centerDistanceMeters": 353120772.93132144,
+          "radialVelocityMetersPerSecond": -1.0086328845192912e-9,
+          "curvatureMetersPerSecondSquared": 0.02463477899649233,
+          "elevationDegrees": 88.41813940214652,
+          "aboveHorizon": true
+        },
+        "globalIsBoundary": false,
+        "start": {
+          "time": 1794681240000,
+          "rhoMeters": 400864243.9426526,
+          "centerDistanceMeters": 402601643.9426526,
+          "radialVelocityMetersPerSecond": -263.71821967335507,
+          "curvatureMetersPerSecondSquared": 0.018107136900108286,
+          "elevationDegrees": 21.946508060297134,
+          "aboveHorizon": true
+        },
+        "stop": {
+          "time": 1797100440000,
+          "rhoMeters": 400187214.8611517,
+          "centerDistanceMeters": 401924614.8611517,
+          "radialVelocityMetersPerSecond": -171.6176714462137,
+          "curvatureMetersPerSecondSquared": 0.023456684465993208,
+          "elevationDegrees": 33.69151002168829,
+          "aboveHorizon": true
+        },
+        "rootToleranceSeconds": 0.01,
+        "interpolation": "cubic Hermite, position and velocity"
+      },
+      "convergence": {
+        "maxTimeChangeSeconds": 0.009502197265625,
+        "maxRangeChangeMeters": 0.05297142267227173
+      }
+    },
+    {
+      "site": {
+        "id": "kennedy39b",
+        "name": "NASA · Kennedy LC-39B",
+        "region": "Florida, USA",
+        "latitude": 28.627306,
+        "longitude": -80.620869,
+        "source": "https://www.nasa.gov/wp-content/uploads/2023/04/sp-4029.pdf"
+      },
+      "report": {
+        "ephemerisId": "ea770d664ee922b8485d91d8",
+        "minima": [
+          {
+            "time": 1794692669947.6475,
+            "rhoMeters": 399278259.37919444,
+            "centerDistanceMeters": 401015659.37919444,
+            "radialVelocityMetersPerSecond": -2.6231916219861387e-10,
+            "curvatureMetersPerSecondSquared": 0.025454936784646994,
+            "elevationDegrees": 36.76769605853021,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1794782417580.6306,
+            "rhoMeters": 396981553.7487044,
+            "centerDistanceMeters": 398718953.7487044,
+            "radialVelocityMetersPerSecond": 1.8313312059465056e-9,
+            "curvatureMetersPerSecondSquared": 0.02615250280273982,
+            "elevationDegrees": 40.2402926731512,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1794871990543.9622,
+            "rhoMeters": 393346908.43344104,
+            "centerDistanceMeters": 395084308.43344104,
+            "radialVelocityMetersPerSecond": 1.4386546882407515e-10,
+            "curvatureMetersPerSecondSquared": 0.026839561695426357,
+            "elevationDegrees": 44.52623492398648,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1794961393812.628,
+            "rhoMeters": 388485207.8950914,
+            "centerDistanceMeters": 390222607.8950914,
+            "radialVelocityMetersPerSecond": -1.8038112739033313e-10,
+            "curvatureMetersPerSecondSquared": 0.027393705419009127,
+            "elevationDegrees": 49.456247756771226,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795050655003.953,
+            "rhoMeters": 382626551.69161564,
+            "centerDistanceMeters": 384363951.69161564,
+            "radialVelocityMetersPerSecond": 9.732012853312767e-10,
+            "curvatureMetersPerSecondSquared": 0.027719106365781152,
+            "elevationDegrees": 54.881435419066186,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795139815510.6633,
+            "rhoMeters": 376123485.0392418,
+            "centerDistanceMeters": 377860885.0392418,
+            "radialVelocityMetersPerSecond": 2.526141966258546e-9,
+            "curvatureMetersPerSecondSquared": 0.027754111847481125,
+            "elevationDegrees": 60.6585147262369,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795228925573.8372,
+            "rhoMeters": 369439890.5800045,
+            "centerDistanceMeters": 371177290.5800045,
+            "radialVelocityMetersPerSecond": -2.4086477326197467e-9,
+            "curvatureMetersPerSecondSquared": 0.027474456173019905,
+            "elevationDegrees": 66.62480961784746,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795318041440.2815,
+            "rhoMeters": 363118818.2888634,
+            "centerDistanceMeters": 364856218.2888634,
+            "radialVelocityMetersPerSecond": -6.611332212612971e-10,
+            "curvatureMetersPerSecondSquared": 0.026908557013856606,
+            "elevationDegrees": 72.57013756486336,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795407220946.664,
+            "rhoMeters": 357724938.52006555,
+            "centerDistanceMeters": 359462338.52006555,
+            "radialVelocityMetersPerSecond": -8.11559730825937e-10,
+            "curvatureMetersPerSecondSquared": 0.026153896721611065,
+            "elevationDegrees": 78.22036826858881,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795496513066.71,
+            "rhoMeters": 353764834.64028054,
+            "centerDistanceMeters": 355502234.64028054,
+            "radialVelocityMetersPerSecond": 2.4578943284384238e-9,
+            "curvatureMetersPerSecondSquared": 0.02537783147715688,
+            "elevationDegrees": 83.26171140783656,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795585939368.4883,
+            "rhoMeters": 351600637.2691156,
+            "centerDistanceMeters": 353338037.2691156,
+            "radialVelocityMetersPerSecond": -1.011412129158139e-9,
+            "curvatureMetersPerSecondSquared": 0.024804785312127844,
+            "elevationDegrees": 87.40754664873107,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795675475370.0327,
+            "rhoMeters": 351383444.9582648,
+            "centerDistanceMeters": 353120844.9582648,
+            "radialVelocityMetersPerSecond": -1.5336343730997858e-9,
+            "curvatureMetersPerSecondSquared": 0.02463035445223866,
+            "elevationDegrees": 88.40548467532496,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795765051993.6826,
+            "rhoMeters": 353032065.42223245,
+            "centerDistanceMeters": 354769465.42223245,
+            "radialVelocityMetersPerSecond": -3.615349647114009e-10,
+            "curvatureMetersPerSecondSquared": 0.024927325920568223,
+            "elevationDegrees": 85.21527820599418,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795854587041.709,
+            "rhoMeters": 356265390.3188217,
+            "centerDistanceMeters": 358002790.3188217,
+            "radialVelocityMetersPerSecond": 1.0427681400922508e-9,
+            "curvatureMetersPerSecondSquared": 0.02560512562451932,
+            "elevationDegrees": 81.30840755879902,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795944023609.5159,
+            "rhoMeters": 360674040.23326033,
+            "centerDistanceMeters": 362411440.23326033,
+            "radialVelocityMetersPerSecond": 7.019284537257894e-10,
+            "curvatureMetersPerSecondSquared": 0.026449748319223542,
+            "elevationDegrees": 76.57258536889347,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796033345853.931,
+            "rhoMeters": 365804761.7026384,
+            "centerDistanceMeters": 367542161.7026384,
+            "radialVelocityMetersPerSecond": -3.291140444762947e-9,
+            "curvatureMetersPerSecondSquared": 0.027230469527966258,
+            "elevationDegrees": 71.11770326014714,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796122571855.4504,
+            "rhoMeters": 371233354.2402895,
+            "centerDistanceMeters": 372970754.2402895,
+            "radialVelocityMetersPerSecond": 4.794928837625389e-10,
+            "curvatureMetersPerSecondSquared": 0.027762106402427104,
+            "elevationDegrees": 65.21520174463998,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796211739974.021,
+            "rhoMeters": 376612171.22779137,
+            "centerDistanceMeters": 378349571.22779137,
+            "radialVelocityMetersPerSecond": -2.7413825906251964e-9,
+            "curvatureMetersPerSecondSquared": 0.027950908394951058,
+            "elevationDegrees": 59.158053683567644,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796300898623.252,
+            "rhoMeters": 381689314.30773973,
+            "centerDistanceMeters": 383426714.30773973,
+            "radialVelocityMetersPerSecond": 3.19680996223989e-9,
+            "curvatureMetersPerSecondSquared": 0.027777855295085186,
+            "elevationDegrees": 53.21463735614438,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796390100091.3184,
+            "rhoMeters": 386304229.32043463,
+            "centerDistanceMeters": 388041629.32043463,
+            "radialVelocityMetersPerSecond": 1.0360510688718712e-9,
+            "curvatureMetersPerSecondSquared": 0.027291622746618203,
+            "elevationDegrees": 47.63026284518845,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796479395300.1855,
+            "rhoMeters": 390367636.7045046,
+            "centerDistanceMeters": 392105036.7045046,
+            "radialVelocityMetersPerSecond": 2.5554543731016743e-9,
+            "curvatureMetersPerSecondSquared": 0.02659644942647704,
+            "elevationDegrees": 42.64038055468084,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796568826141.93,
+            "rhoMeters": 393834026.1088108,
+            "centerDistanceMeters": 395571426.1088108,
+            "radialVelocityMetersPerSecond": 1.95408385264789e-9,
+            "curvatureMetersPerSecondSquared": 0.025831786135420774,
+            "elevationDegrees": 38.478205895910996,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796658413872.074,
+            "rhoMeters": 396674000.78927815,
+            "centerDistanceMeters": 398411400.78927815,
+            "radialVelocityMetersPerSecond": -2.2918455139157495e-9,
+            "curvatureMetersPerSecondSquared": 0.025151082845089264,
+            "elevationDegrees": 35.367773894849066,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796748146173.078,
+            "rhoMeters": 398852302.3328539,
+            "centerDistanceMeters": 400589702.3328539,
+            "radialVelocityMetersPerSecond": -2.9731596792003367e-9,
+            "curvatureMetersPerSecondSquared": 0.02470116050316755,
+            "elevationDegrees": 33.498516716317226,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796837971699.6565,
+            "rhoMeters": 400315173.76644915,
+            "centerDistanceMeters": 402052573.76644915,
+            "radialVelocityMetersPerSecond": -2.8909363370574656e-9,
+            "curvatureMetersPerSecondSquared": 0.024578114255735008,
+            "elevationDegrees": 32.98719465786702,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796927811694.6313,
+            "rhoMeters": 400987722.14056146,
+            "centerDistanceMeters": 402725122.14056146,
+            "radialVelocityMetersPerSecond": -2.786771788826947e-9,
+            "curvatureMetersPerSecondSquared": 0.02480301150684322,
+            "elevationDegrees": 33.84603357954879,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1797017586773.2415,
+            "rhoMeters": 400779400.0101298,
+            "centerDistanceMeters": 402516800.0101298,
+            "radialVelocityMetersPerSecond": -2.689945893087416e-9,
+            "curvatureMetersPerSecondSquared": 0.025322709986249022,
+            "elevationDegrees": 35.97863616517743,
+            "aboveHorizon": true
+          }
+        ],
+        "global": {
+          "time": 1795675475370.0327,
+          "rhoMeters": 351383444.9582648,
+          "centerDistanceMeters": 353120844.9582648,
+          "radialVelocityMetersPerSecond": -1.5336343730997858e-9,
+          "curvatureMetersPerSecondSquared": 0.02463035445223866,
+          "elevationDegrees": 88.40548467532496,
+          "aboveHorizon": true
+        },
+        "globalIsBoundary": false,
+        "start": {
+          "time": 1794681240000,
+          "rhoMeters": 400866700.4436519,
+          "centerDistanceMeters": 402604100.4436519,
+          "radialVelocityMetersPerSecond": -263.74988585826463,
+          "curvatureMetersPerSecondSquared": 0.018098549352609367,
+          "elevationDegrees": 21.9225246148406,
+          "aboveHorizon": true
+        },
+        "stop": {
+          "time": 1797100440000,
+          "rhoMeters": 400189391.16477025,
+          "centerDistanceMeters": 401926791.16477025,
+          "radialVelocityMetersPerSecond": -171.68854398366602,
+          "curvatureMetersPerSecondSquared": 0.023449047128538163,
+          "elevationDegrees": 33.66774167360259,
+          "aboveHorizon": true
+        },
+        "rootToleranceSeconds": 0.01,
+        "interpolation": "cubic Hermite, position and velocity"
+      },
+      "convergence": {
+        "maxTimeChangeSeconds": 0.009565185546875,
+        "maxRangeChangeMeters": 0.052907586097717285
+      }
+    },
+    {
+      "site": {
+        "id": "canaveral40",
+        "name": "SpaceX · Cape Canaveral SLC-40",
+        "region": "Florida, USA",
+        "latitude": 28.562,
+        "longitude": -80.5772,
+        "source": "https://www.spacex.com/media/falcon-users-guide-2025-05-09.pdf"
+      },
+      "report": {
+        "ephemerisId": "ea770d664ee922b8485d91d8",
+        "minima": [
+          {
+            "time": 1794692658497.454,
+            "rhoMeters": 399272669.72592574,
+            "centerDistanceMeters": 401010069.72592574,
+            "radialVelocityMetersPerSecond": -1.906787050579727e-9,
+            "curvatureMetersPerSecondSquared": 0.025471331232011507,
+            "elevationDegrees": 36.833242850205615,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1794782405753.0112,
+            "rhoMeters": 396976426.25534683,
+            "centerDistanceMeters": 398713826.25534683,
+            "radialVelocityMetersPerSecond": -2.057090513741624e-9,
+            "curvatureMetersPerSecondSquared": 0.026169337188818458,
+            "elevationDegrees": 40.30572487665736,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1794871978374.4502,
+            "rhoMeters": 393342345.41357607,
+            "centerDistanceMeters": 395079745.41357607,
+            "radialVelocityMetersPerSecond": -1.5916146159489176e-10,
+            "curvatureMetersPerSecondSquared": 0.0268566496002948,
+            "elevationDegrees": 44.59148148326563,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1794961381354.9946,
+            "rhoMeters": 388481295.6022851,
+            "centerDistanceMeters": 390218695.6022851,
+            "radialVelocityMetersPerSecond": 1.0503503231058731e-9,
+            "curvatureMetersPerSecondSquared": 0.027411284557549237,
+            "elevationDegrees": 49.52113585005362,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795050642330.738,
+            "rhoMeters": 382623352.6034888,
+            "centerDistanceMeters": 384360752.6034888,
+            "radialVelocityMetersPerSecond": -1.4856011469292788e-9,
+            "curvatureMetersPerSecondSquared": 0.02773729457507392,
+            "elevationDegrees": 54.9456459597851,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795139802716.1372,
+            "rhoMeters": 376121028.68369615,
+            "centerDistanceMeters": 377858428.68369615,
+            "radialVelocityMetersPerSecond": 3.2614126435340147e-10,
+            "curvatureMetersPerSecondSquared": 0.027772286637750106,
+            "elevationDegrees": 60.72152096650049,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795228912775.8442,
+            "rhoMeters": 369438163.4328367,
+            "centerDistanceMeters": 371175563.4328367,
+            "radialVelocityMetersPerSecond": 3.207434318207203e-9,
+            "curvatureMetersPerSecondSquared": 0.027492369821504832,
+            "elevationDegrees": 66.6857892758441,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795318028781.2844,
+            "rhoMeters": 363117753.9500219,
+            "centerDistanceMeters": 364855153.9500219,
+            "radialVelocityMetersPerSecond": -2.4033769317928695e-9,
+            "curvatureMetersPerSecondSquared": 0.026925918922303338,
+            "elevationDegrees": 72.6278485979161,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795407208589.7446,
+            "rhoMeters": 357724410.5474702,
+            "centerDistanceMeters": 359461810.5474702,
+            "radialVelocityMetersPerSecond": -8.701405223583563e-10,
+            "curvatureMetersPerSecondSquared": 0.026170336250479,
+            "elevationDegrees": 78.27304736779564,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795496501176.7664,
+            "rhoMeters": 353764655.8817078,
+            "centerDistanceMeters": 355502055.8817078,
+            "radialVelocityMetersPerSecond": -2.4571122414543726e-9,
+            "curvatureMetersPerSecondSquared": 0.025393657282680386,
+            "elevationDegrees": 83.30757652078834,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795585928080.107,
+            "rhoMeters": 351600570.5157513,
+            "centerDistanceMeters": 353337970.5157513,
+            "radialVelocityMetersPerSecond": 2.6887810706234914e-9,
+            "curvatureMetersPerSecondSquared": 0.024819964301625492,
+            "elevationDegrees": 87.45166820401549,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795675464737.9082,
+            "rhoMeters": 351383228.37891203,
+            "centerDistanceMeters": 353120628.37891203,
+            "radialVelocityMetersPerSecond": 1.7201067762251876e-9,
+            "curvatureMetersPerSecondSquared": 0.024645593876481322,
+            "elevationDegrees": 88.44856655872543,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795765041963.1072,
+            "rhoMeters": 353031450.00159,
+            "centerDistanceMeters": 354768850.00159,
+            "radialVelocityMetersPerSecond": -2.423287384611857e-9,
+            "curvatureMetersPerSecondSquared": 0.024942590683504236,
+            "elevationDegrees": 85.2527258162105,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795854577471.6912,
+            "rhoMeters": 356264177.1456058,
+            "centerDistanceMeters": 358001577.1456058,
+            "radialVelocityMetersPerSecond": 2.5200120097762947e-9,
+            "curvatureMetersPerSecondSquared": 0.025621267023299733,
+            "elevationDegrees": 81.35738605522086,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795944014326.5632,
+            "rhoMeters": 360672102.9522911,
+            "centerDistanceMeters": 362409502.9522911,
+            "radialVelocityMetersPerSecond": 6.860801544880286e-11,
+            "curvatureMetersPerSecondSquared": 0.026466600802123905,
+            "elevationDegrees": 76.62989462639946,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796033336702.5515,
+            "rhoMeters": 365802048.8189086,
+            "centerDistanceMeters": 367539448.8189086,
+            "radialVelocityMetersPerSecond": 3.221656477290632e-9,
+            "curvatureMetersPerSecondSquared": 0.0272479762837558,
+            "elevationDegrees": 71.17972109105418,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796122562716.1128,
+            "rhoMeters": 371229877.1625173,
+            "centerDistanceMeters": 372967277.1625173,
+            "radialVelocityMetersPerSecond": -2.085186003868526e-9,
+            "curvatureMetersPerSecondSquared": 0.027780013183408243,
+            "elevationDegrees": 65.27966785593887,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796211730766.255,
+            "rhoMeters": 376607987.18330526,
+            "centerDistanceMeters": 378345387.18330526,
+            "radialVelocityMetersPerSecond": 1.4502113700999977e-9,
+            "curvatureMetersPerSecondSquared": 0.027968907324458253,
+            "elevationDegrees": 59.22372960454624,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796300889294.8257,
+            "rhoMeters": 381684510.3534676,
+            "centerDistanceMeters": 383421910.3534676,
+            "radialVelocityMetersPerSecond": 3.0471560791928297e-9,
+            "curvatureMetersPerSecondSquared": 0.027795677535452284,
+            "elevationDegrees": 53.280863012826,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796390090608.1218,
+            "rhoMeters": 386298909.87309027,
+            "centerDistanceMeters": 388036309.87309027,
+            "radialVelocityMetersPerSecond": 1.8035341362407999e-9,
+            "curvatureMetersPerSecondSquared": 0.02730941370845082,
+            "elevationDegrees": 47.696686111449736,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796479385638.0972,
+            "rhoMeters": 390361914.6727144,
+            "centerDistanceMeters": 392099314.6727144,
+            "radialVelocityMetersPerSecond": -2.2862928443783323e-10,
+            "curvatureMetersPerSecondSquared": 0.02661347888242285,
+            "elevationDegrees": 42.706811732314065,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796568816280.1047,
+            "rhoMeters": 393828016.8964251,
+            "centerDistanceMeters": 395565416.8964251,
+            "radialVelocityMetersPerSecond": 2.435910649820657e-9,
+            "curvatureMetersPerSecondSquared": 0.02584824162876627,
+            "elevationDegrees": 38.54454169778943,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796658403788.3242,
+            "rhoMeters": 396667818.6014448,
+            "centerDistanceMeters": 398405218.6014448,
+            "radialVelocityMetersPerSecond": 1.9073044991364305e-9,
+            "curvatureMetersPerSecondSquared": 0.02516721456771531,
+            "elevationDegrees": 35.43395947117939,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796748135845.7207,
+            "rhoMeters": 398846058.6324268,
+            "centerDistanceMeters": 400583458.6324268,
+            "radialVelocityMetersPerSecond": 2.576055449066619e-9,
+            "curvatureMetersPerSecondSquared": 0.024716886100283764,
+            "elevationDegrees": 33.56452952181417,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796837961108.3523,
+            "rhoMeters": 400308977.86147064,
+            "centerDistanceMeters": 402046377.86147064,
+            "radialVelocityMetersPerSecond": -4.79702295321387e-10,
+            "curvatureMetersPerSecondSquared": 0.02459395060891298,
+            "elevationDegrees": 33.05303710708983,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796927800822.2253,
+            "rhoMeters": 400981683.3038816,
+            "centerDistanceMeters": 402719083.3038816,
+            "radialVelocityMetersPerSecond": -4.4587312207090454e-10,
+            "curvatureMetersPerSecondSquared": 0.024818727366316216,
+            "elevationDegrees": 33.91172793626522,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1797017575609.4785,
+            "rhoMeters": 400773629.5792029,
+            "centerDistanceMeters": 402511029.5792029,
+            "radialVelocityMetersPerSecond": 1.7432167552794917e-9,
+            "curvatureMetersPerSecondSquared": 0.02533860782677432,
+            "elevationDegrees": 36.04421507742834,
+            "aboveHorizon": true
+          }
+        ],
+        "global": {
+          "time": 1795675464737.9082,
+          "rhoMeters": 351383228.37891203,
+          "centerDistanceMeters": 353120628.37891203,
+          "radialVelocityMetersPerSecond": 1.7201067762251876e-9,
+          "curvatureMetersPerSecondSquared": 0.024645593876481322,
+          "elevationDegrees": 88.44856655872543,
+          "aboveHorizon": true
+        },
+        "globalIsBoundary": false,
+        "start": {
+          "time": 1794681240000,
+          "rhoMeters": 400859079.32319677,
+          "centerDistanceMeters": 402596479.32319677,
+          "radialVelocityMetersPerSecond": -263.7047466997437,
+          "curvatureMetersPerSecondSquared": 0.018123760757423054,
+          "elevationDegrees": 21.99697094524536,
+          "aboveHorizon": true
+        },
+        "stop": {
+          "time": 1797100440000,
+          "rhoMeters": 400182407.3215743,
+          "centerDistanceMeters": 401919807.3215743,
+          "radialVelocityMetersPerSecond": -171.52640541678915,
+          "curvatureMetersPerSecondSquared": 0.023472617085521248,
+          "elevationDegrees": 33.74406066504304,
+          "aboveHorizon": true
+        },
+        "rootToleranceSeconds": 0.01,
+        "interpolation": "cubic Hermite, position and velocity"
+      },
+      "convergence": {
+        "maxTimeChangeSeconds": 0.0095078125,
+        "maxRangeChangeMeters": 0.05298846960067749
+      }
+    },
+    {
+      "site": {
+        "id": "vandenberg",
+        "name": "SpaceX · Vandenberg SLC-4E",
+        "region": "California, USA",
+        "latitude": 34.632,
+        "longitude": -120.6107,
+        "source": "https://www.spacex.com/media/falcon-users-guide-2025-05-09.pdf"
+      },
+      "report": {
+        "ephemerisId": "ea770d664ee922b8485d91d8",
+        "minima": [
+          {
+            "time": 1794702710062.7454,
+            "rhoMeters": 399640263.3473812,
+            "centerDistanceMeters": 401377663.3473812,
+            "radialVelocityMetersPerSecond": 6.138069720882799e-10,
+            "curvatureMetersPerSecondSquared": 0.023888199584118065,
+            "elevationDegrees": 31.05023909353129,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1794792480917.465,
+            "rhoMeters": 397166154.5965052,
+            "centerDistanceMeters": 398903554.5965052,
+            "radialVelocityMetersPerSecond": -1.8549840137307159e-9,
+            "curvatureMetersPerSecondSquared": 0.024538124649817014,
+            "elevationDegrees": 34.62036351249238,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1794882072395.8423,
+            "rhoMeters": 393351079.5936872,
+            "centerDistanceMeters": 395088479.5936872,
+            "radialVelocityMetersPerSecond": -2.87637140111498e-9,
+            "curvatureMetersPerSecondSquared": 0.025158583604384638,
+            "elevationDegrees": 38.99057709360159,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1794971490180.3977,
+            "rhoMeters": 388318827.34746146,
+            "centerDistanceMeters": 390056227.34746146,
+            "radialVelocityMetersPerSecond": 2.4833424531220127e-9,
+            "curvatureMetersPerSecondSquared": 0.025643211542843283,
+            "elevationDegrees": 44.00228580620238,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795060761480.5232,
+            "rhoMeters": 382313930.22317946,
+            "centerDistanceMeters": 384051330.22317946,
+            "radialVelocityMetersPerSecond": -2.628372439314365e-9,
+            "curvatureMetersPerSecondSquared": 0.02591073077614827,
+            "elevationDegrees": 49.519316027622025,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795149926396.5776,
+            "rhoMeters": 375703884.04211855,
+            "centerDistanceMeters": 377441284.04211855,
+            "radialVelocityMetersPerSecond": -3.64044425761543e-11,
+            "curvatureMetersPerSecondSquared": 0.025907411862668026,
+            "elevationDegrees": 55.41176830420379,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795239033303.6619,
+            "rhoMeters": 368966300.4453337,
+            "centerDistanceMeters": 370703700.4453337,
+            "radialVelocityMetersPerSecond": 1.6499661558153505e-10,
+            "curvatureMetersPerSecondSquared": 0.02562227726515705,
+            "elevationDegrees": 61.529144219298345,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795328136259.6973,
+            "rhoMeters": 362654271.78811413,
+            "centerDistanceMeters": 364391671.78811413,
+            "radialVelocityMetersPerSecond": -2.6502073887630013e-9,
+            "curvatureMetersPerSecondSquared": 0.025088911151776916,
+            "elevationDegrees": 67.66661908013485,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795417290873.0842,
+            "rhoMeters": 357336022.99515307,
+            "centerDistanceMeters": 359073422.99515307,
+            "radialVelocityMetersPerSecond": -1.471024692320827e-9,
+            "curvatureMetersPerSecondSquared": 0.024400855358901703,
+            "elevationDegrees": 73.5260485003656,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795506544410.7195,
+            "rhoMeters": 353512992.3139819,
+            "centerDistanceMeters": 355250392.3139819,
+            "radialVelocityMetersPerSecond": 3.323427163642487e-11,
+            "curvatureMetersPerSecondSquared": 0.023717974541039372,
+            "elevationDegrees": 78.64759754681418,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795595918598.7512,
+            "rhoMeters": 351533065.8141976,
+            "centerDistanceMeters": 353270465.8141976,
+            "radialVelocityMetersPerSecond": 2.653806459396695e-9,
+            "curvatureMetersPerSecondSquared": 0.023233763795292385,
+            "elevationDegrees": 82.16895033209073,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795685392932.3137,
+            "rhoMeters": 351526165.2261134,
+            "centerDistanceMeters": 353263565.2261134,
+            "radialVelocityMetersPerSecond": -1.4629976580939483e-9,
+            "curvatureMetersPerSecondSquared": 0.023117826733855953,
+            "elevationDegrees": 82.60999460441417,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795774906686.1023,
+            "rhoMeters": 353387304.3437412,
+            "centerDistanceMeters": 355124704.3437412,
+            "radialVelocityMetersPerSecond": -1.2871639839665888e-9,
+            "curvatureMetersPerSecondSquared": 0.02342515339672374,
+            "elevationDegrees": 79.94387399133812,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795864387328.1511,
+            "rhoMeters": 356813985.3904318,
+            "centerDistanceMeters": 358551385.3904318,
+            "radialVelocityMetersPerSecond": 2.279830037113371e-9,
+            "curvatureMetersPerSecondSquared": 0.02406345637018527,
+            "elevationDegrees": 75.65329880450768,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795953784428.1562,
+            "rhoMeters": 361381845.82677585,
+            "centerDistanceMeters": 363119245.82677585,
+            "radialVelocityMetersPerSecond": -1.0657894656919617e-9,
+            "curvatureMetersPerSecondSquared": 0.024835761360793754,
+            "elevationDegrees": 70.4606236354696,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796043083859.191,
+            "rhoMeters": 366630736.73316324,
+            "centerDistanceMeters": 368368136.73316324,
+            "radialVelocityMetersPerSecond": -2.2533617816936294e-9,
+            "curvatureMetersPerSecondSquared": 0.025531808058070107,
+            "elevationDegrees": 64.69148547964055,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796132302211.812,
+            "rhoMeters": 372136803.93772846,
+            "centerDistanceMeters": 373874203.93772846,
+            "radialVelocityMetersPerSecond": 1.4921658223119357e-9,
+            "curvatureMetersPerSecondSquared": 0.025992980305079103,
+            "elevationDegrees": 58.614456862769444,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796221475280.7957,
+            "rhoMeters": 377557542.9386134,
+            "centerDistanceMeters": 379294942.9386134,
+            "radialVelocityMetersPerSecond": 1.5328388133769608e-9,
+            "curvatureMetersPerSecondSquared": 0.026131694129010164,
+            "elevationDegrees": 52.482513382345886,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796310649148.6023,
+            "rhoMeters": 382648199.7964495,
+            "centerDistanceMeters": 384385599.7964495,
+            "radialVelocityMetersPerSecond": 1.7783466971145371e-9,
+            "curvatureMetersPerSecondSquared": 0.025936027445294364,
+            "elevationDegrees": 46.531673351110044,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796399874341.1436,
+            "rhoMeters": 387255082.63199407,
+            "centerDistanceMeters": 388992482.63199407,
+            "radialVelocityMetersPerSecond": 2.6752822209062643e-9,
+            "curvatureMetersPerSecondSquared": 0.025459359075066152,
+            "elevationDegrees": 40.9873795314507,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796489200329.2253,
+            "rhoMeters": 391294050.06992656,
+            "centerDistanceMeters": 393031450.06992656,
+            "radialVelocityMetersPerSecond": -1.1127736506228542e-9,
+            "curvatureMetersPerSecondSquared": 0.024799201783635483,
+            "elevationDegrees": 36.07421220078763,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796578667289.1626,
+            "rhoMeters": 394722408.77124774,
+            "centerDistanceMeters": 396459808.77124774,
+            "radialVelocityMetersPerSecond": 2.445502508907944e-9,
+            "curvatureMetersPerSecondSquared": 0.02409000039776073,
+            "elevationDegrees": 32.01918074915924,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796668293794.8694,
+            "rhoMeters": 397511360.49255425,
+            "centerDistanceMeters": 399248760.49255425,
+            "radialVelocityMetersPerSecond": 2.108862920309865e-9,
+            "curvatureMetersPerSecondSquared": 0.023475649518705947,
+            "elevationDegrees": 29.040786826434385,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796758063823.161,
+            "rhoMeters": 399624610.97472376,
+            "centerDistanceMeters": 401362010.97472376,
+            "radialVelocityMetersPerSecond": 1.0246007297189618e-9,
+            "curvatureMetersPerSecondSquared": 0.023088748015263068,
+            "elevationDegrees": 27.320514884520083,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796847922351.906,
+            "rhoMeters": 401006529.13852346,
+            "centerDistanceMeters": 402743929.13852346,
+            "radialVelocityMetersPerSecond": -5.941308874451724e-10,
+            "curvatureMetersPerSecondSquared": 0.023012161217166035,
+            "elevationDegrees": 26.963666776880487,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796937788818.1438,
+            "rhoMeters": 401580281.24694645,
+            "centerDistanceMeters": 403317681.24694645,
+            "radialVelocityMetersPerSecond": -4.678072287197574e-10,
+            "curvatureMetersPerSecondSquared": 0.02325962806387042,
+            "elevationDegrees": 27.969425102287964,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1797027584821.1953,
+            "rhoMeters": 401254009.53004235,
+            "centerDistanceMeters": 402991409.53004235,
+            "radialVelocityMetersPerSecond": 2.8719129858294217e-9,
+            "curvatureMetersPerSecondSquared": 0.023769496103561858,
+            "elevationDegrees": 30.23066416157931,
+            "aboveHorizon": true
+          }
+        ],
+        "global": {
+          "time": 1795685392932.3137,
+          "rhoMeters": 351526165.2261134,
+          "centerDistanceMeters": 353263565.2261134,
+          "radialVelocityMetersPerSecond": -1.4629976580939483e-9,
+          "curvatureMetersPerSecondSquared": 0.023117826733855953,
+          "elevationDegrees": 82.60999460441417,
+          "aboveHorizon": true
+        },
+        "globalIsBoundary": false,
+        "start": {
+          "time": 1794681240000,
+          "rhoMeters": 404263184.4648709,
+          "centerDistanceMeters": 406000584.4648709,
+          "radialVelocityMetersPerSecond": -349.43670369926764,
+          "curvatureMetersPerSecondSquared": 0.0021689988383680275,
+          "elevationDegrees": -9.198480661378001,
+          "aboveHorizon": false
+        },
+        "stop": {
+          "time": 1797100440000,
+          "rhoMeters": 403049909.75267744,
+          "centerDistanceMeters": 404787309.75267744,
+          "radialVelocityMetersPerSecond": -328.7648238055476,
+          "curvatureMetersPerSecondSquared": 0.009890894146476705,
+          "elevationDegrees": 5.94879780051343,
+          "aboveHorizon": true
+        },
+        "rootToleranceSeconds": 0.01,
+        "interpolation": "cubic Hermite, position and velocity"
+      },
+      "convergence": {
+        "maxTimeChangeSeconds": 0.00967431640625,
+        "maxRangeChangeMeters": 0.046879708766937256
+      }
+    },
+    {
+      "site": {
+        "id": "starbase",
+        "name": "SpaceX · Starbase / Boca Chica",
+        "region": "Texas, USA",
+        "latitude": 25.99703611111111,
+        "longitude": -97.15481666666668,
+        "source": "https://www.faa.gov/sites/faa.gov/files/2022-06/AppendixD_EndangeredSpeciesActSection7Consultation.pdf",
+        "coordinateNote": "Facility reference point"
+      },
+      "report": {
+        "ephemerisId": "ea770d664ee922b8485d91d8",
+        "minima": [
+          {
+            "time": 1794696773507.695,
+            "rhoMeters": 398974000.0776311,
+            "centerDistanceMeters": 400711400.0776311,
+            "radialVelocityMetersPerSecond": -6.760399418848878e-10,
+            "curvatureMetersPerSecondSquared": 0.026114145028140558,
+            "elevationDegrees": 39.561979803505984,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1794786498410.2915,
+            "rhoMeters": 396627497.6072002,
+            "centerDistanceMeters": 398364897.6072002,
+            "radialVelocityMetersPerSecond": 1.963976131155196e-9,
+            "curvatureMetersPerSecondSquared": 0.026835508853671204,
+            "elevationDegrees": 43.07510870363445,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1794876049548.2266,
+            "rhoMeters": 392950113.63505983,
+            "centerDistanceMeters": 394687513.63505983,
+            "radialVelocityMetersPerSecond": 2.0155615272617842e-10,
+            "curvatureMetersPerSecondSquared": 0.027539016255978852,
+            "elevationDegrees": 47.388852692582596,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1794965434023.6094,
+            "rhoMeters": 388057875.62822473,
+            "centerDistanceMeters": 389795275.62822473,
+            "radialVelocityMetersPerSecond": -2.913219202570102e-9,
+            "curvatureMetersPerSecondSquared": 0.028102878614496882,
+            "elevationDegrees": 52.330563803826074,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795054681044.6743,
+            "rhoMeters": 382186124.42539155,
+            "centerDistanceMeters": 383923524.42539155,
+            "radialVelocityMetersPerSecond": -3.448989431117576e-9,
+            "curvatureMetersPerSecondSquared": 0.028428629983551744,
+            "elevationDegrees": 57.74536251601864,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795143833332.4856,
+            "rhoMeters": 375692116.3833175,
+            "centerDistanceMeters": 377429516.3833175,
+            "radialVelocityMetersPerSecond": -1.5938027334203546e-9,
+            "curvatureMetersPerSecondSquared": 0.02845178675892875,
+            "elevationDegrees": 63.47954848638546,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795232942402.532,
+            "rhoMeters": 369042967.0865321,
+            "centerDistanceMeters": 370780367.0865321,
+            "radialVelocityMetersPerSecond": -3.3998694922922917e-10,
+            "curvatureMetersPerSecondSquared": 0.028146860985854467,
+            "elevationDegrees": 69.35268260877613,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795322065656.793,
+            "rhoMeters": 362782270.86173767,
+            "centerDistanceMeters": 364519670.86173767,
+            "radialVelocityMetersPerSecond": 1.5355499412595383e-9,
+            "curvatureMetersPerSecondSquared": 0.02754657256354935,
+            "elevationDegrees": 75.1241240008436,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795411261558.3809,
+            "rhoMeters": 357471376.55358666,
+            "centerDistanceMeters": 359208776.55358666,
+            "radialVelocityMetersPerSecond": -2.9452736366830117e-9,
+            "curvatureMetersPerSecondSquared": 0.026753831429153017,
+            "elevationDegrees": 80.46522061201318,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795500578293.146,
+            "rhoMeters": 353609127.1302922,
+            "centerDistanceMeters": 355346527.1302922,
+            "radialVelocityMetersPerSecond": -2.458026647858288e-10,
+            "curvatureMetersPerSecondSquared": 0.025953276129686596,
+            "elevationDegrees": 84.95290350007649,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795590034194.4521,
+            "rhoMeters": 351546268.58225274,
+            "centerDistanceMeters": 353283668.58225274,
+            "radialVelocityMetersPerSecond": -2.6940047868799802e-9,
+            "curvatureMetersPerSecondSquared": 0.02537254634339307,
+            "elevationDegrees": 87.96710934823562,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795679599132.5159,
+            "rhoMeters": 351421233.8627303,
+            "centerDistanceMeters": 353158633.8627303,
+            "radialVelocityMetersPerSecond": -2.7833161182234802e-11,
+            "curvatureMetersPerSecondSquared": 0.02521503397605038,
+            "elevationDegrees": 87.90463684846543,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795769198257.1506,
+            "rhoMeters": 353142067.5757776,
+            "centerDistanceMeters": 354879467.5757776,
+            "radialVelocityMetersPerSecond": -2.8490955454840697e-9,
+            "curvatureMetersPerSecondSquared": 0.025546550355237552,
+            "elevationDegrees": 85.92527214472798,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795858746589.7817,
+            "rhoMeters": 356421265.90683573,
+            "centerDistanceMeters": 358158665.90683573,
+            "radialVelocityMetersPerSecond": 2.812103562268388e-9,
+            "curvatureMetersPerSecondSquared": 0.026264728247700465,
+            "elevationDegrees": 82.84727596200062,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795948188065.137,
+            "rhoMeters": 360848125.2635372,
+            "centerDistanceMeters": 362585525.2635372,
+            "radialVelocityMetersPerSecond": 1.763331616845733e-9,
+            "curvatureMetersPerSecondSquared": 0.02714064643301506,
+            "elevationDegrees": 78.54495236420493,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796037509559.2935,
+            "rhoMeters": 365972273.7803925,
+            "centerDistanceMeters": 367709673.7803925,
+            "radialVelocityMetersPerSecond": 2.94793542920872e-10,
+            "curvatureMetersPerSecondSquared": 0.027937428495970907,
+            "elevationDegrees": 73.29658774245489,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796126731931.6301,
+            "rhoMeters": 371374994.4533833,
+            "centerDistanceMeters": 373112394.4533833,
+            "radialVelocityMetersPerSecond": 1.2122328948750654e-9,
+            "curvatureMetersPerSecondSquared": 0.028471438907569823,
+            "elevationDegrees": 67.49420356170754,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796215895665.5989,
+            "rhoMeters": 376715087.3085511,
+            "centerDistanceMeters": 378452487.3085511,
+            "radialVelocityMetersPerSecond": 2.6788748418235295e-9,
+            "curvatureMetersPerSecondSquared": 0.028647867635531087,
+            "elevationDegrees": 61.49144495272576,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796305050559.818,
+            "rhoMeters": 381746759.09218603,
+            "centerDistanceMeters": 383484159.09218603,
+            "radialVelocityMetersPerSecond": 2.3372675584574856e-9,
+            "curvatureMetersPerSecondSquared": 0.028453031822403847,
+            "elevationDegrees": 55.585169059861144,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796394249650.8662,
+            "rhoMeters": 386314362.0727214,
+            "centerDistanceMeters": 388051762.0727214,
+            "radialVelocityMetersPerSecond": 2.288709662440276e-10,
+            "curvatureMetersPerSecondSquared": 0.027942418598769194,
+            "elevationDegrees": 50.034492857751296,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796483543969.8823,
+            "rhoMeters": 390331894.45593154,
+            "centerDistanceMeters": 392069294.45593154,
+            "radialVelocityMetersPerSecond": 1.543900965132612e-9,
+            "curvatureMetersPerSecondSquared": 0.027220245895052692,
+            "elevationDegrees": 45.08199093073985,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796572974791.354,
+            "rhoMeters": 393755433.24002457,
+            "centerDistanceMeters": 395492833.24002457,
+            "radialVelocityMetersPerSecond": -3.106888502034471e-9,
+            "curvatureMetersPerSecondSquared": 0.026435484993056802,
+            "elevationDegrees": 40.964524743540615,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796662561943.325,
+            "rhoMeters": 396555728.7332387,
+            "centerDistanceMeters": 398293128.7332387,
+            "radialVelocityMetersPerSecond": 2.410742542798169e-9,
+            "curvatureMetersPerSecondSquared": 0.025745367993423526,
+            "elevationDegrees": 37.907234568773355,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796752291138.2422,
+            "rhoMeters": 398696719.33610976,
+            "centerDistanceMeters": 400434119.33610976,
+            "radialVelocityMetersPerSecond": -9.92632262062465e-10,
+            "curvatureMetersPerSecondSquared": 0.025296559819326596,
+            "elevationDegrees": 36.09817505199316,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796842109279.5054,
+            "rhoMeters": 400123493.11336094,
+            "centerDistanceMeters": 401860893.11336094,
+            "radialVelocityMetersPerSecond": -1.8116354412122368e-10,
+            "curvatureMetersPerSecondSquared": 0.025186343402494593,
+            "elevationDegrees": 35.65044186179845,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796931937029.923,
+            "rhoMeters": 400760177.12249184,
+            "centerDistanceMeters": 402497577.12249184,
+            "radialVelocityMetersPerSecond": 2.496191798981398e-9,
+            "curvatureMetersPerSecondSquared": 0.025431945100561314,
+            "elevationDegrees": 36.571334783972056,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1797021695973.1882,
+            "rhoMeters": 400515760.6770701,
+            "centerDistanceMeters": 402253160.6770701,
+            "radialVelocityMetersPerSecond": -9.855829516779091e-10,
+            "curvatureMetersPerSecondSquared": 0.025974905220317656,
+            "elevationDegrees": 38.75981822330105,
+            "aboveHorizon": true
+          }
+        ],
+        "global": {
+          "time": 1795679599132.5159,
+          "rhoMeters": 351421233.8627303,
+          "centerDistanceMeters": 353158633.8627303,
+          "radialVelocityMetersPerSecond": -2.7833161182234802e-11,
+          "curvatureMetersPerSecondSquared": 0.02521503397605038,
+          "elevationDegrees": 87.90463684846543,
+          "aboveHorizon": true
+        },
+        "globalIsBoundary": false,
+        "start": {
+          "time": 1794681240000,
+          "rhoMeters": 401854224.5695569,
+          "centerDistanceMeters": 403591624.5695569,
+          "radialVelocityMetersPerSecond": -334.76850000843643,
+          "curvatureMetersPerSecondSquared": 0.012502825890791637,
+          "elevationDegrees": 12.595082862645862,
+          "aboveHorizon": true
+        },
+        "stop": {
+          "time": 1797100440000,
+          "rhoMeters": 400816011.7644551,
+          "centerDistanceMeters": 402553411.7644551,
+          "radialVelocityMetersPerSecond": -266.2073224117499,
+          "curvatureMetersPerSecondSquared": 0.019673065037733424,
+          "elevationDegrees": 27.10229999776881,
+          "aboveHorizon": true
+        },
+        "rootToleranceSeconds": 0.01,
+        "interpolation": "cubic Hermite, position and velocity"
+      },
+      "convergence": {
+        "maxTimeChangeSeconds": 0.00968896484375,
+        "maxRangeChangeMeters": 0.05175286531448364
+      }
+    },
+    {
+      "site": {
+        "id": "wallops",
+        "name": "NASA · Wallops / MARS",
+        "region": "Virginia, USA",
+        "latitude": 37.8,
+        "longitude": -75.5,
+        "source": "https://www.vaspace.org/our-facilities",
+        "coordinateNote": "Approximate spaceport reference point"
+      },
+      "report": {
+        "ephemerisId": "ea770d664ee922b8485d91d8",
+        "minima": [
+          {
+            "time": 1794691485888.9197,
+            "rhoMeters": 400160638.8928335,
+            "centerDistanceMeters": 401898038.8928335,
+            "radialVelocityMetersPerSecond": 2.0249601538002167e-9,
+            "curvatureMetersPerSecondSquared": 0.022843064965047052,
+            "elevationDegrees": 27.47546562837623,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1794781305567.3655,
+            "rhoMeters": 397845520.4751295,
+            "centerDistanceMeters": 399582920.4751295,
+            "radialVelocityMetersPerSecond": 2.8227102349000637e-9,
+            "curvatureMetersPerSecondSquared": 0.0234545891912441,
+            "elevationDegrees": 30.929616123744243,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1794870945077.036,
+            "rhoMeters": 394177024.9230207,
+            "centerDistanceMeters": 395914424.9230207,
+            "radialVelocityMetersPerSecond": -1.549660687758025e-9,
+            "curvatureMetersPerSecondSquared": 0.024051254229242484,
+            "elevationDegrees": 35.20683434359438,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1794960405007.9626,
+            "rhoMeters": 389264394.6974406,
+            "centerDistanceMeters": 391001794.6974406,
+            "radialVelocityMetersPerSecond": 1.1893605619321127e-9,
+            "curvatureMetersPerSecondSquared": 0.024527318796450967,
+            "elevationDegrees": 40.14871564617444,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795049708899.3376,
+            "rhoMeters": 383336952.2310568,
+            "centerDistanceMeters": 385074352.2310568,
+            "radialVelocityMetersPerSecond": -6.20992053631981e-10,
+            "curvatureMetersPerSecondSquared": 0.024804538651745162,
+            "elevationDegrees": 45.62133855248469,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795138893938.8972,
+            "rhoMeters": 376747867.91615105,
+            "centerDistanceMeters": 378485267.91615105,
+            "radialVelocityMetersPerSecond": 2.08217506165698e-9,
+            "curvatureMetersPerSecondSquared": 0.0248318140672429,
+            "elevationDegrees": 51.50013543381005,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795228005851.9922,
+            "rhoMeters": 369963718.11508495,
+            "centerDistanceMeters": 371701118.11508495,
+            "radialVelocityMetersPerSecond": 2.5366582912796085e-9,
+            "curvatureMetersPerSecondSquared": 0.024595611927346245,
+            "elevationDegrees": 57.642456795757596,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795317096395.629,
+            "rhoMeters": 363533019.2144983,
+            "centerDistanceMeters": 365270419.2144983,
+            "radialVelocityMetersPerSecond": 3.9098330638869363e-10,
+            "curvatureMetersPerSecondSquared": 0.024122623168742533,
+            "elevationDegrees": 63.84984729441282,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795406220073.045,
+            "rhoMeters": 358029126.82568777,
+            "centerDistanceMeters": 359766526.82568777,
+            "radialVelocityMetersPerSecond": 4.5051122140777877e-10,
+            "curvatureMetersPerSecondSquared": 0.023493273132682187,
+            "elevationDegrees": 69.81821066997831,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795495426058.062,
+            "rhoMeters": 353970192.756552,
+            "centerDistanceMeters": 355707592.756552,
+            "radialVelocityMetersPerSecond": -1.480514929496477e-9,
+            "curvatureMetersPerSecondSquared": 0.022847477414580354,
+            "elevationDegrees": 75.05518685260911,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795584742961.6287,
+            "rhoMeters": 351731106.6955371,
+            "centerDistanceMeters": 353468506.6955371,
+            "radialVelocityMetersPerSecond": -8.403118455167016e-10,
+            "curvatureMetersPerSecondSquared": 0.022361284934220904,
+            "elevationDegrees": 78.70608678757577,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795674161860.1345,
+            "rhoMeters": 351473787.50923085,
+            "centerDistanceMeters": 353211187.50923085,
+            "radialVelocityMetersPerSecond": 3.493437055962853e-10,
+            "curvatureMetersPerSecondSquared": 0.02220210502842036,
+            "elevationDegrees": 79.55830669079859,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795763633533.639,
+            "rhoMeters": 353122483.62982994,
+            "centerDistanceMeters": 354859883.62982994,
+            "radialVelocityMetersPerSecond": -6.976557488252128e-10,
+            "curvatureMetersPerSecondSquared": 0.022439810891087226,
+            "elevationDegrees": 77.3721170338021,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795853090788.1362,
+            "rhoMeters": 356394467.52698463,
+            "centerDistanceMeters": 358131867.52698463,
+            "radialVelocityMetersPerSecond": -1.369802893406048e-9,
+            "curvatureMetersPerSecondSquared": 0.023004817606744988,
+            "elevationDegrees": 73.26610164479872,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795942481073.852,
+            "rhoMeters": 360872856.20746213,
+            "centerDistanceMeters": 362610256.20746213,
+            "radialVelocityMetersPerSecond": -2.4667537653209458e-9,
+            "curvatureMetersPerSecondSquared": 0.02372685712829494,
+            "elevationDegrees": 68.10491612116232,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796031784326.2922,
+            "rhoMeters": 366093916.3972809,
+            "centerDistanceMeters": 367831316.3972809,
+            "radialVelocityMetersPerSecond": -2.9014639333835488e-9,
+            "curvatureMetersPerSecondSquared": 0.024404524009279154,
+            "elevationDegrees": 62.32580369762971,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796121011096.0735,
+            "rhoMeters": 371622746.9877117,
+            "centerDistanceMeters": 373360146.9877117,
+            "radialVelocityMetersPerSecond": -6.545652563456622e-10,
+            "curvatureMetersPerSecondSquared": 0.024876646629587478,
+            "elevationDegrees": 56.22707858948534,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796210192607.9817,
+            "rhoMeters": 377102471.6261473,
+            "centerDistanceMeters": 378839871.6261473,
+            "radialVelocityMetersPerSecond": 2.172990612327942e-9,
+            "curvatureMetersPerSecondSquared": 0.02505032555898967,
+            "elevationDegrees": 50.06313811878812,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796299371920.3767,
+            "rhoMeters": 382274142.84271723,
+            "centerDistanceMeters": 384011542.84271723,
+            "radialVelocityMetersPerSecond": -8.279531668355856e-10,
+            "curvatureMetersPerSecondSquared": 0.024905484959374943,
+            "elevationDegrees": 44.06533921726804,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796388597934.3813,
+            "rhoMeters": 386972454.64202374,
+            "centerDistanceMeters": 388709854.64202374,
+            "radialVelocityMetersPerSecond": 2.383953606267646e-9,
+            "curvatureMetersPerSecondSquared": 0.02448137234413376,
+            "elevationDegrees": 38.45408455984376,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796477919970.2363,
+            "rhoMeters": 391105498.4615797,
+            "centerDistanceMeters": 392842898.4615797,
+            "radialVelocityMetersPerSecond": -3.53772592874915e-10,
+            "curvatureMetersPerSecondSquared": 0.0238685202591023,
+            "elevationDegrees": 33.44976736615125,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796567379841.747,
+            "rhoMeters": 394626928.2318365,
+            "centerDistanceMeters": 396364328.2318365,
+            "radialVelocityMetersPerSecond": -6.822031694497061e-10,
+            "curvatureMetersPerSecondSquared": 0.02318946979139663,
+            "elevationDegrees": 29.276963693798,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796656999883.7537,
+            "rhoMeters": 397507836.0994829,
+            "centerDistanceMeters": 399245236.0994829,
+            "radialVelocityMetersPerSecond": 2.749557674022793e-9,
+            "curvatureMetersPerSecondSquared": 0.02258449465058896,
+            "elevationDegrees": 26.155082820419672,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796746769350.0347,
+            "rhoMeters": 399714158.78226215,
+            "centerDistanceMeters": 401451558.78226215,
+            "radialVelocityMetersPerSecond": -2.4573605678881183e-9,
+            "curvatureMetersPerSecondSquared": 0.022182773139812637,
+            "elevationDegrees": 24.271514398272195,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796836638064.4866,
+            "rhoMeters": 401193346.797013,
+            "centerDistanceMeters": 402930746.797013,
+            "radialVelocityMetersPerSecond": 2.0226366322994468e-9,
+            "curvatureMetersPerSecondSquared": 0.022070889515041388,
+            "elevationDegrees": 23.74266808351007,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796926527216.4294,
+            "rhoMeters": 401871162.88388,
+            "centerDistanceMeters": 403608562.88388,
+            "radialVelocityMetersPerSecond": 7.879224248280422e-10,
+            "curvatureMetersPerSecondSquared": 0.022272058191868123,
+            "elevationDegrees": 24.581423638272852,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1797016356127.5977,
+            "rhoMeters": 401656941.9351064,
+            "centerDistanceMeters": 403394341.9351064,
+            "radialVelocityMetersPerSecond": -7.865630264936475e-10,
+            "curvatureMetersPerSecondSquared": 0.022734481328993805,
+            "elevationDegrees": 26.692658180385923,
+            "aboveHorizon": true
+          }
+        ],
+        "global": {
+          "time": 1795674161860.1345,
+          "rhoMeters": 351473787.50923085,
+          "centerDistanceMeters": 353211187.50923085,
+          "radialVelocityMetersPerSecond": 3.493437055962853e-10,
+          "curvatureMetersPerSecondSquared": 0.02220210502842036,
+          "elevationDegrees": 79.55830669079859,
+          "aboveHorizon": true
+        },
+        "globalIsBoundary": false,
+        "start": {
+          "time": 1794681240000,
+          "rhoMeters": 401319420.25749475,
+          "centerDistanceMeters": 403056820.25749475,
+          "radialVelocityMetersPerSecond": -217.2291245027983,
+          "curvatureMetersPerSecondSquared": 0.017646591372050303,
+          "elevationDegrees": 17.549061015694775,
+          "aboveHorizon": true
+        },
+        "stop": {
+          "time": 1797100440000,
+          "rhoMeters": 400822378.16373795,
+          "centerDistanceMeters": 402559778.16373795,
+          "radialVelocityMetersPerSecond": -129.0998100003069,
+          "curvatureMetersPerSecondSquared": 0.02189381332454623,
+          "elevationDegrees": 26.991037373699957,
+          "aboveHorizon": true
+        },
+        "rootToleranceSeconds": 0.01,
+        "interpolation": "cubic Hermite, position and velocity"
+      },
+      "convergence": {
+        "maxTimeChangeSeconds": 0.00958837890625,
+        "maxRangeChangeMeters": 0.04388010501861572
+      }
+    },
+    {
+      "site": {
+        "id": "baikonur",
+        "name": "Roscosmos · Baikonur",
+        "region": "Kazakhstan",
+        "latitude": 45.6,
+        "longitude": 63.4,
+        "source": "https://www.esa.int/pt/articles/about-us/directorates/science/baikonur-cosmodrome",
+        "coordinateNote": "Approximate spaceport reference point"
+      },
+      "report": {
+        "ephemerisId": "ea770d664ee922b8485d91d8",
+        "minima": [
+          {
+            "time": 1794746840572.9668,
+            "rhoMeters": 399679012.89721316,
+            "centerDistanceMeters": 401416412.89721316,
+            "radialVelocityMetersPerSecond": -2.096458209820355e-9,
+            "curvatureMetersPerSecondSquared": 0.020484489667091748,
+            "elevationDegrees": 21.62971909337322,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1794836636191.1777,
+            "rhoMeters": 396493288.593998,
+            "centerDistanceMeters": 398230688.593998,
+            "radialVelocityMetersPerSecond": -1.6476076517458754e-10,
+            "curvatureMetersPerSecondSquared": 0.021004019558321523,
+            "elevationDegrees": 25.59366544425302,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1794926238696.2083,
+            "rhoMeters": 391995797.1164028,
+            "centerDistanceMeters": 393733197.1164028,
+            "radialVelocityMetersPerSecond": 2.2314436559040573e-9,
+            "curvatureMetersPerSecondSquared": 0.021441856764888512,
+            "elevationDegrees": 30.28302623109444,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795015659007.1575,
+            "rhoMeters": 386368617.50460863,
+            "centerDistanceMeters": 388106017.50460863,
+            "radialVelocityMetersPerSecond": 1.4272408075791604e-9,
+            "curvatureMetersPerSecondSquared": 0.02172952814696013,
+            "elevationDegrees": 35.564772775883675,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795104924559.7222,
+            "rhoMeters": 379918640.15802044,
+            "centerDistanceMeters": 381656040.15802044,
+            "radialVelocityMetersPerSecond": 1.5056246380032871e-9,
+            "curvatureMetersPerSecondSquared": 0.021821626226405145,
+            "elevationDegrees": 41.32370955511136,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795194072429.1648,
+            "rhoMeters": 373073700.29380006,
+            "centerDistanceMeters": 374811100.29380006,
+            "radialVelocityMetersPerSecond": -2.0110024279537376e-9,
+            "curvatureMetersPerSecondSquared": 0.021701967520964184,
+            "elevationDegrees": 47.43584618258344,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795283146448.2595,
+            "rhoMeters": 366360260.59237444,
+            "centerDistanceMeters": 368097660.59237444,
+            "radialVelocityMetersPerSecond": -9.409542757472457e-10,
+            "curvatureMetersPerSecondSquared": 0.021385822248942057,
+            "elevationDegrees": 53.72678825048368,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795372195846.8716,
+            "rhoMeters": 360356567.5750468,
+            "centerDistanceMeters": 362093967.5750468,
+            "radialVelocityMetersPerSecond": -9.6132815417903e-10,
+            "curvatureMetersPerSecondSquared": 0.02092234958914155,
+            "elevationDegrees": 59.91227795678897,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795461271761.8386,
+            "rhoMeters": 355620235.81122607,
+            "centerDistanceMeters": 357357635.81122607,
+            "radialVelocityMetersPerSecond": 2.2337945794626021e-10,
+            "curvatureMetersPerSecondSquared": 0.020401076646003376,
+            "elevationDegrees": 65.51479096319244,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795550418148.8254,
+            "rhoMeters": 352599767.3324564,
+            "centerDistanceMeters": 354337167.3324564,
+            "radialVelocityMetersPerSecond": 2.336561125304274e-9,
+            "curvatureMetersPerSecondSquared": 0.019948138715451893,
+            "elevationDegrees": 69.7677946305476,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795639656993.66,
+            "rhoMeters": 351552461.927515,
+            "centerDistanceMeters": 353289861.927515,
+            "radialVelocityMetersPerSecond": -4.116492835690992e-10,
+            "curvatureMetersPerSecondSquared": 0.01970234741392993,
+            "elevationDegrees": 71.6852756397174,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795728976115.7842,
+            "rhoMeters": 352497554.75962895,
+            "centerDistanceMeters": 354234954.75962895,
+            "radialVelocityMetersPerSecond": 6.385918295529629e-10,
+            "curvatureMetersPerSecondSquared": 0.019758562186609856,
+            "elevationDegrees": 70.71846751292466,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795818333250.399,
+            "rhoMeters": 355224199.246578,
+            "centerDistanceMeters": 356961599.246578,
+            "radialVelocityMetersPerSecond": 9.079956178905452e-10,
+            "curvatureMetersPerSecondSquared": 0.02011791076564975,
+            "elevationDegrees": 67.36526673732683,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795907678344.0588,
+            "rhoMeters": 359351182.7915226,
+            "centerDistanceMeters": 361088582.7915226,
+            "radialVelocityMetersPerSecond": 1.5320545257459336e-9,
+            "curvatureMetersPerSecondSquared": 0.020677905606578947,
+            "elevationDegrees": 62.5280136573455,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795996977341.7751,
+            "rhoMeters": 364414239.25327516,
+            "centerDistanceMeters": 366151639.25327516,
+            "radialVelocityMetersPerSecond": -5.613200577129611e-10,
+            "curvatureMetersPerSecondSquared": 0.021277436049057984,
+            "elevationDegrees": 56.86353001457987,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796086222124.7322,
+            "rhoMeters": 369951136.2252232,
+            "centerDistanceMeters": 371688536.2252232,
+            "radialVelocityMetersPerSecond": -1.9081258809533095e-9,
+            "curvatureMetersPerSecondSquared": 0.02176183648054225,
+            "elevationDegrees": 50.78141633029027,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796175427843.237,
+            "rhoMeters": 375563640.3578159,
+            "centerDistanceMeters": 377301040.3578159,
+            "radialVelocityMetersPerSecond": 1.1999858988201483e-9,
+            "curvatureMetersPerSecondSquared": 0.02202210155831817,
+            "elevationDegrees": 44.569480105151825,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796264626067.5676,
+            "rhoMeters": 380949068.225462,
+            "centerDistanceMeters": 382686468.225462,
+            "radialVelocityMetersPerSecond": 1.6978694496853826e-9,
+            "curvatureMetersPerSecondSquared": 0.02201131782242033,
+            "elevationDegrees": 38.4622079184082,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796353858715.0137,
+            "rhoMeters": 385904439.77589786,
+            "centerDistanceMeters": 387641839.77589786,
+            "radialVelocityMetersPerSecond": 1.2765653959786367e-9,
+            "curvatureMetersPerSecondSquared": 0.021737117904644686,
+            "elevationDegrees": 32.673413223359304,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796443172670.5576,
+            "rhoMeters": 390311090.38639665,
+            "centerDistanceMeters": 392048490.38639665,
+            "radialVelocityMetersPerSecond": -1.1853873193696055e-9,
+            "curvatureMetersPerSecondSquared": 0.021263486303375934,
+            "elevationDegrees": 27.414647704157495,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796532612806.612,
+            "rhoMeters": 394108466.6140193,
+            "centerDistanceMeters": 395845866.6140193,
+            "radialVelocityMetersPerSecond": 2.4116154069975255e-9,
+            "curvatureMetersPerSecondSquared": 0.020684717701487047,
+            "elevationDegrees": 22.903933272090715,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796622211115.4512,
+            "rhoMeters": 397264919.3809748,
+            "centerDistanceMeters": 399002319.3809748,
+            "radialVelocityMetersPerSecond": -5.57573562169769e-10,
+            "curvatureMetersPerSecondSquared": 0.020122374204616263,
+            "elevationDegrees": 19.36181825350888,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796711972363.165,
+            "rhoMeters": 399751901.5654099,
+            "centerDistanceMeters": 401489301.5654099,
+            "radialVelocityMetersPerSecond": 2.948274230242699e-11,
+            "curvatureMetersPerSecondSquared": 0.0196955309665656,
+            "elevationDegrees": 16.99049625894114,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796801862692.2393,
+            "rhoMeters": 401526213.0544143,
+            "centerDistanceMeters": 403263613.0544143,
+            "radialVelocityMetersPerSecond": 8.105189456253031e-10,
+            "curvatureMetersPerSecondSquared": 0.01949900455639165,
+            "elevationDegrees": 15.937322513541837,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796891812177.6814,
+            "rhoMeters": 402522453.2112859,
+            "centerDistanceMeters": 404259853.2112859,
+            "radialVelocityMetersPerSecond": -3.164776893546656e-10,
+            "curvatureMetersPerSecondSquared": 0.019576231410393347,
+            "elevationDegrees": 16.256525678866087,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796981736448.146,
+            "rhoMeters": 402655042.25079787,
+            "centerDistanceMeters": 404392442.25079787,
+            "radialVelocityMetersPerSecond": -2.4297830629906713e-9,
+            "curvatureMetersPerSecondSquared": 0.019905099162656037,
+            "elevationDegrees": 17.89200363403166,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1797071565961.5193,
+            "rhoMeters": 401827686.61692196,
+            "centerDistanceMeters": 403565086.61692196,
+            "radialVelocityMetersPerSecond": 2.2346267099992723e-9,
+            "curvatureMetersPerSecondSquared": 0.020406226193835905,
+            "elevationDegrees": 20.694259138314365,
+            "aboveHorizon": true
+          }
+        ],
+        "global": {
+          "time": 1795639656993.66,
+          "rhoMeters": 351552461.927515,
+          "centerDistanceMeters": 353289861.927515,
+          "radialVelocityMetersPerSecond": -4.116492835690992e-10,
+          "curvatureMetersPerSecondSquared": 0.01970234741392993,
+          "elevationDegrees": 71.6852756397174,
+          "aboveHorizon": true
+        },
+        "globalIsBoundary": false,
+        "start": {
+          "time": 1794681240000,
+          "rhoMeters": 405963766.7250166,
+          "centerDistanceMeters": 407701166.7250166,
+          "radialVelocityMetersPerSecond": 264.6344888218363,
+          "curvatureMetersPerSecondSquared": -0.003959368256455009,
+          "elevationDegrees": -25.15781731095205,
+          "aboveHorizon": false
+        },
+        "stop": {
+          "time": 1797100440000,
+          "rhoMeters": 407522912.43504524,
+          "centerDistanceMeters": 409260312.43504524,
+          "radialVelocityMetersPerSecond": 235.4123831032713,
+          "curvatureMetersPerSecondSquared": -0.0102013092545729,
+          "elevationDegrees": -36.45586664537256,
+          "aboveHorizon": false
+        },
+        "rootToleranceSeconds": 0.01,
+        "interpolation": "cubic Hermite, position and velocity"
+      },
+      "convergence": {
+        "maxTimeChangeSeconds": 0.00945361328125,
+        "maxRangeChangeMeters": 0.039987802505493164
+      }
+    },
+    {
+      "site": {
+        "id": "plesetsk",
+        "name": "Russia · Plesetsk",
+        "region": "Russia",
+        "latitude": 62.8,
+        "longitude": 40.4,
+        "source": "https://nssdc.gsfc.nasa.gov/spacewarn/spx613.html",
+        "coordinateNote": "Approximate spaceport reference point"
+      },
+      "report": {
+        "ephemerisId": "ea770d664ee922b8485d91d8",
+        "minima": [
+          {
+            "time": 1794753372246.4863,
+            "rhoMeters": 401360519.8392646,
+            "centerDistanceMeters": 403097919.8392646,
+            "radialVelocityMetersPerSecond": -4.603211658063658e-10,
+            "curvatureMetersPerSecondSquared": 0.013207326325950213,
+            "elevationDegrees": 4.535302495098892,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1794843548449.8442,
+            "rhoMeters": 398035433.1662195,
+            "centerDistanceMeters": 399772833.1662195,
+            "radialVelocityMetersPerSecond": -2.956543573559474e-10,
+            "curvatureMetersPerSecondSquared": 0.013427745430995931,
+            "elevationDegrees": 8.445537471825132,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1794933489383.1738,
+            "rhoMeters": 393382964.3550227,
+            "centerDistanceMeters": 395120364.3550227,
+            "radialVelocityMetersPerSecond": 2.5430004383747787e-10,
+            "curvatureMetersPerSecondSquared": 0.013562439508331922,
+            "elevationDegrees": 13.051963566351377,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795023181213.1775,
+            "rhoMeters": 387593393.0832653,
+            "centerDistanceMeters": 389330793.0832653,
+            "radialVelocityMetersPerSecond": 1.5442080201082834e-9,
+            "curvatureMetersPerSecondSquared": 0.013599290679921277,
+            "elevationDegrees": 18.254053736054935,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795112622659.8333,
+            "rhoMeters": 380984892.3984722,
+            "centerDistanceMeters": 382722292.3984722,
+            "radialVelocityMetersPerSecond": 4.4913400672831074e-10,
+            "curvatureMetersPerSecondSquared": 0.013553376962781284,
+            "elevationDegrees": 23.973935801884295,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795201819263.23,
+            "rhoMeters": 373998729.09964985,
+            "centerDistanceMeters": 375736129.09964985,
+            "radialVelocityMetersPerSecond": -1.2829836050426286e-9,
+            "curvatureMetersPerSecondSquared": 0.01345647047493361,
+            "elevationDegrees": 30.117410684677466,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795290785986.2249,
+            "rhoMeters": 367175290.55138963,
+            "centerDistanceMeters": 368912690.55138963,
+            "radialVelocityMetersPerSecond": -1.3197633312059451e-9,
+            "curvatureMetersPerSecondSquared": 0.013344659403202001,
+            "elevationDegrees": 36.51096845003931,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795379555029.0469,
+            "rhoMeters": 361105085.21675956,
+            "centerDistanceMeters": 362842485.21675956,
+            "radialVelocityMetersPerSecond": 2.2860271529172824e-10,
+            "curvatureMetersPerSecondSquared": 0.013235758537067818,
+            "elevationDegrees": 42.81662196847449,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795468182670.8076,
+            "rhoMeters": 356354237.07733583,
+            "centerDistanceMeters": 358091637.07733583,
+            "radialVelocityMetersPerSecond": -1.5017964845758386e-9,
+            "curvatureMetersPerSecondSquared": 0.01313140577579645,
+            "elevationDegrees": 48.445156869252536,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795556748227.7478,
+            "rhoMeters": 353374614.79144275,
+            "centerDistanceMeters": 355112014.79144275,
+            "radialVelocityMetersPerSecond": 9.412777357010443e-10,
+            "curvatureMetersPerSecondSquared": 0.013028005927095774,
+            "elevationDegrees": 52.5442367363775,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795645341607.0278,
+            "rhoMeters": 352421201.7506284,
+            "centerDistanceMeters": 354158601.7506284,
+            "radialVelocityMetersPerSecond": -1.299094218590371e-9,
+            "curvatureMetersPerSecondSquared": 0.012943077751559055,
+            "elevationDegrees": 54.23477075335698,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795734041552.079,
+            "rhoMeters": 353505146.3696817,
+            "centerDistanceMeters": 355242546.3696817,
+            "radialVelocityMetersPerSecond": -3.4775950181008247e-11,
+            "curvatureMetersPerSecondSquared": 0.01291902064302523,
+            "elevationDegrees": 53.147793076165065,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795822893069.5706,
+            "rhoMeters": 356402064.2903104,
+            "centerDistanceMeters": 358139464.2903104,
+            "radialVelocityMetersPerSecond": 5.174038408255179e-10,
+            "curvatureMetersPerSecondSquared": 0.013001137507871319,
+            "elevationDegrees": 49.711067004402345,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795911897463.464,
+            "rhoMeters": 360713333.88657176,
+            "centerDistanceMeters": 362450733.88657176,
+            "radialVelocityMetersPerSecond": 1.514214412300665e-9,
+            "curvatureMetersPerSecondSquared": 0.0131995245909979,
+            "elevationDegrees": 44.74309185498871,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796001023518.953,
+            "rhoMeters": 365956667.3901046,
+            "centerDistanceMeters": 367694067.3901046,
+            "radialVelocityMetersPerSecond": -5.641527190866468e-10,
+            "curvatureMetersPerSecondSquared": 0.013469236462431942,
+            "elevationDegrees": 38.9514967913355,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796090231852.8486,
+            "rhoMeters": 371654830.99280596,
+            "centerDistanceMeters": 373392230.99280596,
+            "radialVelocityMetersPerSecond": 1.2673354090484505e-10,
+            "curvatureMetersPerSecondSquared": 0.013730981215498275,
+            "elevationDegrees": 32.8008860861921,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796179495774.219,
+            "rhoMeters": 377399812.03057045,
+            "centerDistanceMeters": 379137212.03057045,
+            "radialVelocityMetersPerSecond": 5.143864903169823e-10,
+            "curvatureMetersPerSecondSquared": 0.013904816371925874,
+            "elevationDegrees": 26.587908604023045,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796268810367.0464,
+            "rhoMeters": 382884604.4833915,
+            "centerDistanceMeters": 384622004.4833915,
+            "radialVelocityMetersPerSecond": 1.1421617379885101e-10,
+            "curvatureMetersPerSecondSquared": 0.013938261172444504,
+            "elevationDegrees": 20.53074988522735,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796358192102.6687,
+            "rhoMeters": 387906309.6568617,
+            "centerDistanceMeters": 389643709.6568617,
+            "radialVelocityMetersPerSecond": 3.9392904356681455e-10,
+            "curvatureMetersPerSecondSquared": 0.013818359642867442,
+            "elevationDegrees": 14.823911118355431,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796447673533.205,
+            "rhoMeters": 392349294.14238024,
+            "centerDistanceMeters": 394086694.14238024,
+            "radialVelocityMetersPerSecond": -4.4478877861362055e-10,
+            "curvatureMetersPerSecondSquared": 0.013571883758895417,
+            "elevationDegrees": 9.665380104463065,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796537294369.5781,
+            "rhoMeters": 396157633.9389184,
+            "centerDistanceMeters": 397895033.9389184,
+            "radialVelocityMetersPerSecond": 2.869447452759194e-10,
+            "curvatureMetersPerSecondSquared": 0.01325534243405839,
+            "elevationDegrees": 5.265858447686489,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796627087934.384,
+            "rhoMeters": 399304748.83197564,
+            "centerDistanceMeters": 401042148.83197564,
+            "radialVelocityMetersPerSecond": 1.3564817295155976e-9,
+            "curvatureMetersPerSecondSquared": 0.01294404866464685,
+            "elevationDegrees": 1.8420877103655369,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796717063524.5964,
+            "rhoMeters": 401766514.65002,
+            "centerDistanceMeters": 403503914.65002,
+            "radialVelocityMetersPerSecond": -8.9991002524109e-10,
+            "curvatureMetersPerSecondSquared": 0.012715827811897196,
+            "elevationDegrees": -0.4075475364461509,
+            "aboveHorizon": false
+          },
+          {
+            "time": 1796807191246.8745,
+            "rhoMeters": 403502443.20802903,
+            "centerDistanceMeters": 405239843.20802903,
+            "radialVelocityMetersPerSecond": 4.738415183101243e-10,
+            "curvatureMetersPerSecondSquared": 0.012629111642441215,
+            "elevationDegrees": -1.342443400554163,
+            "aboveHorizon": false
+          },
+          {
+            "time": 1796897401939.384,
+            "rhoMeters": 404447333.4303934,
+            "centerDistanceMeters": 406184733.4303934,
+            "radialVelocityMetersPerSecond": 1.2151657391997219e-9,
+            "curvatureMetersPerSecondSquared": 0.012708332722957372,
+            "elevationDegrees": -0.9188814000444089,
+            "aboveHorizon": false
+          },
+          {
+            "time": 1796987608567.3833,
+            "rhoMeters": 404513234.79002666,
+            "centerDistanceMeters": 406250634.79002666,
+            "radialVelocityMetersPerSecond": 7.470221951127575e-10,
+            "curvatureMetersPerSecondSquared": 0.012930355679192573,
+            "elevationDegrees": 0.7947910371511885,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1797077737063.9058,
+            "rhoMeters": 403599871.22982424,
+            "centerDistanceMeters": 405337271.22982424,
+            "radialVelocityMetersPerSecond": -2.2221650518998723e-10,
+            "curvatureMetersPerSecondSquared": 0.013234179289958983,
+            "elevationDegrees": 3.638691783427344,
+            "aboveHorizon": true
+          }
+        ],
+        "global": {
+          "time": 1795645341607.0278,
+          "rhoMeters": 352421201.7506284,
+          "centerDistanceMeters": 354158601.7506284,
+          "radialVelocityMetersPerSecond": -1.299094218590371e-9,
+          "curvatureMetersPerSecondSquared": 0.012943077751559055,
+          "elevationDegrees": 54.23477075335698,
+          "aboveHorizon": true
+        },
+        "globalIsBoundary": false,
+        "start": {
+          "time": 1794681240000,
+          "rhoMeters": 405098736.1567531,
+          "centerDistanceMeters": 406836136.1567531,
+          "radialVelocityMetersPerSecond": 166.2317397808803,
+          "curvatureMetersPerSecondSquared": 0.002631745449998996,
+          "elevationDegrees": -16.8999377488579,
+          "aboveHorizon": false
+        },
+        "stop": {
+          "time": 1797100440000,
+          "rhoMeters": 406206757.9374526,
+          "centerDistanceMeters": 407944157.9374526,
+          "radialVelocityMetersPerSecond": 170.77358260274872,
+          "curvatureMetersPerSecondSquared": -0.0016259334497888708,
+          "elevationDegrees": -22.94614564918274,
+          "aboveHorizon": false
+        },
+        "rootToleranceSeconds": 0.01,
+        "interpolation": "cubic Hermite, position and velocity"
+      },
+      "convergence": {
+        "maxTimeChangeSeconds": 0.009818115234375,
+        "maxRangeChangeMeters": 0.02481311559677124
+      }
+    },
+    {
+      "site": {
+        "id": "vostochny",
+        "name": "Roscosmos · Vostochny 1S",
+        "region": "Russia",
+        "latitude": 51.884395,
+        "longitude": 128.333932,
+        "source": "https://ll.thespacedevs.com/2.3.0/launches/2ae6c1b3-e234-419f-ae71-a7d5410d9303/?format=api"
+      },
+      "report": {
+        "ephemerisId": "ea770d664ee922b8485d91d8",
+        "minima": [
+          {
+            "time": 1794730799706.7483,
+            "rhoMeters": 400769445.4439146,
+            "centerDistanceMeters": 402506845.4439146,
+            "radialVelocityMetersPerSecond": 1.0437402857085566e-9,
+            "curvatureMetersPerSecondSquared": 0.01792561028876627,
+            "elevationDegrees": 14.679597534472702,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1794820729372.2168,
+            "rhoMeters": 397810313.26390845,
+            "centerDistanceMeters": 399547713.26390845,
+            "radialVelocityMetersPerSecond": -1.596997707768387e-9,
+            "curvatureMetersPerSecondSquared": 0.018357718813505928,
+            "elevationDegrees": 18.473756378091622,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1794910456607.8003,
+            "rhoMeters": 393510544.01035905,
+            "centerDistanceMeters": 395247944.01035905,
+            "radialVelocityMetersPerSecond": -1.342027612852691e-9,
+            "curvatureMetersPerSecondSquared": 0.01872350770202864,
+            "elevationDegrees": 23.016452809806083,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1794999982130.2231,
+            "rhoMeters": 388030091.53921217,
+            "centerDistanceMeters": 389767491.53921217,
+            "radialVelocityMetersPerSecond": 7.876568156771192e-10,
+            "curvatureMetersPerSecondSquared": 0.01896342006578145,
+            "elevationDegrees": 28.177698857956738,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795089324589.194,
+            "rhoMeters": 381653912.0241322,
+            "centerDistanceMeters": 383391312.0241322,
+            "radialVelocityMetersPerSecond": 5.441190974479828e-10,
+            "curvatureMetersPerSecondSquared": 0.019047676685723453,
+            "elevationDegrees": 33.849996994167775,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795178512602.1675,
+            "rhoMeters": 374790839.673121,
+            "centerDistanceMeters": 376528239.673121,
+            "radialVelocityMetersPerSecond": -1.7481299456028115e-9,
+            "curvatureMetersPerSecondSquared": 0.018967953031786434,
+            "elevationDegrees": 39.921526251277456,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795267581787.3716,
+            "rhoMeters": 367955237.2965361,
+            "centerDistanceMeters": 369692637.2965361,
+            "radialVelocityMetersPerSecond": 6.968951986975242e-10,
+            "curvatureMetersPerSecondSquared": 0.01874090330898428,
+            "elevationDegrees": 46.231969593180004,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795356574809.481,
+            "rhoMeters": 361724929.38447815,
+            "centerDistanceMeters": 363462329.38447815,
+            "radialVelocityMetersPerSecond": -1.1214798031790229e-9,
+            "curvatureMetersPerSecondSquared": 0.018403795521556087,
+            "elevationDegrees": 52.50848654329147,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795445541049.8022,
+            "rhoMeters": 356672947.2931454,
+            "centerDistanceMeters": 358410347.2931454,
+            "radialVelocityMetersPerSecond": -1.2429338328095955e-9,
+            "curvatureMetersPerSecondSquared": 0.018014075254886516,
+            "elevationDegrees": 58.281656776744654,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795534532048.7705,
+            "rhoMeters": 353280151.9295211,
+            "centerDistanceMeters": 355017551.9295211,
+            "radialVelocityMetersPerSecond": 1.668766954247669e-9,
+            "curvatureMetersPerSecondSquared": 0.017656291613084327,
+            "elevationDegrees": 62.80956945946621,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795623590263.2317,
+            "rhoMeters": 351848815.2568089,
+            "centerDistanceMeters": 353586215.2568089,
+            "radialVelocityMetersPerSecond": 6.808788033662558e-10,
+            "curvatureMetersPerSecondSquared": 0.01742842145351052,
+            "elevationDegrees": 65.16242346547108,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795712734272.1191,
+            "rhoMeters": 352445865.2113313,
+            "centerDistanceMeters": 354183265.2113313,
+            "radialVelocityMetersPerSecond": -1.5766472994986139e-9,
+            "curvatureMetersPerSecondSquared": 0.017413982258560997,
+            "elevationDegrees": 64.73545513959802,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795801951317.707,
+            "rhoMeters": 354898991.7676243,
+            "centerDistanceMeters": 356636391.7676243,
+            "radialVelocityMetersPerSecond": 8.774940718444303e-10,
+            "curvatureMetersPerSecondSquared": 0.01764226459464254,
+            "elevationDegrees": 61.80104138236695,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795891206562.4597,
+            "rhoMeters": 358848041.0422399,
+            "centerDistanceMeters": 360585441.0422399,
+            "radialVelocityMetersPerSecond": -9.045196480152138e-11,
+            "curvatureMetersPerSecondSquared": 0.018060539638491652,
+            "elevationDegrees": 57.177525811501475,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1795980463843.1436,
+            "rhoMeters": 363830820.0967319,
+            "centerDistanceMeters": 365568220.0967319,
+            "radialVelocityMetersPerSecond": 1.7153647123404238e-9,
+            "curvatureMetersPerSecondSquared": 0.018552909003915433,
+            "elevationDegrees": 51.59443776601015,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796069702588.74,
+            "rhoMeters": 369372416.67477465,
+            "centerDistanceMeters": 371109816.67477465,
+            "radialVelocityMetersPerSecond": 4.5503786471560074e-10,
+            "curvatureMetersPerSecondSquared": 0.018987104015568565,
+            "elevationDegrees": 45.53235235288809,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796158923440.6453,
+            "rhoMeters": 375053797.6559493,
+            "centerDistanceMeters": 376791197.6559493,
+            "radialVelocityMetersPerSecond": -2.264920579529024e-9,
+            "curvatureMetersPerSecondSquared": 0.01925545957779027,
+            "elevationDegrees": 39.309374955258555,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796248145886.0518,
+            "rhoMeters": 380549608.5029138,
+            "centerDistanceMeters": 382287008.5029138,
+            "radialVelocityMetersPerSecond": -1.9987926754993444e-9,
+            "curvatureMetersPerSecondSquared": 0.01930148738968753,
+            "elevationDegrees": 33.16593700300731,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796337403485.233,
+            "rhoMeters": 385636901.6643155,
+            "centerDistanceMeters": 387374301.6643155,
+            "radialVelocityMetersPerSecond": 1.3098357217246135e-9,
+            "curvatureMetersPerSecondSquared": 0.01911606477272578,
+            "elevationDegrees": 27.312506383691073,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796426738576.0715,
+            "rhoMeters": 390182437.5641047,
+            "centerDistanceMeters": 391919837.5641047,
+            "radialVelocityMetersPerSecond": 3.0757420788641006e-10,
+            "curvatureMetersPerSecondSquared": 0.018743539548999932,
+            "elevationDegrees": 21.95501172669538,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796516195431.0044,
+            "rhoMeters": 394117509.98477983,
+            "centerDistanceMeters": 395854909.98477983,
+            "radialVelocityMetersPerSecond": -7.893728331635968e-10,
+            "curvatureMetersPerSecondSquared": 0.0182605686356523,
+            "elevationDegrees": 17.306757917560358,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796605809653.1584,
+            "rhoMeters": 397408391.88453376,
+            "centerDistanceMeters": 399145791.88453376,
+            "radialVelocityMetersPerSecond": 1.5126105510968888e-9,
+            "curvatureMetersPerSecondSquared": 0.017769498412693884,
+            "elevationDegrees": 13.586931106019952,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796695593496.463,
+            "rhoMeters": 400029063.44693106,
+            "centerDistanceMeters": 401766463.44693106,
+            "radialVelocityMetersPerSecond": 1.9453256829045493e-9,
+            "curvatureMetersPerSecondSquared": 0.01737648765689466,
+            "elevationDegrees": 11.002360453762876,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796785522110.2192,
+            "rhoMeters": 401941226.68874264,
+            "centerDistanceMeters": 403678626.68874264,
+            "radialVelocityMetersPerSecond": -1.677331911666012e-9,
+            "curvatureMetersPerSecondSquared": 0.01717212172347309,
+            "elevationDegrees": 9.712613071969114,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796875531819.3235,
+            "rhoMeters": 403084373.6958904,
+            "centerDistanceMeters": 404821773.6958904,
+            "radialVelocityMetersPerSecond": 1.1358762126296447e-9,
+            "curvatureMetersPerSecondSquared": 0.017202399188538373,
+            "elevationDegrees": 9.78997629554544,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1796965538113.1377,
+            "rhoMeters": 403375935.39939517,
+            "centerDistanceMeters": 405113335.39939517,
+            "radialVelocityMetersPerSecond": -9.335672217084563e-10,
+            "curvatureMetersPerSecondSquared": 0.0174570540664383,
+            "elevationDegrees": 11.196786761066887,
+            "aboveHorizon": true
+          },
+          {
+            "time": 1797055465293.3513,
+            "rhoMeters": 402719631.4923066,
+            "centerDistanceMeters": 404457031.4923066,
+            "radialVelocityMetersPerSecond": 7.235773445313078e-10,
+            "curvatureMetersPerSecondSquared": 0.017872906371474047,
+            "elevationDegrees": 13.796619365724752,
+            "aboveHorizon": true
+          }
+        ],
+        "global": {
+          "time": 1795623590263.2317,
+          "rhoMeters": 351848815.2568089,
+          "centerDistanceMeters": 353586215.2568089,
+          "radialVelocityMetersPerSecond": 6.808788033662558e-10,
+          "curvatureMetersPerSecondSquared": 0.01742842145351052,
+          "elevationDegrees": 65.16242346547108,
+          "aboveHorizon": true
+        },
+        "globalIsBoundary": false,
+        "start": {
+          "time": 1794681240000,
+          "rhoMeters": 408847994.36085707,
+          "centerDistanceMeters": 410585394.36085707,
+          "radialVelocityMetersPerSecond": 46.69500370057493,
+          "curvatureMetersPerSecondSquared": -0.01718252960881993,
+          "elevationDegrees": -60.67519274128331,
+          "aboveHorizon": false
+        },
+        "stop": {
+          "time": 1797100440000,
+          "rhoMeters": 409282663.1888997,
+          "centerDistanceMeters": 411020063.1888997,
+          "radialVelocityMetersPerSecond": -36.58165292087147,
+          "curvatureMetersPerSecondSquared": -0.018055267054925196,
+          "elevationDegrees": -60.039303336790894,
+          "aboveHorizon": false
+        },
+        "rootToleranceSeconds": 0.01,
+        "interpolation": "cubic Hermite, position and velocity"
+      },
+      "convergence": {
+        "maxTimeChangeSeconds": 0.0097705078125,
+        "maxRangeChangeMeters": 0.03538268804550171
+      }
+    }
+  ],
+  "topocentric": {
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27301%27&CENTER=%27coord%40399%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%27-80.604133%2C28.608422%2C0%27&EPHEM_TYPE=%27VECTORS%27&OBJ_DATA=%27NO%27&MAKE_EPHEM=%27YES%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&OUT_UNITS=%27KM-S%27&VEC_TABLE=%272%27&CSV_FORMAT=%27YES%27&TIME_TYPE=%27UT%27&TLIST_TYPE=%27JD%27&TLIST=%272461359.405851983000%2C2461370.780917517375%2C2461386.314612512477%27",
+    "directComparison": [
+      {
+        "time": "2026-11-14T21:44:25.611Z",
+        "directRhoMeters": 399276661.0246488,
+        "rangeDifferenceMeters": -0.00033789873123168945,
+        "directRadialVelocityMetersPerSecond": -0.000022460308744387016
+      },
+      {
+        "time": "2026-11-26T06:44:31.273Z",
+        "directRhoMeters": 351383372.93099356,
+        "rangeDifferenceMeters": -0.00032788515090942383,
+        "directRadialVelocityMetersPerSecond": -0.00002295254345363256
+      },
+      {
+        "time": "2026-12-11T19:33:02.521Z",
+        "directRhoMeters": 400777738.68674827,
+        "rangeDifferenceMeters": -0.0012578368186950684,
+        "directRadialVelocityMetersPerSecond": 0.00003039339242628867
+      }
+    ]
+  }
+}

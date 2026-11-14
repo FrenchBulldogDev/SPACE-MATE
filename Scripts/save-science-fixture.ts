@@ -1,0 +1,10 @@
+import { readFile, mkdir, writeFile } from 'node:fs/promises';
+import type { Ephemeris } from '../src/science/types';
+const id = process.argv[2] || 'ea770d664ee922b8485d91d8';
+const data = JSON.parse(await readFile(`data/horizons/${id}.json`, 'utf8')) as Ephemeris;
+await mkdir('tests/fixtures', { recursive: true });
+const points = data.points.slice(0, 4);
+await writeFile('tests/fixtures/horizons-geocentric.json', JSON.stringify({ ...data, points, daily: [points[0]] }, null, 2));
+const raw = await readFile(`data/horizons/${id}-moon.txt`, 'utf8');
+const rows = raw.split('$$SOE')[1].split('$$EOE')[0].trim().split(/\r?\n/).slice(0, 4);
+await writeFile('tests/fixtures/horizons-vectors.txt', raw.slice(raw.indexOf('Target body name'), raw.indexOf('$$SOE')) + '$$SOE\n' + rows.join('\n') + '\n$$EOE\n');

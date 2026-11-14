@@ -3,21 +3,29 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { LoaderCircle, AlertTriangle } from 'lucide-react';
 import { SCENE_CONFIG as C, type LaunchSite } from '../config';
-import { daysFromDate, lunarPosition, radians, surfaceDirection } from './math';
+import { radians, surfaceDirection } from './math';
+import { displayedPosition, frameAt } from './referenceFrame';
+import type { DisplayMode, Ephemeris } from '../science/types';
+import type { LunarSite } from '../science/landingTypes';
 import { loadBodyGeometry, loadBodyTexture, markedEarthTexture, pinTexture } from './assets';
 import { useLanguage } from '../i18n/LanguageProvider';
 
 export type Body = 'earth' | 'moon' | 'system';
 type Props = {
   site: LaunchSite | null;
-  date: string;
+  landingSite: LunarSite | null;
+  ephemeris: Ephemeris;
+  mode: DisplayMode;
+  instant: number | null;
   playing: boolean;
   speed: number;
   showOrbit: boolean;
-  command: { body: Body; serial: number };
+  command: { body: Body; serial: number; resetTime?: number };
   onActiveBody: (body: Body) => void;
+  onRangeEnd: () => void;
+  onTimeChange: (time: number) => void;
 };
-type SceneAPI = { focus: (body: Body) => void; locate: (site: LaunchSite | null) => void; setDate: (date: string) => void };
+type SceneAPI = { focus: (body: Body) => void; locate: (site: LaunchSite | null) => void; setInstant: (instant: number) => void };
 
 export default function SpaceScene(props: Props) {
   const { t } = useLanguage();
@@ -29,6 +37,7 @@ export default function SpaceScene(props: Props) {
   const state = useRef(props);
   state.current = props;
   const api = useRef<SceneAPI | null>(null);
+  const simulationTime = useRef<{ id: string; time: number } | null>(null);
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
   const [retry, setRetry] = useState(0);
 
@@ -39,8 +48,12 @@ export default function SpaceScene(props: Props) {
   useEffect(() => {
     api.current?.locate(props.site);
   }, [props.site]);
-  useEffect(() => { api.current?.setDate(props.date); }, [props.date]);
-  useEffect(() => { if (props.command.serial) api.current?.focus(props.command.body); }, [props.command]);
+  useEffect(() => { if (props.instant !== null) api.current?.setInstant(props.instant); }, [props.instant]);
+  useEffect(() => {
+    if (!props.command.serial) return;
+    if (props.command.resetTime !== undefined) api.current?.setInstant(props.command.resetTime);
+    api.current?.focus(props.command.body);
+  }, [props.command]);
 
   useEffect(() => {
     const container = host.current!;
@@ -64,24 +77,32 @@ export default function SpaceScene(props: Props) {
     container.appendChild(renderer.domElement);
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(43, 1, 0.025, 600);
+    const data = state.current.ephemeris;
+    const mode = state.current.mode;
+    const orbitRadius = Math.max(...data.daily.map(point => displayedPosition(point.moon.position, mode).length()));
+    const maxViewDistance = Math.max(70, orbitRadius * 8);
+    let timestamp = THREE.MathUtils.clamp(simulationTime.current?.id === data.id ? simulationTime.current.time : state.current.instant ?? data.start, data.start, data.stop);
+    const initialFrame = frameAt(data, timestamp, mode);
+    const earthCenter = new THREE.Vector3();
+    const systemTarget = initialFrame.moon.clone().multiplyScalar(0.5);
+    const camera = new THREE.PerspectiveCamera(43, 1, 0.025, maxViewDistance * 4);
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.08;
     controls.enableZoom = false; // Contextual wheel/pinch zoom below.
-    controls.maxDistance = 70;
+    controls.maxDistance = maxViewDistance;
     controls.minDistance = C.earthRadius * 1.15;
     controls.mouseButtons = { LEFT: THREE.MOUSE.ROTATE, MIDDLE: THREE.MOUSE.PAN, RIGHT: THREE.MOUSE.PAN };
     controls.touches = { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.PAN };
-    camera.position.set(0.6, 5.1, 25);
-    controls.target.set(0.3, 0, 0);
-    controls.update();
-    const systemCamera = () => new THREE.Vector3(0.6, 5.1, 25).multiplyScalar(Math.max(1, 1.05 / camera.aspect));
     const bodyDistance = (radius: number) => {
       const vertical = radians(camera.fov);
       const horizontal = 2 * Math.atan(Math.tan(vertical / 2) * camera.aspect);
       return radius / Math.sin(Math.min(vertical, horizontal) / 2) * 1.2;
     };
+    const systemCamera = () => systemTarget.clone().addScaledVector(new THREE.Vector3(0.02, 0.2, 1).normalize(), bodyDistance(orbitRadius / 2 + C.earthRadius));
+    camera.position.copy(systemCamera());
+    controls.target.copy(systemTarget);
+    controls.update();
     let onResize = () => { camera.position.copy(systemCamera()); controls.update(); };
     const resize = () => {
       const width = container.clientWidth, height = container.clientHeight;
@@ -106,14 +127,15 @@ export default function SpaceScene(props: Props) {
     const random = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
     for (let i = 0; i < stars.length; i += 3) {
       const az = random() * Math.PI * 2, cos = random() * 2 - 1;
-      const r = 140 + random() * 60;
+      const r = maxViewDistance * (2 + random());
       stars[i] = r * Math.sqrt(1 - cos * cos) * Math.cos(az);
       stars[i + 1] = r * cos;
       stars[i + 2] = r * Math.sqrt(1 - cos * cos) * Math.sin(az);
     }
     const starGeometry = new THREE.BufferGeometry();
     starGeometry.setAttribute('position', new THREE.BufferAttribute(stars, 3));
-    scene.add(new THREE.Points(starGeometry, new THREE.PointsMaterial({ color: 0xffffff, size: 0.13, transparent: true, opacity: 0.62, sizeAttenuation: true })));
+    const starField = new THREE.Points(starGeometry, new THREE.PointsMaterial({ color: 0xffffff, size: 1, transparent: true, opacity: 0.62, sizeAttenuation: false }));
+    scene.add(starField);
 
     const initialize = async () => {
       const resources = await Promise.allSettled([
@@ -133,9 +155,8 @@ export default function SpaceScene(props: Props) {
       const earthMaterial = new THREE.MeshPhongMaterial({ map: baseEarthTexture, shininess: 7, specular: 0x181818 });
       const earth = new THREE.Mesh(earthGeometry, earthMaterial);
       const earthTilt = new THREE.Group();
-      const earthCenter = new THREE.Vector3(-1.8, 0, 0);
       earthTilt.position.copy(earthCenter);
-      earthTilt.rotation.z = radians(C.earthAxialTiltDegrees);
+      earthTilt.quaternion.copy(initialFrame.earthOrientation);
       earthTilt.add(earth); scene.add(earthTilt);
       const moon = new THREE.Mesh(moonGeometry, new THREE.MeshPhongMaterial({ map: lunarTexture, shininess: 0 }));
       scene.add(moon);
@@ -149,51 +170,63 @@ export default function SpaceScene(props: Props) {
       earthTilt.add(atmosphere);
 
       const orbitPoints: THREE.Vector3[] = [];
-      for (let i = 0; i <= 256; i++) orbitPoints.push(lunarPosition(i / 256 * Math.PI * 2).add(earthCenter));
-      const orbit = new THREE.Line(new THREE.BufferGeometry().setFromPoints(orbitPoints), new THREE.LineDashedMaterial({ color: 0x999999, transparent: true, opacity: 0.42, dashSize: 0.12, gapSize: 0.11 }));
+      for (const point of data.points) orbitPoints.push(displayedPosition(point.moon.position, mode));
+      // Open 28-day ephemeris arc: never force the endpoints into a fake ellipse.
+      const dash = mode === 'public' ? 0.12 : 1.2;
+      const orbit = new THREE.Line(new THREE.BufferGeometry().setFromPoints(orbitPoints), new THREE.LineDashedMaterial({ color: 0x999999, transparent: true, opacity: 0.42, dashSize: dash, gapSize: dash }));
       orbit.computeLineDistances(); scene.add(orbit);
+      const samples = new THREE.Points(new THREE.BufferGeometry().setFromPoints(data.daily.map(point => displayedPosition(point.moon.position, mode))), new THREE.PointsMaterial({ color: 0xff8000, size: 4, sizeAttenuation: false }));
+      scene.add(samples);
       const pinMap = pinTexture();
       const pin = new THREE.Sprite(new THREE.SpriteMaterial({ map: pinMap, depthTest: true, depthWrite: false, toneMapped: false }));
       pin.scale.set(0.3, 0.375, 1); pin.center.set(0.5, 0.07);
       pin.visible = false; earth.add(pin);
+      const landingPin=new THREE.Sprite(new THREE.SpriteMaterial({map:pinMap,depthTest:true,depthWrite:false,toneMapped:false,color:0xaaffaa}));
+      landingPin.scale.set(0.13,0.16,1);landingPin.center.set(0.5,0.07);landingPin.visible=false;moon.add(landingPin);
 
-      let days = 0;
-      let earthAngle = C.initialEarthRotation;
-      let moonOffset = 0;
       let focused: Body = 'system';
       let markedTexture: THREE.Texture | null = null;
       type Transition = {
         start: number; duration: number; fromCamera: THREE.Vector3; toCamera: THREE.Vector3;
-        fromTarget: THREE.Vector3; toTarget: THREE.Vector3; fromYaw: number; toYaw: number;
+        fromTarget: THREE.Vector3; toTarget: THREE.Vector3;
         body: Body; fromMoon: THREE.Vector3;
       };
       let transition: Transition | null = null;
       const announceBody = (body: Body) => { if (focused !== body) { focused = body; state.current.onActiveBody(body); } };
-      const updateMoon = () => {
-        const mean = C.initialMoonPhase + days / C.lunarPeriodDays * Math.PI * 2;
-        const local = lunarPosition(mean);
-        moon.position.copy(local).add(earthCenter);
-        // Longitude 0 faces the Earth; rotation follows the true anomaly.
-        moon.rotation.y = Math.atan2(local.z, -local.x) + moonOffset;
+      const updateBodies = () => {
+        const next = frameAt(data, timestamp, mode);
+        const translation = next.earth.clone().sub(earthCenter);
+        camera.position.add(translation); controls.target.add(translation);
+        if (transition) {
+          transition.fromCamera.add(translation); transition.toCamera.add(translation);
+          transition.fromTarget.add(translation); transition.toTarget.add(translation);
+          transition.fromMoon.add(translation);
+        }
+        earthCenter.copy(next.earth); earthTilt.position.copy(earthCenter);
+        orbit.position.copy(earthCenter);
+        moon.position.copy(next.moon); moon.quaternion.copy(next.moonOrientation);
+        earthTilt.quaternion.copy(next.earthOrientation);
+        systemTarget.copy(earthCenter).lerp(moon.position, 0.5);
+        return translation;
       };
-      updateMoon();
-      earth.rotation.y = earthAngle;
+      updateBodies();
       const previousMoon = moon.position.clone();
 
-      const beginTransition = (body: Body, toCamera: THREE.Vector3, toTarget: THREE.Vector3, toYaw = earthAngle) => {
+      const beginTransition = (body: Body, toCamera: THREE.Vector3, toTarget: THREE.Vector3) => {
         transition = { start: performance.now(), duration: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 1 : 1800, fromCamera: camera.position.clone(), toCamera,
-          fromTarget: controls.target.clone(), toTarget, fromYaw: earthAngle, toYaw, body, fromMoon: moon.position.clone() };
+          fromTarget: controls.target.clone(), toTarget, body, fromMoon: moon.position.clone() };
         controls.enabled = false;
         controls.minDistance = body === 'moon' ? C.moonRadius * 1.17 : C.earthRadius * 1.17;
         announceBody(body);
       };
       const focus = (body: Body) => {
         if (body === 'system') {
-          beginTransition(body, systemCamera(), new THREE.Vector3(0.3, 0, 0));
+          beginTransition(body, systemCamera(), systemTarget.clone());
         } else {
           const center = body === 'earth' ? earthCenter : moon.position;
           const radius = body === 'earth' ? C.earthRadius : C.moonRadius;
-          const direction = camera.position.clone().sub(center).normalize();
+          const selected=state.current.landingSite;
+          const direction = body==='moon'&&selected?surfaceDirection(selected.latitude,selected.longitude).applyQuaternion(moon.quaternion):camera.position.clone().sub(center).normalize();
           beginTransition(body, center.clone().addScaledVector(direction, bodyDistance(radius)), center.clone());
         }
       };
@@ -204,24 +237,16 @@ export default function SpaceScene(props: Props) {
         markedTexture = markedEarthTexture(baseEarthTexture, site);
         earthMaterial.map = markedTexture; earthMaterial.needsUpdate = true;
         pin.position.copy(surfaceDirection(site.latitude, site.longitude)).multiplyScalar(C.earthRadius * 1.012);
-        const viewing = camera.position.clone().sub(earthCenter).normalize().applyQuaternion(earthTilt.quaternion.clone().invert());
-        const desiredLongitude = Math.atan2(-viewing.z, viewing.x);
-        const targetYaw = desiredLongitude - radians(site.longitude);
-        const delta = Math.atan2(Math.sin(targetYaw - earthAngle), Math.cos(targetYaw - earthAngle));
-        const endYaw = earthAngle + delta;
-        const direction = surfaceDirection(site.latitude, site.longitude).applyAxisAngle(new THREE.Vector3(0, 1, 0), endYaw).applyQuaternion(earthTilt.quaternion);
-        beginTransition('earth', earthCenter.clone().addScaledVector(direction, bodyDistance(C.earthRadius)), earthCenter.clone(), endYaw);
+        const direction = surfaceDirection(site.latitude, site.longitude).applyQuaternion(earthTilt.quaternion);
+        beginTransition('earth', earthCenter.clone().addScaledVector(direction, bodyDistance(C.earthRadius)), earthCenter.clone());
       };
-      const setDate = (date: string) => {
-        const dateDays = date ? daysFromDate(date) : 0;
-        if (dateDays === null) return;
-        days = dateDays;
-        if (!date && !state.current.site) { earthAngle = C.initialEarthRotation; moonOffset = 0; }
-        updateMoon(); previousMoon.copy(moon.position);
-        // Date controls the illustrative phase, not a precision ephemeris.
-        if (focused === 'moon') focus('moon');
+      const setInstant = (instant: number) => {
+        timestamp = THREE.MathUtils.clamp(instant, data.start, data.stop);
+        simulationTime.current = { id: data.id, time: timestamp };
+        updateBodies(); previousMoon.copy(moon.position);
+        focus(focused);
       };
-      api.current = { focus, locate, setDate };
+      api.current = { focus, locate, setInstant };
       onResize = () => {
         if (transition) {
           if (transition.body === 'system') transition.toCamera.copy(systemCamera());
@@ -231,11 +256,10 @@ export default function SpaceScene(props: Props) {
             transition.toCamera.copy(transition.toTarget).addScaledVector(direction, bodyDistance(radius));
           }
         } else {
-          if (focused === 'system') { camera.position.copy(systemCamera()); controls.target.set(0.3, 0, 0); controls.update(); }
+          if (focused === 'system') { camera.position.copy(systemCamera()); controls.target.copy(systemTarget); controls.update(); }
           else focus(focused);
         }
       };
-      if (state.current.date) setDate(state.current.date);
       if (state.current.site) locate(state.current.site);
 
       const raycaster = new THREE.Raycaster();
@@ -251,7 +275,6 @@ export default function SpaceScene(props: Props) {
         const moonDistance = camera.position.distanceTo(moon.position) - C.moonRadius;
         return earthDistance <= moonDistance ? 'earth' : 'moon';
       };
-      let dragged: { body: Body; id: number; lastX: number } | null = null;
       const fingers = new Map<number, THREE.Vector2>();
       let pinchDistance = 0;
       const cancelTransition = () => { transition = null; controls.enabled = true; };
@@ -261,7 +284,7 @@ export default function SpaceScene(props: Props) {
         const radius = body === 'moon' ? C.moonRadius : C.earthRadius;
         const offset = camera.position.clone().sub(center);
         const distance = offset.length();
-        const nextDistance = THREE.MathUtils.clamp(distance * Math.exp(delta * 0.0014), radius * 1.2, 65);
+        const nextDistance = THREE.MathUtils.clamp(distance * Math.exp(delta * 0.0014), radius * 1.2, maxViewDistance);
         camera.position.copy(center).add(offset.normalize().multiplyScalar(nextDistance));
         controls.target.lerp(center, 0.5);
         controls.minDistance = radius * 1.17;
@@ -276,20 +299,10 @@ export default function SpaceScene(props: Props) {
         cancelTransition();
         fingers.set(event.pointerId, new THREE.Vector2(event.clientX, event.clientY));
         if (fingers.size === 2) {
-          dragged = null; controls.enabled = false;
+          controls.enabled = false;
           const values = [...fingers.values()]; pinchDistance = values[0].distanceTo(values[1]);
           event.stopImmediatePropagation(); return;
         }
-        if (event.button !== 0) return;
-        const body = hitBody(event.clientX, event.clientY);
-        const rect = renderer.domElement.getBoundingClientRect();
-        pointer.set((event.clientX - rect.left) / rect.width * 2 - 1, -(event.clientY - rect.top) / rect.height * 2 + 1);
-        raycaster.setFromCamera(pointer, camera);
-        if (!raycaster.intersectObjects([earth, moon], false).length) return;
-        dragged = { body, id: event.pointerId, lastX: event.clientX };
-        renderer.domElement.setPointerCapture(event.pointerId);
-        controls.enabled = false;
-        event.stopImmediatePropagation(); announceBody(body);
       };
       const onPointerMove = (event: PointerEvent) => {
         if (fingers.has(event.pointerId)) fingers.set(event.pointerId, new THREE.Vector2(event.clientX, event.clientY));
@@ -299,21 +312,9 @@ export default function SpaceScene(props: Props) {
           pinchDistance = distance; controls.enabled = false;
           event.stopImmediatePropagation(); return;
         }
-        if (dragged && dragged.id === event.pointerId) {
-          const delta = (event.clientX - dragged.lastX) * 0.008;
-          if (dragged.body === 'earth') earthAngle += delta; else moonOffset += delta;
-          dragged.lastX = event.clientX;
-          event.stopImmediatePropagation();
-        } else if (!fingers.size) {
-          const rect = renderer.domElement.getBoundingClientRect();
-          pointer.set((event.clientX - rect.left) / rect.width * 2 - 1, -(event.clientY - rect.top) / rect.height * 2 + 1);
-          raycaster.setFromCamera(pointer, camera);
-          renderer.domElement.style.cursor = raycaster.intersectObjects([earth, moon], false).length ? 'grab' : 'move';
-        }
       };
       const onPointerUp = (event: PointerEvent) => {
         fingers.delete(event.pointerId);
-        if (dragged?.id === event.pointerId) { dragged = null; event.stopImmediatePropagation(); }
         pinchDistance = 0; controls.enabled = true;
         if (renderer.domElement.hasPointerCapture(event.pointerId)) renderer.domElement.releasePointerCapture(event.pointerId);
       };
@@ -321,11 +322,6 @@ export default function SpaceScene(props: Props) {
         if (event.key === '+' || event.key === '=') { event.preventDefault(); zoom(focused === 'moon' ? 'moon' : 'earth', -100); }
         if (event.key === '-') { event.preventDefault(); zoom(focused === 'moon' ? 'moon' : 'earth', 100); }
         if (event.key === 'Home') { event.preventDefault(); focus('system'); }
-        if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-          event.preventDefault(); cancelTransition();
-          const delta = event.key === 'ArrowLeft' ? -0.1 : 0.1;
-          if (focused === 'moon') moonOffset += delta; else earthAngle += delta;
-        }
       };
       const canvas = renderer.domElement;
       canvas.addEventListener('wheel', onWheel, { passive: false });
@@ -345,34 +341,45 @@ export default function SpaceScene(props: Props) {
         element.style.transform = `translate(-50%, 0) translate(${(point.x * 0.5 + 0.5) * container.clientWidth}px, ${(-point.y * 0.5 + 0.5) * container.clientHeight + offsetY}px)`;
       };
       let previousTime = performance.now();
+      let previousClockUpdate = -Infinity;
       const render = (now: number) => {
         if (cancelled) return;
-        const delta = Math.min((now - previousTime) / 1000, 0.05); previousTime = now;
+        const delta = Math.max((now - previousTime) / 1000, 0); previousTime = now;
         const settings = state.current;
         if (settings.playing) {
-          const dayDelta = delta * C.simulationDaysPerSecond * settings.speed;
-          days += dayDelta;
-          // Hold the selected launch location while inspecting it.
-          if (!settings.site && !dragged && !transition) earthAngle += dayDelta * 86400 / C.earthSiderealDaySeconds * Math.PI * 2;
+          timestamp = Math.min(timestamp + delta * settings.speed * 1000, data.stop);
+          if (timestamp === data.stop) state.current.onRangeEnd();
         }
-        updateMoon();
-        if (focused === 'moon' && !transition) {
-          const translation = moon.position.clone().sub(previousMoon);
+        simulationTime.current = { id: data.id, time: timestamp };
+        if (now - previousClockUpdate >= 1000) { state.current.onTimeChange(timestamp); previousClockUpdate = now; }
+        const earthTranslation = updateBodies();
+        landingPin.visible=!!settings.landingSite;
+        if(settings.landingSite)landingPin.position.copy(surfaceDirection(settings.landingSite.latitude,settings.landingSite.longitude)).multiplyScalar(C.moonRadius*1.012);
+        if (focused !== 'earth' && !transition) {
+          const translation = moon.position.clone().sub(previousMoon).sub(earthTranslation);
+          if (focused === 'system') translation.multiplyScalar(0.5);
           camera.position.add(translation); controls.target.add(translation);
         }
         previousMoon.copy(moon.position);
         if (transition) {
           const t = Math.min((now - transition.start) / transition.duration, 1);
           const eased = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-          const move = transition.body === 'moon' ? moon.position.clone().sub(transition.fromMoon) : new THREE.Vector3();
+          const move = transition.body === 'earth' ? new THREE.Vector3() : moon.position.clone().sub(transition.fromMoon).multiplyScalar(transition.body === 'system' ? 0.5 : 1);
           camera.position.lerpVectors(transition.fromCamera, transition.toCamera.clone().add(move), eased);
           controls.target.lerpVectors(transition.fromTarget, transition.toTarget.clone().add(move), eased);
-          earthAngle = THREE.MathUtils.lerp(transition.fromYaw, transition.toYaw, eased);
           if (t === 1) { transition = null; controls.enabled = true; }
         }
-        earth.rotation.y = earthAngle;
         orbit.visible = settings.showOrbit;
+        samples.visible = settings.showOrbit;
         controls.update();
+        starField.position.copy(camera.position);
+        // La luz viaja con el marco local; no cambia la orientación de los cuerpos.
+        sunlight.position.copy(earthCenter).add(new THREE.Vector3(7, 6, 12));
+        sunlight.target.position.copy(earthCenter);
+        sunlight.target.updateMatrixWorld();
+        fillLight.position.copy(earthCenter).add(new THREE.Vector3(-8, -2, -5));
+        fillLight.target.position.copy(earthCenter);
+        fillLight.target.updateMatrixWorld();
         // Protect against entering either sphere during free-space navigation.
         for (const [center, radius] of [[earthCenter, C.earthRadius], [moon.position, C.moonRadius]] as const) {
           const offset = camera.position.clone().sub(center);
@@ -408,7 +415,7 @@ export default function SpaceScene(props: Props) {
       });
       renderer.dispose(); renderer.domElement.remove();
     };
-  }, [retry]);
+  }, [retry, props.ephemeris, props.mode]);
 
   return <div className="space-scene" ref={host}>
     <div className="body-label" ref={earthLabel}><span>01 / {t.earth.toLocaleUpperCase()}</span><small>{t.origin}</small></div>

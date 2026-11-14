@@ -1,0 +1,242 @@
+{
+  "version": 1,
+  "id": "ea770d664ee922b8485d91d8",
+  "source": "NASA/JPL Horizons",
+  "frame": "ICRF",
+  "center": "500@399",
+  "corrections": "NONE",
+  "timeScale": "UTC",
+  "start": 1794681240000,
+  "stop": 1797100440000,
+  "stepSeconds": 300,
+  "fetchedAt": "2026-11-14T18:34:54.635Z",
+  "queries": [
+    "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27301%27&CENTER=%27500%40399%27&MAKE_EPHEM=%27YES%27&OBJ_DATA=%27NO%27&EPHEM_TYPE=%27VECTORS%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&TIME_TYPE=%27UT%27&OUT_UNITS=%27KM-S%27&VEC_TABLE=%272%27&VEC_CORR=%27NONE%27&START_TIME=%272026-11-14+18%3A34%3A00%27&STOP_TIME=%272026-12-12+18%3A34%3A00%27&STEP_SIZE=%275+m%27&CSV_FORMAT=%27YES%27&TIME_DIGITS=%27FRACSEC%27&CAL_TYPE=%27GREGORIAN%27",
+    "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27g%3A0%2C0%2C0%40399%27&CENTER=%27500%40399%27&MAKE_EPHEM=%27YES%27&OBJ_DATA=%27NO%27&EPHEM_TYPE=%27VECTORS%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&TIME_TYPE=%27UT%27&OUT_UNITS=%27KM-S%27&VEC_TABLE=%272%27&VEC_CORR=%27NONE%27&START_TIME=%272026-11-14+18%3A34%3A00%27&STOP_TIME=%272026-12-12+18%3A34%3A00%27&STEP_SIZE=%275+m%27&CSV_FORMAT=%27YES%27&TIME_DIGITS=%27FRACSEC%27&CAL_TYPE=%27GREGORIAN%27",
+    "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27g%3A0%2C90%2C0%40399%27&CENTER=%27500%40399%27&MAKE_EPHEM=%27YES%27&OBJ_DATA=%27NO%27&EPHEM_TYPE=%27VECTORS%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&TIME_TYPE=%27UT%27&OUT_UNITS=%27KM-S%27&VEC_TABLE=%272%27&VEC_CORR=%27NONE%27&START_TIME=%272026-11-14+18%3A34%3A00%27&STOP_TIME=%272026-12-12+18%3A34%3A00%27&STEP_SIZE=%275+m%27&CSV_FORMAT=%27YES%27&TIME_DIGITS=%27FRACSEC%27&CAL_TYPE=%27GREGORIAN%27"
+  ],
+  "points": [
+    {
+      "time": 1794681240000,
+      "moon": {
+        "position": [
+          153661220.5897106,
+          -335785112.6036742,
+          -166412444.17601612
+        ],
+        "velocity": [
+          888.1333615873181,
+          315.71595509393217,
+          215.34283079214939
+        ]
+      },
+      "greenwich": {
+        "position": [
+          5633056.22763966,
+          -2991503.417621055,
+          -14711.53902857835
+        ],
+        "velocity": [
+          218.14308763653818,
+          410.770339864799,
+          -0.5843872178278054
+        ]
+      },
+      "northPole": {
+        "position": [
+          16700.0654442835,
+          185.5657748748732,
+          6356730.374810697
+        ],
+        "velocity": [
+          -0.000727515908571293,
+          0.0001131911976658283,
+          0.000001907986992913047
+        ]
+      },
+      "spherical": {
+        "radiusMeters": 405038904.47217226,
+        "rightAscensionRadians": 5.141559724439799,
+        "declinationRadians": -0.42339217320466205
+      }
+    },
+    {
+      "time": 1794681540000,
+      "moon": {
+        "position": [
+          153927617.6184977,
+          -335690306.2502934,
+          -166347795.89876
+        ],
+        "velocity": [
+          887.8467484533221,
+          316.3263757979297,
+          215.6456664076544
+        ]
+      },
+      "greenwich": {
+        "position": [
+          5697146.066072326,
+          -2867566.351347004,
+          -14883.32046421399
+        ],
+        "velocity": [
+          209.1054850515674,
+          415.4438613779578,
+          -0.5607757648879744
+        ]
+      },
+      "northPole": {
+        "position": [
+          16699.84701088008,
+          185.5972470717722,
+          6356730.375383631
+        ],
+        "velocity": [
+          -0.0007297396332670467,
+          0.00009661372510191152,
+          0.000001914287420314373
+        ]
+      },
+      "spherical": {
+        "radiusMeters": 405034915.009185,
+        "rightAscensionRadians": 5.1423224895594775,
+        "declinationRadians": -0.4232215482644245
+      }
+    },
+    {
+      "time": 1794681840000,
+      "moon": {
+        "position": [
+          154193928.5897693,
+          -335595316.7931596,
+          -166283056.7868571
+        ],
+        "velocity": [
+          887.5596441287314,
+          316.9366464830822,
+          215.9483949094898
+        ]
+      },
+      "greenwich": {
+        "position": [
+          5758509.504893681,
+          -2742256.995830006,
+          -15047.97792216629
+        ],
+        "velocity": [
+          199.9678139163238,
+          419.9185700169814,
+          -0.5368959258207435
+        ]
+      },
+      "northPole": {
+        "position": [
+          16699.627964626357,
+          185.62374302492572,
+          6356730.375958313
+        ],
+        "velocity": [
+          -0.0007316001732666091,
+          0.00007999184743126218,
+          0.0000019196350331969654
+        ]
+      },
+      "spherical": {
+        "radiusMeters": 405030911.4645809,
+        "rightAscensionRadians": 5.143085147254318,
+        "declinationRadians": -0.4230507027806568
+      }
+    },
+    {
+      "time": 1794682140000,
+      "moon": {
+        "position": [
+          154460153.35597178,
+          -335500144.27739567,
+          -166218226.8725141
+        ],
+        "velocity": [
+          887.2720487146522,
+          317.5467668703925,
+          216.2510161571289
+        ]
+      },
+      "greenwich": {
+        "position": [
+          5817117.185942324,
+          -2615635.301528553,
+          -15205.432618126579
+        ],
+        "velocity": [
+          190.7344458722691,
+          424.1923249432694,
+          -0.5127591248985415
+        ]
+      },
+      "northPole": {
+        "position": [
+          16699.40841449456,
+          185.6452505994854,
+          6356730.376534456
+        ],
+        "velocity": [
+          -0.0007330966442660523,
+          0.00006333351134137007,
+          0.000001924027287590847
+        ]
+      },
+      "spherical": {
+        "radiusMeters": 405026893.83489853,
+        "rightAscensionRadians": 5.143847697498085,
+        "declinationRadians": -0.42287963686557106
+      }
+    }
+  ],
+  "daily": [
+    {
+      "time": 1794681240000,
+      "moon": {
+        "position": [
+          153661220.5897106,
+          -335785112.6036742,
+          -166412444.17601612
+        ],
+        "velocity": [
+          888.1333615873181,
+          315.71595509393217,
+          215.34283079214939
+        ]
+      },
+      "greenwich": {
+        "position": [
+          5633056.22763966,
+          -2991503.417621055,
+          -14711.53902857835
+        ],
+        "velocity": [
+          218.14308763653818,
+          410.770339864799,
+          -0.5843872178278054
+        ]
+      },
+      "northPole": {
+        "position": [
+          16700.0654442835,
+          185.5657748748732,
+          6356730.374810697
+        ],
+        "velocity": [
+          -0.000727515908571293,
+          0.0001131911976658283,
+          0.000001907986992913047
+        ]
+      },
+      "spherical": {
+        "radiusMeters": 405038904.47217226,
+        "rightAscensionRadians": 5.141559724439799,
+        "declinationRadians": -0.42339217320466205
+      }
+    }
+  ]
+}
