@@ -17,7 +17,9 @@ import { useLandingAnalysis, useLunarAttitudes } from './science/useLandingAnaly
 import { candidateForArrivalDay } from './science/landingWindows';
 import LandingDatePicker from './science/LandingDatePicker';
 import LandingPanel from './science/LandingPanel';
+import LandingResultsNotice from './science/LandingResultsNotice';
 import type { LandingCandidate, LunarSite } from './science/landingTypes';
+import { landingMarkerCandidates } from './science/landingMarkers';
 import QuizLauncher from './quiz/QuizLauncher';
 import SurfaceLayerPanel from './science/SurfaceLayerPanel';
 import type { SurfaceOverlay } from './science/surfaceLayers';
@@ -140,9 +142,11 @@ function Explorer({ onPrivacy }: { onPrivacy: () => void }) {
   const [sceneTime, setSceneTime] = useState<number | null>(null);
   const ephemeris = useEphemeris(month);
   const {job:landingJob,retry:retryLanding}=useLandingAnalysis(ephemeris.data,site);
+  const landingCandidates = useMemo(() => landingMarkerCandidates(landingJob?.report?.candidates ?? [], date, surfaceOverlay?.layer === 'energy'), [landingJob?.report, date, surfaceOverlay?.layer]);
   const lunarFrame=useLunarAttitudes(ephemeris.data);
   const sceneEphemeris=useMemo(()=>ephemeris.data&&lunarFrame.attitudes?{...ephemeris.data,lunarAttitudes:lunarFrame.attitudes}:null,[ephemeris.data,lunarFrame.attitudes]);
   const [landingSite,setLandingSite]=useState<LunarSite|null>(null);
+  const [landingSelection, setLandingSelection] = useState<LandingCandidate | null>(null);
   const [historicalMission, setHistoricalMission] = useState<HistoricalFlight | null>(null);
   const [historicalTime, setHistoricalTime] = useState(() => Date.parse(`${month}-01T00:00:00Z`));
   const hc = historicalMessages[language];
@@ -155,7 +159,15 @@ function Explorer({ onPrivacy }: { onPrivacy: () => void }) {
   const [command, setCommand] = useState<{ body: Body; serial: number; resetTime?: number }>({ body: 'system', serial: 0 });
   const [mobilePanel, setMobilePanel] = useState(false);
   const focus = (body: Body) => setCommand(previous => ({ body, serial: previous.serial + 1 }));
+  const selectLandingCandidate = (candidate: LandingCandidate) => {
+    if (!sceneEphemeris || !new Date(candidate.arrival).toISOString().startsWith(`${month}-`)) return;
+    setHistoricalMission(null); setDate(new Date(candidate.arrival).toISOString().slice(0, 10));
+    setInstant(candidate.arrival); setSceneTime(candidate.arrival); setLandingSite(candidate.site);
+    setLandingSelection(candidate); setMobilePanel(false); setLayersMinimized(true); setSpaceyOpen(false);
+    setPlaying(false); focus('moon');
+  };
   const selectHistoricalSite = (mission: HistoricalFlight) => {
+    setLandingSelection(null);
     setHistoricalMission(mission); setHistoricalTime(sceneTime ?? instant ?? ephemeris.data?.start ?? Date.now());
     setLandingSite({ id: mission.id, name: mission.id, latitude: mission.latitude, longitude: mission.longitude });
     setPlaying(false); setLayersMinimized(true); setSpaceyOpen(false); setMobilePanel(false); focus('moon');
@@ -163,24 +175,25 @@ function Explorer({ onPrivacy }: { onPrivacy: () => void }) {
   const viewLandingResults = () => {
     setMobilePanel(true);
     requestAnimationFrame(() => {
-      const panel = document.querySelector<HTMLElement>('.landing-analysis');
+      const panel = document.getElementById('landing-day');
       panel?.scrollIntoView({ block: 'start', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
       panel?.focus({ preventScroll: true });
     });
   };
   const changeMonth = (value: string) => {
     if (value === month) return;
-    setMonth(value); setDate(''); setDateError(false); if (!historicalMission) setLandingSite(null);
+    setMonth(value); setDate(''); setDateError(false); setLandingSelection(null); if (!historicalMission) setLandingSite(null);
     const start = Date.parse(`${value}-01T00:00:00Z`);
     setInstant(start); setSceneTime(start); setHistoricalTime(start); setPlaying(false); setActiveBody('system');
   };
   const updateDate = (value: string) => {
+    setLandingSelection(null);
     if(!value){setDate('');if(!historicalMission)setLandingSite(null);setDateError(false);return;}
     const candidate=candidateForArrivalDay(value,landingJob?.report?.candidates??[]);
     if(!candidate||!value.startsWith(`${month}-`)||!sceneEphemeris||landingJob?.status!=='complete'){setDateError(true);return;}
     setDate(value);setDateError(false);setInstant(candidate.arrival);setSceneTime(candidate.arrival);setHistoricalTime(candidate.arrival);setPlaying(false);if(!historicalMission)setLandingSite(candidate.site);focus('moon');
   };
-  useEffect(()=>{setDate('');setDateError(false);if(!historicalMission)setLandingSite(null);},[landingJob?.id]);
+  useEffect(()=>{setDate('');setDateError(false);setLandingSelection(null);if(!historicalMission)setLandingSite(null);},[landingJob?.id]);
   const selectSite = (id: string) => {
     setSiteId(id); setError(false);
     const selected = LAUNCH_SITES.find(s => s.id === id) ?? null;
@@ -197,6 +210,7 @@ function Explorer({ onPrivacy }: { onPrivacy: () => void }) {
     setMobilePanel(false);
   };
   const reset = () => {
+    setLandingSelection(null);
     setHistoricalMission(null);
     setLayersMinimized(false); setSpaceyOpen(false);
     setSurfaceReset(n => n + 1); setSurfaceOverlay(null);
@@ -247,15 +261,16 @@ function Explorer({ onPrivacy }: { onPrivacy: () => void }) {
         <div className="location-card-header"><MapPin size={16} /><span>{site ? t.selectedSite : t.noSite}</span></div>
         {site ? <><h3>{siteName}</h3><p>{siteRegion}</p><div className="location-coordinates"><span>{t.lat}<strong>{formatCoordinate(site.latitude, t.north, t.south)}</strong></span><span>{t.lon}<strong>{formatCoordinate(site.longitude, t.east, t.west)}</strong></span></div><p className="site-height-note">h = {site.heightMeters ?? 0} m · WGS84</p>{site.source && <a className="site-source" href={site.source} target="_blank" rel="noreferrer">{c.source} ↗</a>}{site.coordinateNote && <p>{c.reference}</p>}<button className="text-button" onClick={() => setSite({ ...site })}><Crosshair size={14} />{t.goMarker}</button></> : <><h3>{t.emptyTitle}</h3><p>{t.emptyDescription}</p><div className="location-placeholder"><span>{t.lat} <strong>—</strong></span><span>{t.lon} <strong>—</strong></span></div></>}
       </div>
-      <LandingPanel job={landingJob} day={date} retry={retryLanding} ready={!!sceneEphemeris} selectedSite={!!site} onCandidate={(p:LandingCandidate)=>{if(!sceneEphemeris||!new Date(p.arrival).toISOString().startsWith(`${month}-`))return;setHistoricalMission(null);setDate(new Date(p.arrival).toISOString().slice(0,10));setInstant(p.arrival);setSceneTime(p.arrival);setLandingSite(p.site);setPlaying(false);focus('moon');}}/>
+      <LandingPanel job={landingJob} day={date} retry={retryLanding} selectedSite={!!site}/>
       <OrbitAnalysisPanel key={ephemeris.data?.id??month} data={ephemeris.data} status={ephemeris.status} retry={ephemeris.retry} site={site} onInstant={time => { setInstant(time); setSceneTime(time); setHistoricalTime(time); setPlaying(false); focus('system'); }} />
       <div className="sidebar-bottom"><p><Orbit size={16} /><span>{mode === 'public' ? c.public : c.real}<small>{mode === 'public' ? c.publicHint : c.realHint}</small></span></p><button className="text-button reset-button" onClick={reset}><RotateCcw size={15} />{t.reset}</button><button className="privacy-link" onClick={onPrivacy}>{privacyMessages[language].title}</button></div>
     </aside>
     <section className="viewport" aria-label={t.explorerTitle}>
+      <LandingResultsNotice job={landingJob} onChooseDate={viewLandingResults} />
       <SurfaceLayerPanel key={surfaceReset} mode={mode} report={landingJob?.report} job={landingJob} hasLaunchSite={!!site} day={date} site={landingSite} onOverlay={setSurfaceOverlay} onFocusMoon={() => focus('moon')} onConfigure={() => { setMobilePanel(true); requestAnimationFrame(() => document.getElementById('launch-site')?.focus()); }} retryAnalysis={retryLanding} minimized={layersMinimized} onMinimizedChange={value => { setLayersMinimized(value); if (!value) setSpaceyOpen(false); }} />
       <QuizLauncher status={landingJob?.status==='error'||ephemeris.status==='error'?'error':landingJob?.status==='complete'?'complete':site?'calculating':'idle'} onViewResults={viewLandingResults}/>
       {historicalMission && <HistoricalSitePanel key={historicalMission.id} mission={historicalMission} time={historicalTime} ephemeris={ephemeris.data} launchSite={site} job={landingJob} day={date} onClose={() => setHistoricalMission(null)} onRefresh={() => { setHistoricalTime(sceneTime ?? instant ?? historicalTime); setPlaying(false); }} />}
-      {sceneEphemeris ? <SpaceScene site={site} landingSite={landingSite} onHistoricalSite={selectHistoricalSite} overlay={surfaceOverlay && (mode === 'real' || surfaceOverlay.layer !== 'thermal' && surfaceOverlay.layer !== 'dust') ? surfaceOverlay : null} ephemeris={sceneEphemeris} mode={mode} instant={instant} playing={playing} speed={speed} showOrbit={showOrbit} command={command} onActiveBody={setActiveBody} onRangeEnd={() => setPlaying(false)} onTimeChange={setSceneTime} /> : <div className="ephemeris-scene-state" role="status"><Orbit size={28} /><p>{ephemeris.status === 'error'||lunarFrame.status==='error'?c.apiError:t.preparing}</p>{(ephemeris.status === 'error'||lunarFrame.status==='error')&&<button className="button" onClick={ephemeris.status==='error'?ephemeris.retry:lunarFrame.retry}>{c.retry}</button>}</div>}
+      {sceneEphemeris ? <SpaceScene site={site} landingSite={landingSite} landingCandidates={landingCandidates} landingDay={date} landingSelection={landingSelection} onCloseLanding={() => setLandingSelection(null)} onLandingCandidate={selectLandingCandidate} onHistoricalSite={selectHistoricalSite} overlay={surfaceOverlay && (mode === 'real' || surfaceOverlay.layer !== 'thermal' && surfaceOverlay.layer !== 'dust') ? surfaceOverlay : null} ephemeris={sceneEphemeris} mode={mode} instant={instant} playing={playing} speed={speed} showOrbit={showOrbit} command={command} onActiveBody={setActiveBody} onRangeEnd={() => setPlaying(false)} onTimeChange={setSceneTime} /> : <div className="ephemeris-scene-state" role="status"><Orbit size={28} /><p>{ephemeris.status === 'error'||lunarFrame.status==='error'?c.apiError:t.preparing}</p>{(ephemeris.status === 'error'||lunarFrame.status==='error')&&<button className="button" onClick={ephemeris.status==='error'?ephemeris.retry:lunarFrame.retry}>{c.retry}</button>}</div>}
       {ephemeris.data && <div className="scene-clock"><span>{c.viewing} · UTC</span><time>{new Intl.DateTimeFormat(locale, { timeZone: 'UTC', dateStyle: 'medium', timeStyle: 'medium' }).format(sceneTime !== null && sceneTime >= ephemeris.data.start && sceneTime <= ephemeris.data.stop ? sceneTime : ephemeris.data.start)}</time></div>}
       <div className="viewport-heading"><div><span className="eyebrow">{t.explorerNumber}</span><h1>{t.explorerTitle}<span className="title-period">.</span></h1></div><div className="scene-badge"><span />{t.interactive3d}</div></div>
       <div className="viewport-tools"><button className="icon-button" onClick={() => focus('system')} aria-label={t.fullSystem} title={t.fullSystem}><Globe2 size={19} /></button></div>

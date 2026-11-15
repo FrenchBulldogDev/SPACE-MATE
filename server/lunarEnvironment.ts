@@ -4,9 +4,14 @@ import { geodeticPosition, inBasis, length, sub, terrestrialBasis, dot } from '.
 import type { Vec3 } from '../src/science/types';
 import { jplStates } from './jplStates';
 
-export const LUNAR_CYCLE_SECONDS = 27.321661 * 86400;
+// One mean synodic month: the period after which the Sun returns to the same
+// place in the lunar sky, i.e. one complete day/night cycle at a site. The
+// sidereal month (27.32 d) is the rotation relative to the stars and would cut
+// every sunlight and solar-energy total 2.2 days short of a full cycle.
+export const LUNAR_CYCLE_SECONDS = 29.530589 * 86400;
 const environments = new Map<string, ReturnType<typeof acquireLunarEnvironment>>();
-export function loadLunarEnvironment(start: number, stop = start + 56 * 86400000, options: { signal?: AbortSignal; persist?: boolean; cacheKey?: string } = {}) {
+// Default coverage: a 28-day ephemeris plus one full cycle after the last arrival.
+export function loadLunarEnvironment(start: number, stop = start + 58 * 86400000, options: { signal?: AbortSignal; persist?: boolean; cacheKey?: string } = {}) {
   const key = `${start}:${stop}:${options.cacheKey??''}`;
   if (!environments.has(key)) {
     const promise = acquireLunarEnvironment(start, stop, options); environments.set(key,promise);

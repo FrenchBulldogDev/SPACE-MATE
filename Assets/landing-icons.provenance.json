@@ -1,0 +1,10 @@
+{
+  "tool": "Built-in image_gen",
+  "date": "2026-11-15",
+  "reference": "Assets/Bolt.png",
+  "transparentBackground": true,
+  "assets": {
+    "Earth visibility.png": "Use case: logo-brand. Generate one standalone UI badge for direct line-of-sight communication with Earth, matching the supplied Bolt.png reference's icon family. Reference image is ONLY a style reference, do not alter the original. Square 1024 canvas, truly transparent outside the badge. Centered circular dark navy badge, thick bright royal-blue outside ring and thin luminous cyan inner ring; clean flat cartoon illustration with a little hand-drawn charm, limited cyan/aqua/blue palette, no text. Main glyph: a simple recognizable Earth globe in cyan and blue, with a short straight line of three radio/signal waves linking it to a tiny lunar lander/antenna at its lower right; direct unobstructed link. A few restrained tiny cyan star flecks matching Bolt. Strong silhouette readable at 48 px, generous consistent transparent exterior padding, no realism, no extra badges, no letters, no watermark.",
+    "Travel distance.png": "Use case: logo-brand. Generate one standalone UI badge for geometric Earth-to-Moon travel distance, matching the supplied Bolt.png reference's icon family. Reference image is ONLY a style reference, do not alter the original. Square 1024 canvas, truly transparent outside the badge. Centered circular dark navy badge, thick bright royal-blue outside ring and thin luminous cyan inner ring; clean flat cartoon illustration with a little hand-drawn charm, limited cyan/aqua/blue palette, no text. Main glyph: small simple Earth disk at lower left and crescent Moon at upper right joined by ONE straight diagonal double-ended measurement arrow, expressing distance rather than a solved curved flight trajectory. A few restrained tiny cyan star flecks matching Bolt. Strong silhouette readable at 48 px, generous consistent transparent exterior padding, no realism, no extra badges, no letters, no watermark."
+  }
+}

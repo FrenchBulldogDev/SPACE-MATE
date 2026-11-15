@@ -6,19 +6,28 @@ import { SCENE_CONFIG as C, type LaunchSite } from '../config';
 import { radians, surfaceDirection } from './math';
 import { displayedPosition, frameAt } from './referenceFrame';
 import type { DisplayMode, Ephemeris } from '../science/types';
-import type { LunarSite } from '../science/landingTypes';
+import type { LandingCandidate, LunarSite } from '../science/landingTypes';
+import { landingSiteKey } from '../science/landingMarkers';
+import { landingMessages } from '../science/landingMessages';
 import { loadBodyGeometry, loadBodyTexture, markedEarthTexture, pinTexture } from './assets';
 import { useLanguage } from '../i18n/LanguageProvider';
 import type { SurfaceOverlay } from '../science/surfaceLayers';
 import { surfaceTexture } from './surfaceTexture';
 import { surfaceMarkers } from './surfaceMarkers';
+import { landingPointCloud, landingPopoverPosition } from './landingPointCloud';
+import LandingSitePopover from '../science/LandingSitePopover';
 import flagImage from '../../Assets/Flag.PNG?url';
+import spaceyFlagImage from '../../Assets/Spacy with flag.png?url';
 import { FLIGHT_HISTORY, type HistoricalFlight } from '../science/flightHistory';
 
 export type Body = 'earth' | 'moon' | 'system';
 type Props = {
   site: LaunchSite | null;
   landingSite: LunarSite | null;
+  landingCandidates: LandingCandidate[];
+  landingDay: string;
+  landingSelection: LandingCandidate | null;
+  onCloseLanding: () => void;
   overlay: SurfaceOverlay | null;
   ephemeris: Ephemeris;
   mode: DisplayMode;
@@ -31,23 +40,43 @@ type Props = {
   onRangeEnd: () => void;
   onTimeChange: (time: number) => void;
   onHistoricalSite: (mission: HistoricalFlight) => void;
+  onLandingCandidate: (candidate: LandingCandidate) => void;
 };
 type SceneAPI = { focus: (body: Body) => void; locate: (site: LaunchSite | null) => void; setInstant: (instant: number) => void };
 
 export default function SpaceScene(props: Props) {
-  const { t, locale } = useLanguage();
+  const { t, locale, language } = useLanguage();
   const text = useRef(t);
   text.current = t;
   const host = useRef<HTMLDivElement>(null);
   const earthLabel = useRef<HTMLDivElement>(null);
   const moonLabel = useRef<HTMLDivElement>(null);
   const historicalFlags = useRef(new Map<string, HTMLButtonElement>());
+  const landingFlags = useRef(new Map<string, HTMLButtonElement>());
+  const landingCallout = useRef<HTMLDivElement>(null), landingCard = useRef<HTMLDivElement>(null);
+  const landingConnector = useRef<SVGLineElement>(null);
+  const cardSize = useRef({ width: 300, height: 410 });
   const state = useRef(props);
   state.current = props;
   const api = useRef<SceneAPI | null>(null);
   const simulationTime = useRef<{ id: string; time: number } | null>(null);
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
   const [retry, setRetry] = useState(0);
+  useEffect(() => {
+    if (!landingCard.current) return;
+    const observer = new ResizeObserver(entries => {
+      const { width, height } = entries[0].target.getBoundingClientRect();
+      if (width && height) cardSize.current = { width, height };
+    });
+    observer.observe(landingCard.current);
+    return () => observer.disconnect();
+  }, [props.landingSelection]);
+  const closeLanding = () => {
+    props.onCloseLanding();
+    const button = props.landingSelection && landingFlags.current.get(landingSiteKey(props.landingSelection.site));
+    if (button && !button.hidden) button.focus({ preventScroll: true });
+    else host.current?.querySelector('canvas')?.focus({ preventScroll: true });
+  };
 
   useEffect(() => {
     host.current?.querySelector('canvas')?.setAttribute('aria-label', t.sceneLabel);
@@ -200,8 +229,15 @@ export default function SpaceScene(props: Props) {
       const pin = new THREE.Sprite(new THREE.SpriteMaterial({ map: pinMap, depthTest: true, depthWrite: false, toneMapped: false }));
       pin.scale.set(0.3, 0.375, 1); pin.center.set(0.5, 0.07);
       pin.visible = false; earth.add(pin);
-      const landingPin=new THREE.Sprite(new THREE.SpriteMaterial({map:pinMap,depthTest:true,depthWrite:false,toneMapped:false,color:0xaaffaa}));
-      landingPin.scale.set(0.13,0.16,1);landingPin.center.set(0.5,0.07);landingPin.visible=false;moon.add(landingPin);
+      let previousCandidates: LandingCandidate[] | undefined;
+      let previousLandingDay: string | undefined;
+      let landingAnchors: { key: string; normal: THREE.Vector3; candidate: LandingCandidate }[] = [];
+      let monthlyPoints: ReturnType<typeof landingPointCloud> | undefined;
+      const clearMonthlyPoints = () => {
+        if (!monthlyPoints) return;
+        moon.remove(monthlyPoints); monthlyPoints.geometry.dispose(); monthlyPoints.material.map?.dispose(); monthlyPoints.material.dispose(); monthlyPoints = undefined;
+      };
+      const markerNormal = new THREE.Vector3(), markerPoint = new THREE.Vector3();
 
       let focused: Body = 'system';
       let markedTexture: THREE.Texture | null = null;
@@ -301,6 +337,26 @@ export default function SpaceScene(props: Props) {
         return earthDistance <= moonDistance ? 'earth' : 'moon';
       };
       const fingers = new Map<number, THREE.Vector2>();
+      let clickStart: { id: number; x: number; y: number; moved: boolean } | undefined;
+      const pickLanding = (clientX: number, clientY: number) => {
+        const settings = state.current;
+        if (settings.landingDay && settings.overlay?.layer !== 'energy') return;
+        const rect = renderer.domElement.getBoundingClientRect();
+        const toCamera = camera.position.clone().sub(moon.position);
+        if (C.moonRadius / toCamera.length() / Math.tan(radians(camera.fov) / 2) * rect.height / 2 < 2) return;
+        let closest: LandingCandidate | undefined, best = 8 * 8;
+        for (const anchor of landingAnchors) {
+          markerNormal.copy(anchor.normal).applyQuaternion(moon.quaternion);
+          if (markerNormal.dot(toCamera) <= C.moonRadius) continue;
+          markerPoint.copy(moon.position).addScaledVector(markerNormal, C.moonRadius * 1.008).project(camera);
+          if (markerPoint.z <= -1 || markerPoint.z >= 1) continue;
+          const dx = (markerPoint.x * .5 + .5) * rect.width - (clientX - rect.left);
+          const dy = (-markerPoint.y * .5 + .5) * rect.height - (clientY - rect.top);
+          const squared = dx * dx + dy * dy;
+          if (squared < best) { best = squared; closest = anchor.candidate; }
+        }
+        if (closest) settings.onLandingCandidate(closest);
+      };
       let pinchDistance = 0;
       const cancelTransition = () => { transition = null; controls.enabled = true; };
       const zoom = (body: Body, delta: number) => {
@@ -323,6 +379,8 @@ export default function SpaceScene(props: Props) {
       const onPointerDown = (event: PointerEvent) => {
         cancelTransition();
         fingers.set(event.pointerId, new THREE.Vector2(event.clientX, event.clientY));
+        if (fingers.size === 1 && event.button === 0) clickStart = { id: event.pointerId, x: event.clientX, y: event.clientY, moved: false };
+        else clickStart = undefined;
         if (fingers.size === 2) {
           controls.enabled = false;
           const values = [...fingers.values()]; pinchDistance = values[0].distanceTo(values[1]);
@@ -330,6 +388,7 @@ export default function SpaceScene(props: Props) {
         }
       };
       const onPointerMove = (event: PointerEvent) => {
+        if (clickStart && Math.hypot(event.clientX - clickStart.x, event.clientY - clickStart.y) > 5) clickStart.moved = true;
         if (fingers.has(event.pointerId)) fingers.set(event.pointerId, new THREE.Vector2(event.clientX, event.clientY));
         if (fingers.size === 2) {
           const values = [...fingers.values()]; const distance = values[0].distanceTo(values[1]);
@@ -339,6 +398,8 @@ export default function SpaceScene(props: Props) {
         }
       };
       const onPointerUp = (event: PointerEvent) => {
+        const click = clickStart; clickStart = undefined;
+        if (event.type === 'pointerup' && click?.id === event.pointerId && !click.moved && fingers.size === 1) pickLanding(event.clientX, event.clientY);
         fingers.delete(event.pointerId);
         pinchDistance = 0; controls.enabled = true;
         if (renderer.domElement.hasPointerCapture(event.pointerId)) renderer.domElement.releasePointerCapture(event.pointerId);
@@ -386,8 +447,6 @@ export default function SpaceScene(props: Props) {
         simulationTime.current = { id: data.id, time: timestamp };
         if (now - previousClockUpdate >= 1000) { state.current.onTimeChange(timestamp); previousClockUpdate = now; }
         const earthTranslation = updateBodies();
-        landingPin.visible=!!settings.landingSite&&!FLIGHT_HISTORY.some(mission=>mission.id===settings.landingSite?.id);
-        if(settings.landingSite)landingPin.position.copy(surfaceDirection(settings.landingSite.latitude,settings.landingSite.longitude)).multiplyScalar(C.moonRadius*1.012);
         if (focused !== 'earth' && !transition) {
           const translation = moon.position.clone().sub(previousMoon).sub(earthTranslation);
           if (focused === 'system') translation.multiplyScalar(0.5);
@@ -427,6 +486,39 @@ export default function SpaceScene(props: Props) {
         // the same body-fixed coordinates as the lunar texture and layers.
         const moonToCamera = camera.position.clone().sub(moon.position);
         const projectedRadius = C.moonRadius / moonToCamera.length() / Math.tan(radians(camera.fov) / 2) * container.clientHeight / 2;
+        if (previousCandidates !== settings.landingCandidates || previousLandingDay !== settings.landingDay) {
+          previousCandidates = settings.landingCandidates;
+          previousLandingDay = settings.landingDay;
+          landingAnchors = settings.landingCandidates.map(candidate => ({ key: landingSiteKey(candidate.site), normal: surfaceDirection(candidate.site.latitude, candidate.site.longitude), candidate }));
+          clearMonthlyPoints();
+          if (!settings.landingDay && settings.landingCandidates.length) { monthlyPoints = landingPointCloud(settings.landingCandidates, C.moonRadius); moon.add(monthlyPoints); }
+        }
+        if (monthlyPoints) monthlyPoints.visible = settings.overlay?.layer !== 'energy' && projectedRadius >= 2;
+        for (const anchor of settings.landingDay && settings.overlay?.layer !== 'energy' ? landingAnchors : []) {
+          const button = landingFlags.current.get(anchor.key);
+          if (!button) continue;
+          markerNormal.copy(anchor.normal).applyQuaternion(moon.quaternion);
+          markerPoint.copy(moon.position).addScaledVector(markerNormal, C.moonRadius * 1.008).project(camera);
+          const visible = projectedRadius >= 24 && markerNormal.dot(moonToCamera) > C.moonRadius
+            && markerPoint.z > -1 && markerPoint.z < 1 && Math.abs(markerPoint.x) < 0.96 && Math.abs(markerPoint.y) < 0.96;
+          if (button.hidden === visible) button.hidden = !visible;
+          if (visible) button.style.transform = `translate(${(markerPoint.x * 0.5 + 0.5) * container.clientWidth}px, ${(-markerPoint.y * 0.5 + 0.5) * container.clientHeight}px) translate(-55%, -97%)`;
+        }
+        if (landingCallout.current && settings.landingSelection) {
+          const site = settings.landingSelection.site;
+          markerNormal.copy(surfaceDirection(site.latitude, site.longitude)).applyQuaternion(moon.quaternion);
+          markerPoint.copy(moon.position).addScaledVector(markerNormal, C.moonRadius * 1.008).project(camera);
+          const visible = projectedRadius >= 24 && markerNormal.dot(moonToCamera) > C.moonRadius
+            && markerPoint.z > -1 && markerPoint.z < 1 && Math.abs(markerPoint.x) < 1 && Math.abs(markerPoint.y) < 1;
+          landingCallout.current.hidden = !visible;
+          if (visible && landingCard.current) {
+            const x = (markerPoint.x * .5 + .5) * container.clientWidth, y = (-markerPoint.y * .5 + .5) * container.clientHeight;
+            const position = landingPopoverPosition(x, y, cardSize.current.width, cardSize.current.height, container.clientWidth, container.clientHeight);
+            landingCard.current.style.transform = `translate(${position.left}px, ${position.top}px)`;
+            const line = landingConnector.current;
+            if (line) { line.setAttribute('x1', String(x)); line.setAttribute('y1', String(y)); line.setAttribute('x2', String(position.endX)); line.setAttribute('y2', String(position.endY)); }
+          }
+        }
         for (const mission of FLIGHT_HISTORY) {
           const button = historicalFlags.current.get(mission.id);
           if (!button) continue;
@@ -448,7 +540,7 @@ export default function SpaceScene(props: Props) {
         canvas.removeEventListener('pointercancel', onPointerUp, true);
         canvas.removeEventListener('lostpointercapture', onPointerUp, true);
         canvas.removeEventListener('keydown', onKey);
-        markedTexture?.dispose(); baseEarthTexture.dispose(); lunarTexture.dispose(); pinMap.dispose(); layerMaterial.map?.dispose(); clearLayerMarkers();
+        markedTexture?.dispose(); baseEarthTexture.dispose(); lunarTexture.dispose(); pinMap.dispose(); layerMaterial.map?.dispose(); clearLayerMarkers(); clearMonthlyPoints();
       };
     };
     void initialize().catch(() => { if (!cancelled) setStatus('error'); });
@@ -464,7 +556,17 @@ export default function SpaceScene(props: Props) {
     };
   }, [retry, props.ephemeris, props.mode]);
 
-  return <div className="space-scene" ref={host}>
+  return <div className="space-scene" ref={host} onKeyDown={event => { if (event.key === 'Escape' && props.landingSelection) { event.stopPropagation(); closeLanding(); } }}>
+    {props.landingSelection && <div ref={landingCallout} className="landing-callout" hidden><svg aria-hidden="true"><line ref={landingConnector} /></svg><LandingSitePopover candidate={props.landingSelection} cardRef={landingCard} onClose={closeLanding} /></div>}
+    {!!props.landingDay && props.overlay?.layer !== 'energy' && props.landingCandidates.map(candidate => {
+      const key = landingSiteKey(candidate.site), selected = !!props.landingSite && landingSiteKey(props.landingSite) === key;
+      const label = `${landingMessages[language].view} · ${candidate.site.latitude.toFixed(4)}°, ${candidate.site.longitude.toFixed(4)}°`;
+      return <button key={key} ref={element => { if (element) landingFlags.current.set(key, element); else landingFlags.current.delete(key); }}
+        hidden className={`landing-site-flag${selected ? ' is-selected' : ''}`} aria-label={label} aria-pressed={selected} aria-expanded={props.landingSelection?.site === candidate.site} aria-controls={props.landingSelection?.site === candidate.site ? 'landing-site-title' : undefined}
+        onClick={() => props.onLandingCandidate(candidate)}>
+        <img src={spaceyFlagImage} alt="" draggable={false} /><span>{candidate.site.name ?? `${candidate.site.latitude.toFixed(4)}°, ${candidate.site.longitude.toFixed(4)}°`}</span>
+      </button>;
+    })}
     {FLIGHT_HISTORY.map(mission => <button key={mission.id} ref={element => { if (element) historicalFlags.current.set(mission.id, element); else historicalFlags.current.delete(mission.id); }}
       hidden className={`historical-flag${props.landingSite?.id === mission.id ? ' is-selected' : ''}`}
       aria-label={`${mission.id} · ${new Intl.DateTimeFormat(locale, { dateStyle: 'medium', timeZone: 'UTC' }).format(new Date(mission.landing))}`}

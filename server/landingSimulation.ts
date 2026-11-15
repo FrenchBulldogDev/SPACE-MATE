@@ -34,15 +34,24 @@ export function surfaceVisibility(mask: TerrainMask, latitude: number, longitude
   const east = sub(mask.surface(latitude, longitude + 0.01, 2), mask.surface(latitude, longitude - 0.01, 2));
   const north = sub(mask.surface(latitude + 0.01, longitude, 2), mask.surface(latitude - 0.01, longitude, 2));
   const normal = normalize(cross(east, north));
-  const flags = new Int8Array(sky.length).fill(-1);
+  // The two channels are cached independently. A failed solar interval alone
+  // rejects a joint window, so its Earth rays can wait until actually needed.
+  const earthFlags = new Int8Array(sky.length).fill(-1);
+  const solarFlags = new Int8Array(sky.length).fill(-1);
   let sampled = 0;
-  const sample = (i: number) => {
-    if (flags[i] >= 0) return flags[i];
-    sampled++;
-    const s = sky[i], earth = mask.lineOfSight(origin, s.earth);
+  const solarSample = (i: number) => {
+    if (solarFlags[i] >= 0) return solarFlags[i];
+    if (earthFlags[i] < 0) sampled++;
+    const s = sky[i];
     const incidence = dot(normal, normalize(sub(s.sun, origin)));
     const solar = incidence > Math.sin(Math.PI / 180) && !earthEclipsesSun(origin, s.earth, s.sun) ? mask.lineOfSight(origin, s.sun) : 'blocked';
-    return flags[i] = Number(earth === 'clear') | (Number(solar === 'clear') << 1) | (Number(earth === 'unknown') << 2) | (Number(solar === 'unknown') << 3);
+    return solarFlags[i] = Number(solar === 'clear') | (Number(solar === 'unknown') << 1);
+  };
+  const earthSample = (i: number) => {
+    if (earthFlags[i] >= 0) return earthFlags[i];
+    if (solarFlags[i] < 0) sampled++;
+    const earth = mask.lineOfSight(origin, sky[i].earth);
+    return earthFlags[i] = Number(earth === 'clear') | (Number(earth === 'unknown') << 1);
   };
   return {
     get sampled() { return sampled; },
@@ -51,7 +60,7 @@ export function surfaceVisibility(mask: TerrainMask, latitude: number, longitude
       const first = Math.max(0, Math.floor((arrival - sky[0].time) / SAMPLE_MS));
       let continuous = 0;
       for (let i = first; i + 1 < sky.length; i++) {
-        if (sample(i) !== 3 || sample(i + 1) !== 3) return false;
+        if (solarSample(i) !== 1 || solarSample(i + 1) !== 1 || earthSample(i) !== 1 || earthSample(i + 1) !== 1) return false;
         continuous += sky[i + 1].time - Math.max(arrival, sky[i].time);
         if (continuous > hours * 3600000) return true;
       }
@@ -59,8 +68,8 @@ export function surfaceVisibility(mask: TerrainMask, latitude: number, longitude
     },
     timeline(): SurfaceTimeline {
       return sky.map((s, i) => {
-        const bits = sample(i);
-        return { time: s.time, communication: !!(bits & 1), sunlight: !!(bits & 2), communicationUnknown: !!(bits & 4), sunlightUnknown: !!(bits & 8) };
+        const earth = earthSample(i), solar = solarSample(i);
+        return { time: s.time, communication: !!(earth & 1), sunlight: !!(solar & 1), communicationUnknown: !!(earth & 2), sunlightUnknown: !!(solar & 2) };
       });
     },
   };

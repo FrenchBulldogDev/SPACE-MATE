@@ -8,6 +8,7 @@ import { loadLunarEnvironment, LUNAR_CYCLE_SECONDS } from './lunarEnvironment';
 import { transientEphemeris, transientSignal } from './monthlyEphemeris';
 import { historicalSiteRequest, historicalSiteSnapshot } from './historicalSite';
 import { loadTerrain, TerrainMask } from './lunarTerrain';
+import { loadLunarRelief } from './lunarRelief';
 
 const subscribers = new Map<string, { id: string; touched: number }>();
 const cancelled = new Map<string, number>();
@@ -51,13 +52,14 @@ export function landingMiddleware(req: IncomingMessage, res: ServerResponse, nex
     const monthSignal = transientSignal(dataId);
     if (url.pathname === '/api/historical-site') {
       const { mission, time } = historicalSiteRequest(url.searchParams, data.start, data.stop);
-      const [environment, terrain] = await Promise.all([
+      const [environment, terrain, relief] = await Promise.all([
         loadLunarEnvironment(data.start, data.arrivalMonth ? data.stop + LUNAR_CYCLE_SECONDS * 1000 : undefined,
           { signal: monthSignal, persist: !data.arrivalMonth, cacheKey: data.arrivalMonth ? data.id : undefined }),
         loadTerrain(mission.latitude, mission.longitude, monthSignal),
+        loadLunarRelief(),
       ]);
       monthSignal?.throwIfAborted();
-      const mask = new TerrainMask(terrain, mission.latitude, mission.longitude);
+      const mask = new TerrainMask(terrain, mission.latitude, mission.longitude, relief);
       try { res.end(JSON.stringify(historicalSiteSnapshot(mask, mission.id, mission.latitude, mission.longitude, { time, ...environment.at(time) }))); }
       finally { mask.dispose(); }
       return;

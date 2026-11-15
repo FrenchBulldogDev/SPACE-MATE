@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { BufferGeometry, Float32BufferAttribute, DoubleSide, Ray, Vector3 } from 'three';
 import { MeshBVH } from 'three-mesh-bvh';
-import { TerrainMask, lunarPoint, type TerrainGrid } from '../server/lunarTerrain';
+import { TerrainMask, lunarPoint, terrainExtent, type FarField, type TerrainGrid } from '../server/lunarTerrain';
 import { dot, length, normalize, sub } from '../src/science/vectors';
 import type { Vec3 } from '../src/science/types';
 import { SAMPLE_MS, surfaceTimeline, surfaceVisibility, summarizeVisibility, type SurfaceTimeline, type SkySample } from '../server/landingSimulation';
@@ -106,4 +106,71 @@ test('Lazy joint-window rejection matches full ray traces and never promotes unk
     for(let day=0;day<30;day++)assert.equal(dark.hasJointWindow(day*86400000),false);
     assert.ok(dark.sampled<=30,`Rejected points used ${dark.sampled} samples rather than ${sky.length}`);
   } finally { mask.dispose(); }
+});
+
+// Frozen coverage/handover algorithm before the cone fast path. Reuse the
+// exact mesh to isolate coverage decisions and the far-field handover distance.
+function referenceSight(mask: TerrainMask, origin: Vec3, target: Vec3, far: FarField) {
+  const direction = normalize(sub(target, origin)), r = length(origin), b = dot(origin, direction);
+  if (b < 0 && b*b - r*r + (1737400 - 20000)**2 > 0) return 'blocked';
+  const exit = -b + Math.sqrt(Math.max(0, b*b - r*r + (1737400 + far.shellMeters)**2));
+  const limit = Math.min(exit, length(sub(target, origin)));
+  const ray = new Ray(new Vector3(...sub(origin, mask.anchor)), new Vector3(...direction));
+  if (mask.bvh.raycastFirst(ray, DoubleSide, .05, limit)) return 'blocked';
+  const g = mask.grid, edgeLon = (g.east-g.west)/g.width, edgeLat = (g.north-g.south)/g.height;
+  const outside = (distance: number) => {
+    const x=origin[0]+direction[0]*distance, y=origin[1]+direction[1]*distance, z=origin[2]+direction[2]*distance;
+    const lat=Math.atan2(z,Math.hypot(x,y))*180/Math.PI, lon=Math.atan2(y,x)*180/Math.PI;
+    return lon<=g.west+edgeLon || lon>=g.east-edgeLon || lat<=g.south+edgeLat || lat>=g.north-edgeLat;
+  };
+  for(let i=0;i<=32;i++) {
+    if(!outside(exit*i/32)) continue;
+    let inside=i?exit*(i-1)/32:0, beyond=exit*i/32;
+    for(let k=0;k<16&&i;k++) {const middle=(inside+beyond)/2;if(outside(middle))beyond=middle;else inside=middle;}
+    return inside>=limit?'clear':far.lineOfSight(origin,direction,Math.max(.05,inside),limit);
+  }
+  return 'clear';
+}
+
+test('Coverage cone preserves reference classifications and exact far-field handovers at edges, poles and longitude seams', () => {
+  let handovers: number[][] = [];
+  const far: FarField = {shellMeters:12000,lineOfSight:(_o,d,near,limit)=>{handovers.push([near,limit]);return d[2]>.3?'unknown':d[1]>0?'clear':'blocked';}};
+  for(const [lat,lon] of [[0,0],[35,45],[-55,-90],[85,0],[-85,175],[85,-175],[88,20]]) {
+    const [west,south,east,north]=terrainExtent(lat,lon);
+    const g={...terrain(lat,lon),west,south,east,north};
+    const mask=new TerrainMask(g,lat,lon,far);
+    try {
+      const p=lat*Math.PI/180,l=lon*Math.PI/180;
+      const up=[Math.cos(p)*Math.cos(l),Math.cos(p)*Math.sin(l),Math.sin(p)];
+      const eastward=[-Math.sin(l),Math.cos(l),0],northward=[-Math.sin(p)*Math.cos(l),-Math.sin(p)*Math.sin(l),Math.cos(p)];
+      for(let k=0;k<900;k++) {
+        // Include origins just inside the original one-pixel coverage border.
+        const siteLat=k%3?lat:north-(north-south)/g.height-1e-9;
+        const siteLon=k%5?lon:west+(east-west)/g.width+1e-9;
+        const origin=lunarPoint(siteLat,siteLon,4000);
+        const azimuth=k*2.399963229728653,elevation=(-5+(k%181)*.5)*Math.PI/180;
+        const target=origin.map((v,i)=>v+4e8*(Math.sin(elevation)*up[i]+Math.cos(elevation)*(Math.sin(azimuth)*eastward[i]+Math.cos(azimuth)*northward[i]))) as Vec3;
+        handovers=[];const expected=referenceSight(mask,origin,target,far),calls=handovers;
+        handovers=[];assert.equal(mask.lineOfSight(origin,target),expected,`${lat},${lon},${k}`);
+        assert.deepEqual(handovers,calls,`handover ${lat},${lon},${k}`);
+      }
+    } finally {mask.dispose();}
+  }
+});
+
+test('Solar rejection defers all Earth rays while a full timeline still evaluates every channel and preserves unknowns', () => {
+  const mask=new TerrainMask(terrain(),0,0);
+  let earthRays=0,solarRays=0;
+  mask.lineOfSight=(_origin,target)=>{if(length(target)<1e10){earthRays++;return 'clear';}solarRays++;return 'unknown';};
+  const sky:SkySample[]=Array.from({length:60*48+1},(_,i)=>({time:i*SAMPLE_MS,earth:[4e8,0,0],sun:[1.5e11,1.5e11,0]}));
+  try {
+    const lazy=surfaceVisibility(mask,0,0,sky);
+    for(let day=0;day<30;day++)assert.equal(lazy.hasJointWindow(day*86400000),false);
+    assert.equal(earthRays,0);assert.equal(solarRays,30);
+    const timeline=lazy.timeline();
+    assert.equal(earthRays,sky.length);assert.equal(solarRays,sky.length);
+    assert.equal(lazy.sampled,sky.length);
+    assert.deepEqual(timeline,surfaceTimeline(mask,0,0,sky));
+    assert.ok(timeline.every(s=>s.communication&&!s.communicationUnknown&&!s.sunlight&&s.sunlightUnknown));
+  } finally {mask.dispose();}
 });
