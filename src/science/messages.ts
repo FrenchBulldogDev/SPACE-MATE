@@ -1,9 +1,9 @@
 import type { Language } from '../i18n/translations';
 
 const en = {
-  mode: 'View mode', public: 'General public', real: 'Physical scale',
+  mode: 'View mode', public: 'General public', real: 'Specialized public',
   publicHint: 'Distances compressed for a clear overview. Calculations always use real distances.',
-  realHint: 'Sizes and distances at the same scale. Use the focus buttons to inspect each body.',
+  realHint: 'Physical scale, with scientific calculations requiring sourced external data. Use the focus buttons to inspect each body.',
   ephemeris: 'Lunar trajectory · NASA/JPL', loading: 'Fetching and saving 28 days of ephemerides…',
   apiError: 'Horizons could not be loaded. Retry when the connection is available; calculations require verified data.',
   retry: 'Retry NASA/JPL', refresh: 'Update NASA/JPL data', sampleCount: '8,065 samples · every 5 minutes · 29 daily markers',
@@ -27,9 +27,9 @@ const en = {
 export const scienceMessages: Record<Language, typeof en> = {
   en,
   es: {
-    mode: 'Modo de visualización', public: 'Público general', real: 'Escala física',
+    mode: 'Modo de visualización', public: 'Público general', real: 'Público especializado',
     publicHint: 'Distancias comprimidas para entender el sistema a simple vista. Los cálculos siempre usan distancias reales.',
-    realHint: 'Tamaños y distancias a la misma escala. Usa los botones de enfoque para inspeccionar cada cuerpo.',
+    realHint: 'Escala física, con cálculos científicos que requieren datos externos con procedencia. Usa los botones de enfoque para inspeccionar cada cuerpo.',
     ephemeris: 'Trayectoria lunar · NASA/JPL', loading: 'Consultando y guardando 28 días de efemérides…',
     apiError: 'No se pudo cargar Horizons. Reintenta cuando haya conexión; los cálculos necesitan datos verificados.',
     retry: 'Reintentar NASA/JPL', refresh: 'Actualizar datos NASA/JPL', sampleCount: '8.065 muestras · cada 5 minutos · 29 marcadores diarios',
@@ -50,9 +50,9 @@ export const scienceMessages: Record<Language, typeof en> = {
     viewing: 'Instante seleccionado', publicScale: 'DISTANCIAS COMPRIMIDAS', physicalScale: 'ESCALA FÍSICA',
   },
   fr: {
-    mode: 'Mode de visualisation', public: 'Grand public', real: 'Échelle physique',
+    mode: 'Mode de visualisation', public: 'Grand public', real: 'Public spécialisé',
     publicHint: 'Distances réduites pour comprendre le système. Les calculs utilisent toujours les distances réelles.',
-    realHint: 'Tailles et distances à la même échelle. Utilisez les boutons de centrage pour examiner chaque astre.',
+    realHint: 'Échelle physique, avec calculs scientifiques exigeant des données externes sourcées. Utilisez les boutons de centrage pour examiner chaque astre.',
     ephemeris: 'Trajectoire lunaire · NASA/JPL', loading: 'Chargement et enregistrement de 28 jours d’éphémérides…',
     apiError: 'Impossible de charger Horizons. Réessayez avec une connexion disponible ; les calculs nécessitent des données vérifiées.',
     retry: 'Réessayer NASA/JPL', refresh: 'Actualiser les données NASA/JPL', sampleCount: '8 065 points · toutes les 5 minutes · 29 repères quotidiens',
@@ -73,9 +73,9 @@ export const scienceMessages: Record<Language, typeof en> = {
     viewing: 'Instant choisi', publicScale: 'DISTANCES RÉDUITES', physicalScale: 'ÉCHELLE PHYSIQUE',
   },
   pt: {
-    mode: 'Modo de visualização', public: 'Público geral', real: 'Escala física',
+    mode: 'Modo de visualização', public: 'Público geral', real: 'Público especializado',
     publicHint: 'Distâncias reduzidas para entender o sistema. Os cálculos sempre usam distâncias reais.',
-    realHint: 'Tamanhos e distâncias na mesma escala. Use os botões de foco para inspecionar cada corpo.',
+    realHint: 'Escala física, com cálculos científicos que exigem dados externos com fonte. Use os botões de foco para inspecionar cada corpo.',
     ephemeris: 'Trajetória lunar · NASA/JPL', loading: 'Consultando e salvando 28 dias de efemérides…',
     apiError: 'Não foi possível carregar Horizons. Tente com conexão disponível; os cálculos exigem dados verificados.',
     retry: 'Tentar NASA/JPL novamente', refresh: 'Atualizar dados NASA/JPL', sampleCount: '8.065 pontos · a cada 5 minutos · 29 marcadores diários',
@@ -96,9 +96,9 @@ export const scienceMessages: Record<Language, typeof en> = {
     viewing: 'Instante selecionado', publicScale: 'DISTÂNCIAS REDUZIDAS', physicalScale: 'ESCALA FÍSICA',
   },
   it: {
-    mode: 'Modalità di visualizzazione', public: 'Pubblico generale', real: 'Scala fisica',
+    mode: 'Modalità di visualizzazione', public: 'Pubblico generale', real: 'Pubblico specializzato',
     publicHint: 'Distanze ridotte per comprendere il sistema. I calcoli usano sempre distanze reali.',
-    realHint: 'Dimensioni e distanze alla stessa scala. Usa i pulsanti di centratura per osservare ogni corpo.',
+    realHint: 'Scala fisica, con calcoli scientifici che richiedono dati esterni con fonte. Usa i pulsanti di centratura per osservare ogni corpo.',
     ephemeris: 'Traiettoria lunare · NASA/JPL', loading: 'Caricamento e salvataggio di 28 giorni di effemeridi…',
     apiError: 'Impossibile caricare Horizons. Riprova con una connessione disponibile; i calcoli richiedono dati verificati.',
     retry: 'Riprova NASA/JPL', refresh: 'Aggiorna i dati NASA/JPL', sampleCount: '8.065 punti · ogni 5 minuti · 29 indicatori giornalieri',

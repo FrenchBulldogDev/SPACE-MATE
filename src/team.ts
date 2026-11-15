@@ -11,7 +11,6 @@ export const TEAM_MEMBER_ASSETS: ProfileAsset[] = [
 ];
 
 export const COLLABORATOR_ASSETS: ProfileAsset[] = [
-  { id: 'collaborator-1', photo: guadalupePhoto },
   { id: 'collaborator-2', photo: lucianoPhoto },
   { id: 'collaborator-3', photo: candelaPhoto },
 ];
@@ -19,7 +18,6 @@ export const COLLABORATOR_ASSETS: ProfileAsset[] = [
 import joaquinPhoto from '../Assets/Joaquín López_ Photo.png';
 import priscilaPhoto from '../Assets/Priscila López_Photo.jpg';
 import martinPhoto from '../Assets/Krzyszkowski Martín_photo.jpeg';
-import guadalupePhoto from '../Assets/Guadalupe Aguirre.jpeg';
 import lucianoPhoto from '../Assets/Luciano Biudes.jpeg';
 import candelaPhoto from '../Assets/Candela Conti.jpeg';
 

@@ -7,6 +7,7 @@ export type LandingCandidate = {
   site: LunarSite; arrival: number; launch: number; flightHours: number; flightMarginHours: number;
   communication: VisibilitySummary; sunlight: VisibilitySummary; jointHours: number;
   terrainResolutionMeters: number; terrainSource: string;
+  solarEnergy?: { equivalentSunHours: number; possibleSunHours: number; unknownHours: number; durationHours: number };
 };
 export type LandingReport = {
   version: 1; id: string; status: 'estimated'; start: number; stop: number;

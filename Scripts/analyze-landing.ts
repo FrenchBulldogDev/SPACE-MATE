@@ -33,6 +33,10 @@ try{
       assert.ok(c.launch<c.arrival&&c.launch>=data.start);
       assert.ok(c.communication.checkedHours>655&&c.sunlight.checkedHours>655);
       assert.ok(c.jointHours>24.5);
+      assert.ok(c.solarEnergy, 'New reports require a solar incidence integral');
+      assert.ok(Number.isFinite(c.solarEnergy.equivalentSunHours));
+      assert.ok(c.solarEnergy.equivalentSunHours >= 0 && c.solarEnergy.possibleSunHours >= c.solarEnergy.equivalentSunHours - 1e-8);
+      assert.ok(c.solarEnergy.unknownHours >= 0 && c.solarEnergy.unknownHours <= c.solarEnergy.durationHours + 1e-8);
     }
   }
   if(benchmark){
@@ -49,5 +53,6 @@ try{
     for(const key of ['searched','processed','excluded','unverified','historyIds','start','stop'] as const)assert.deepEqual(report[key],previous.report[key]);
     console.log(JSON.stringify({comparison:compare,identicalCandidates:true,speedup:previous.elapsedMs/elapsedMs}));
   }
-  console.log(JSON.stringify({id:report.id,searched:report.searched,processed:report.processed,candidates:report.candidates.length,unverified:report.unverified,days:[...new Set(report.candidates.map(c=>new Date(c.arrival).toISOString().slice(0,10)))]}));
+  const solar = report.candidates.flatMap(c => c.solarEnergy ? [c.solarEnergy.equivalentSunHours] : []);
+  console.log(JSON.stringify({id:report.id,searched:report.searched,processed:report.processed,candidates:report.candidates.length,unverified:report.unverified,solarEvaluated:solar.length,minimumEquivalentSunHours:solar.length?Math.min(...solar):null,maximumEquivalentSunHours:solar.length?Math.max(...solar):null,days:[...new Set(report.candidates.map(c=>new Date(c.arrival).toISOString().slice(0,10)))]}));
 }finally{clearInterval(timer);controller.abort();}

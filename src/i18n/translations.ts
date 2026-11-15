@@ -7,14 +7,15 @@ export const LANGUAGES = [
 ] as const;
 
 export type Language = typeof LANGUAGES[number]['code'];
+export const PROJECT_MOTTO = 'ad astra per aspera';
 export const LANGUAGE_STORAGE_KEY = 'moon-mission.language';
 export function isLanguage(value: unknown): value is Language {
   return LANGUAGES.some(language => language.code === value);
 }
 
 const en = {
-  projectName: 'SPACE-MATE', titleLine1: 'SPACE-MATE', titleLine2: '· Lunar landing site browser',
-  appTitle: 'SPACE-MATE · Lunar landing site browser', appDescription: 'Lunar landing site browser featuring an interactive 3D view of Earth and the Moon.',
+  projectName: 'SPACE-MATE', titleLine1: 'SPACE-MATE', titleLine2: PROJECT_MOTTO,
+  appTitle: `SPACE-MATE · ${PROJECT_MOTTO}`, appDescription: PROJECT_MOTTO,
   home: 'Home', explorer: 'Explorer', goHome: 'Go to home', navigation: 'Main navigation', language: 'Language',
   heroKicker: 'SPACE EXPLORATION', worlds: 'EARTH / MOON', yourLogo: '[YOUR LOGO]',
   heroDescription: 'A project by Alas Argentinas, a team of students passionate about the stars and curious about the wonders of the universe.', start: 'Start',
@@ -30,7 +31,7 @@ const en = {
     { name: 'Joaquín Alejandro López', description: 'Avionics technician student.' },
   ],
   collaborationThanks: 'WE THANK THE COLLABORATION OF',
-  collaborators: [{ name: 'Guadalupe Aguirre' }, { name: 'Luciano Biudes' }, { name: 'Candela Conti' }], footer: 'A look toward the Moon.',
+  collaborators: [{ name: 'Luciano Biudes' }, { name: 'Candela Conti' }], footer: 'A look toward the Moon.',
   configuration: 'Exploration settings', configNumber: '01 / CONFIGURATION', controlMission: 'Mission control', closeConfig: 'Close settings',
   launchSite: 'Launch site', chooseSite: 'Select a site', siteHint: 'Choose a place to get closer to its location on Earth.',
   customCoordinates: 'Enter coordinates…', customName: 'Site name', optional: '(optional)',
@@ -61,8 +62,8 @@ export type Messages = typeof en;
 export const translations: Record<Language, Messages> = {
   en,
   es: {
-    projectName: 'SPACE-MATE', titleLine1: 'SPACE-MATE', titleLine2: '· Navegador de sitios de aterrizaje lunar',
-    appTitle: 'SPACE-MATE · Navegador de sitios de aterrizaje lunar', appDescription: 'Navegador de sitios de aterrizaje lunar con una vista 3D interactiva de la Tierra y la Luna.',
+    projectName: 'SPACE-MATE', titleLine1: 'SPACE-MATE', titleLine2: PROJECT_MOTTO,
+    appTitle: `SPACE-MATE · ${PROJECT_MOTTO}`, appDescription: PROJECT_MOTTO,
     home: 'Inicio', explorer: 'Explorador', goHome: 'Ir al inicio', navigation: 'Navegación principal', language: 'Idioma',
     heroKicker: 'EXPLORACIÓN ESPACIAL', worlds: 'TIERRA / LUNA', yourLogo: '[TU LOGO]',
     heroDescription: 'Un proyecto de Alas Argentinas, un equipo de estudiantes apasionados por las estrellas y curiosos por las maravillas del universo.', start: 'Comenzar',
@@ -78,7 +79,7 @@ export const translations: Record<Language, Messages> = {
       { name: 'López Joaquín Alejandro', description: 'Estudiante de técnico aviónico.' },
     ],
     collaborationThanks: 'AGRADECEMOS LA COLABORACIÓN DE',
-    collaborators: [{ name: 'Aguirre Guadalupe' }, { name: 'Biudes Luciano' }, { name: 'Conti Candela' }], footer: 'Una mirada hacia la Luna.',
+    collaborators: [{ name: 'Biudes Luciano' }, { name: 'Conti Candela' }], footer: 'Una mirada hacia la Luna.',
     configuration: 'Configuración de la exploración', configNumber: '01 / CONFIGURACIÓN', controlMission: 'Control de misión', closeConfig: 'Cerrar configuración',
     launchSite: 'Sitio de lanzamiento', chooseSite: 'Selecciona un sitio', siteHint: 'Elige un lugar para acercarte a su ubicación en la Tierra.',
     customCoordinates: 'Ingresar coordenadas…', customName: 'Nombre del sitio', optional: '(opcional)',
@@ -105,8 +106,8 @@ export const translations: Record<Language, Messages> = {
     siteRegions: { kennedy: 'Florida, Estados Unidos', kourou: 'Kourou, Guayana Francesa', vandenberg: 'California, Estados Unidos', baikonur: 'Kazajistán', tanegashima: 'Japón' },
   },
   fr: {
-    projectName: 'SPACE-MATE', titleLine1: 'SPACE-MATE', titleLine2: '· Navigateur des sites d’atterrissage lunaire',
-    appTitle: 'SPACE-MATE · Sites d’atterrissage lunaire', appDescription: 'Navigateur des sites d’atterrissage lunaire avec vue 3D interactive de la Terre et de la Lune.',
+    projectName: 'SPACE-MATE', titleLine1: 'SPACE-MATE', titleLine2: PROJECT_MOTTO,
+    appTitle: `SPACE-MATE · ${PROJECT_MOTTO}`, appDescription: PROJECT_MOTTO,
     home: 'Accueil', explorer: 'Explorateur', goHome: 'Aller à l’accueil', navigation: 'Navigation principale', language: 'Langue',
     heroKicker: 'EXPLORATION SPATIALE', worlds: 'TERRE / LUNE', yourLogo: '[VOTRE LOGO]',
     heroDescription: 'Un projet d’Alas Argentinas, une équipe d’étudiants passionnés par les étoiles et curieux des merveilles de l’univers.', start: 'Démarrer',
@@ -122,7 +123,7 @@ export const translations: Record<Language, Messages> = {
       { name: 'López Joaquín Alejandro', description: 'Étudiant en avionique.' },
     ],
     collaborationThanks: 'NOUS REMERCIONS LA COLLABORATION DE',
-    collaborators: [{ name: 'Aguirre Guadalupe' }, { name: 'Biudes Luciano' }, { name: 'Conti Candela' }], footer: 'Un regard vers la Lune.',
+    collaborators: [{ name: 'Biudes Luciano' }, { name: 'Conti Candela' }], footer: 'Un regard vers la Lune.',
     configuration: 'Paramètres d’exploration', configNumber: '01 / CONFIGURATION', controlMission: 'Contrôle de mission', closeConfig: 'Fermer les paramètres',
     launchSite: 'Site de lancement', chooseSite: 'Sélectionner un site', siteHint: 'Choisissez un lieu pour vous rapprocher de sa position sur Terre.',
     customCoordinates: 'Saisir des coordonnées…', customName: 'Nom du site', optional: '(facultatif)',
@@ -149,8 +150,8 @@ export const translations: Record<Language, Messages> = {
     siteRegions: { kennedy: 'Floride, États-Unis', kourou: 'Kourou, Guyane française', vandenberg: 'Californie, États-Unis', baikonur: 'Kazakhstan', tanegashima: 'Japon' },
   },
   pt: {
-    projectName: 'SPACE-MATE', titleLine1: 'SPACE-MATE', titleLine2: '· Navegador de locais de pouso lunar',
-    appTitle: 'SPACE-MATE · Locais de pouso lunar', appDescription: 'Navegador de locais de pouso lunar com visualização 3D interativa da Terra e da Lua.',
+    projectName: 'SPACE-MATE', titleLine1: 'SPACE-MATE', titleLine2: PROJECT_MOTTO,
+    appTitle: `SPACE-MATE · ${PROJECT_MOTTO}`, appDescription: PROJECT_MOTTO,
     home: 'Início', explorer: 'Explorador', goHome: 'Ir para o início', navigation: 'Navegação principal', language: 'Idioma',
     heroKicker: 'EXPLORAÇÃO ESPACIAL', worlds: 'TERRA / LUA', yourLogo: '[SEU LOGO]',
     heroDescription: 'Um projeto da Alas Argentinas, uma equipe de estudantes apaixonados pelas estrelas e curiosos com as maravilhas do universo.', start: 'Iniciar',
@@ -166,7 +167,7 @@ export const translations: Record<Language, Messages> = {
       { name: 'López Joaquín Alejandro', description: 'Estudante de técnico em aviónica.' },
     ],
     collaborationThanks: 'AGRADECEMOS A COLABORAÇÃO DE',
-    collaborators: [{ name: 'Aguirre Guadalupe' }, { name: 'Biudes Luciano' }, { name: 'Conti Candela' }], footer: 'Um olhar para a Lua.',
+    collaborators: [{ name: 'Biudes Luciano' }, { name: 'Conti Candela' }], footer: 'Um olhar para a Lua.',
     configuration: 'Configurações da exploração', configNumber: '01 / CONFIGURAÇÃO', controlMission: 'Controle da missão', closeConfig: 'Fechar configurações',
     launchSite: 'Local de lançamento', chooseSite: 'Selecione um local', siteHint: 'Escolha um local para se aproximar de sua posição na Terra.',
     customCoordinates: 'Inserir coordenadas…', customName: 'Nome do local', optional: '(opcional)',
@@ -193,8 +194,8 @@ export const translations: Record<Language, Messages> = {
     siteRegions: { kennedy: 'Flórida, Estados Unidos', kourou: 'Kourou, Guiana Francesa', vandenberg: 'Califórnia, Estados Unidos', baikonur: 'Cazaquistão', tanegashima: 'Japão' },
   },
   it: {
-    projectName: 'SPACE-MATE', titleLine1: 'SPACE-MATE', titleLine2: '· Navigatore dei siti di atterraggio lunare',
-    appTitle: 'SPACE-MATE · Siti di atterraggio lunare', appDescription: 'Navigatore dei siti di atterraggio lunare con vista 3D interattiva della Terra e della Luna.',
+    projectName: 'SPACE-MATE', titleLine1: 'SPACE-MATE', titleLine2: PROJECT_MOTTO,
+    appTitle: `SPACE-MATE · ${PROJECT_MOTTO}`, appDescription: PROJECT_MOTTO,
     home: 'Home', explorer: 'Esploratore', goHome: 'Vai alla home', navigation: 'Navigazione principale', language: 'Lingua',
     heroKicker: 'ESPLORAZIONE SPAZIALE', worlds: 'TERRA / LUNA', yourLogo: '[IL TUO LOGO]',
     heroDescription: 'Un progetto di Alas Argentinas, un gruppo di studenti appassionati di stelle e curiosi delle meraviglie dell’universo.', start: 'Inizia',
@@ -210,7 +211,7 @@ export const translations: Record<Language, Messages> = {
       { name: 'López Joaquín Alejandro', description: 'Studente di avionica.' },
     ],
     collaborationThanks: 'RINGRAZIAMO PER LA COLLABORAZIONE',
-    collaborators: [{ name: 'Aguirre Guadalupe' }, { name: 'Biudes Luciano' }, { name: 'Conti Candela' }], footer: 'Uno sguardo verso la Luna.',
+    collaborators: [{ name: 'Biudes Luciano' }, { name: 'Conti Candela' }], footer: 'Uno sguardo verso la Luna.',
     configuration: 'Impostazioni di esplorazione', configNumber: '01 / CONFIGURAZIONE', controlMission: 'Controllo missione', closeConfig: 'Chiudi impostazioni',
     launchSite: 'Sito di lancio', chooseSite: 'Seleziona un sito', siteHint: 'Scegli un luogo per avvicinarti alla sua posizione sulla Terra.',
     customCoordinates: 'Inserisci coordinate…', customName: 'Nome del sito', optional: '(facoltativo)',

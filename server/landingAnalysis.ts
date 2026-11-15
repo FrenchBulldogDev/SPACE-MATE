@@ -12,9 +12,10 @@ import { SAMPLE_MS, surfaceVisibility, type SkySample } from './landingSimulatio
 import { indexVisibility } from './visibilityIndex';
 import { DAY_MS, LAUNCH_LOOKBACK_DAYS, monthBounds } from '../src/science/calendar';
 import { LUNAR_CYCLE_SECONDS } from './lunarEnvironment';
+import { indexSolarEnergy } from './solarEnergy';
 
 export const landingJobs = new Map<string, LandingJob>();
-export const landingJobId = (data: Ephemeris, site: LaunchSite, gridStep=10) => createHash('sha256').update(JSON.stringify({ version: data.arrivalMonth ? 2 : 1, ...(data.arrivalMonth ? { ephemeris: data.id } : {}), start: data.start, stop: data.stop, latitude: site.latitude, longitude: site.longitude, h: site.heightMeters ?? 0, gridStep })).digest('hex').slice(0, 24);
+export const landingJobId = (data: Ephemeris, site: LaunchSite, gridStep=10) => createHash('sha256').update(JSON.stringify({ version: data.arrivalMonth ? 4 : 3, ...(data.arrivalMonth ? { ephemeris: data.id } : {}), start: data.start, stop: data.stop, latitude: site.latitude, longitude: site.longitude, h: site.heightMeters ?? 0, gridStep })).digest('hex').slice(0, 24);
 
 export async function runLandingAnalysis(data: Ephemeris, launchSite: LaunchSite, gridStep = 10, signal?: AbortSignal, environmentSignal = signal): Promise<LandingReport> {
   const id = landingJobId(data, launchSite,gridStep), filename = `data/landing/report-${id}.json`;
@@ -30,6 +31,7 @@ export async function runLandingAnalysis(data: Ephemeris, launchSite: LaunchSite
     'Direct Earth-center geometric visibility only; no relay model. Missing terrain coverage is excluded.',
     'Temporal uncertainty is at least ±30 minutes; shorter interruptions and unresolved relief are not bounded by that number.',
     'Solar visibility and incidence indicate potential generation; no battery, panel efficiency or load assumptions are invented.',
+    'Solar potential integrates max(0,n·s)(1 au/r)^2 over the same sidereal cycle. Equivalent irradiation hours are not electrical kWh. Conservative sampled visibility excludes low Sun below 1 degree and partial eclipses; unresolved rays have separate bounds. No measured time-dependent solar irradiance is assumed.',
   ] };
   try {
     const env = await loadLunarEnvironment(data.start, data.arrivalMonth ? data.stop + LUNAR_CYCLE_SECONDS * 1000 : undefined, { signal: environmentSignal, persist: !data.arrivalMonth, cacheKey: data.arrivalMonth ? data.id : undefined });
@@ -62,6 +64,7 @@ export async function runLandingAnalysis(data: Ephemeris, launchSite: LaunchSite
         for(const site of refinements){
           const visibility=surfaceVisibility(mask,site.latitude,site.longitude,sky);
           let summarize: ReturnType<typeof indexVisibility> | undefined;
+          let solarEnergy: ReturnType<typeof indexSolarEnergy> | undefined;
           const local=lunarPoint(site.latitude,site.longitude);
           for(const launch of departures){
             const earthSite=launch.position;
@@ -79,11 +82,15 @@ export async function runLandingAnalysis(data: Ephemeris, launchSite: LaunchSite
             }
             if(!estimate||arrival<report.start||(bounds?arrival>=report.stop:arrival>report.stop))continue;
             if(!visibility.hasJointWindow(arrival))continue;
-            summarize??=indexVisibility(visibility.timeline());
+            if (!summarize) {
+              const timeline = visibility.timeline();
+              summarize = indexVisibility(timeline);
+              solarEnergy = indexSolarEnergy(mask, site.latitude, site.longitude, sky, timeline);
+            }
             const communication=summarize(arrival,'communication'),sunlight=summarize(arrival,'sunlight');
             const jointHours=Math.min(communication.continuousHours,sunlight.continuousHours);
             if(jointHours<=24+0.5)continue;
-            report.candidates.push({site,launch:launch.time,arrival,flightHours:estimate.centerSeconds/3600,flightMarginHours:estimate.marginSeconds/3600,communication,sunlight,jointHours,terrainResolutionMeters:mask.resolutionMeters,terrainSource:terrain.source});
+            report.candidates.push({site,launch:launch.time,arrival,flightHours:estimate.centerSeconds/3600,flightMarginHours:estimate.marginSeconds/3600,communication,sunlight,jointHours,solarEnergy:solarEnergy!(arrival),terrainResolutionMeters:mask.resolutionMeters,terrainSource:terrain.source});
           }
         }
       }catch(error){signal?.throwIfAborted();report.unverified++; if (!bounds) { await mkdir('data/landing',{recursive:true}); await writeFile(`data/landing/excluded-${id}-${center.id.replace(/[^a-z0-9-]/gi,'_')}.txt`,String(error)); }}

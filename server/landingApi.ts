@@ -6,6 +6,8 @@ import { validateEphemeris } from '../src/science/ephemeris';
 import { landingJobId, landingJobs, runLandingAnalysis } from './landingAnalysis';
 import { loadLunarEnvironment, LUNAR_CYCLE_SECONDS } from './lunarEnvironment';
 import { transientEphemeris, transientSignal } from './monthlyEphemeris';
+import { historicalSiteRequest, historicalSiteSnapshot } from './historicalSite';
+import { loadTerrain, TerrainMask } from './lunarTerrain';
 
 const subscribers = new Map<string, { id: string; touched: number }>();
 const cancelled = new Map<string, number>();
@@ -29,7 +31,7 @@ const sweep = setInterval(() => {
 
 export function landingMiddleware(req: IncomingMessage, res: ServerResponse, next: () => void) {
   const url = new URL(req.url || '/', 'http://localhost');
-  if (!['/api/landing-analysis', '/api/lunar-frames'].includes(url.pathname)) { next(); return; }
+  if (!['/api/landing-analysis', '/api/lunar-frames', '/api/historical-site'].includes(url.pathname)) { next(); return; }
   res.setHeader('Content-Type', 'application/json'); res.setHeader('Cache-Control', 'no-store');
   const token = url.searchParams.get('request') || '';
   if (req.method === 'DELETE' && url.pathname === '/api/landing-analysis') {
@@ -47,6 +49,19 @@ export function landingMiddleware(req: IncomingMessage, res: ServerResponse, nex
       validateEphemeris(saved); data = saved;
     }
     const monthSignal = transientSignal(dataId);
+    if (url.pathname === '/api/historical-site') {
+      const { mission, time } = historicalSiteRequest(url.searchParams, data.start, data.stop);
+      const [environment, terrain] = await Promise.all([
+        loadLunarEnvironment(data.start, data.arrivalMonth ? data.stop + LUNAR_CYCLE_SECONDS * 1000 : undefined,
+          { signal: monthSignal, persist: !data.arrivalMonth, cacheKey: data.arrivalMonth ? data.id : undefined }),
+        loadTerrain(mission.latitude, mission.longitude, monthSignal),
+      ]);
+      monthSignal?.throwIfAborted();
+      const mask = new TerrainMask(terrain, mission.latitude, mission.longitude);
+      try { res.end(JSON.stringify(historicalSiteSnapshot(mask, mission.id, mission.latitude, mission.longitude, { time, ...environment.at(time) }))); }
+      finally { mask.dispose(); }
+      return;
+    }
     if (url.pathname === '/api/lunar-frames') {
       res.end(JSON.stringify((await loadLunarEnvironment(data.start, data.arrivalMonth ? data.stop + LUNAR_CYCLE_SECONDS * 1000 : undefined, { signal: monthSignal, persist: !data.arrivalMonth, cacheKey: data.arrivalMonth ? data.id : undefined })).attitudes)); return;
     }

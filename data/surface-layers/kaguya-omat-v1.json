@@ -1,0 +1,114 @@
+{
+  "source": "https://trek.nasa.gov/moon/trekarcgis/rest/services/Lunar_Kaguya_MIMap_MineralDeconv_OpticalMaturityIndex_50N50S/ImageServer/exportImage?f=image&bbox=-180%2C-50%2C180%2C50&bboxSR=104903&imageSR=104903&size=720%2C200&pixelType=F32&format=tiff&interpolation=RSP_NearestNeighbor&adjustAspectRatio=false&renderingRule=%7B%22rasterFunction%22%3A%22None%22%7D",
+  "citation": "https://astrogeology.usgs.gov/search/map/kaguya_lunar_multiband_imager_mi_derived_optical_maturity_omat_50n50s_512ppd_59mpp",
+  "fetchedAt": "2026-11-15T00:40:32.036Z",
+  "sha256": "39f64ff2266ae3cd6d170131cf5eac540ec7618bfac476159a2868ab47071d0a",
+  "metadata": {
+    "currentVersion": 10.61,
+    "serviceDescription": "Lunar_Kaguya_MIMap_MineralDeconv_OpticalMaturityIndex_50N50S",
+    "name": "Lunar_Kaguya_MIMap_MineralDeconv_OpticalMaturityIndex_50N50S",
+    "description": "",
+    "extent": {
+      "xmin": -180,
+      "ymin": -50,
+      "xmax": 180,
+      "ymax": 50,
+      "spatialReference": {
+        "wkid": 104903,
+        "latestWkid": 104903
+      }
+    },
+    "initialExtent": {
+      "xmin": -180,
+      "ymin": -50,
+      "xmax": 180,
+      "ymax": 50,
+      "spatialReference": {
+        "wkid": 104903,
+        "latestWkid": 104903
+      }
+    },
+    "fullExtent": {
+      "xmin": -180,
+      "ymin": -50,
+      "xmax": 180,
+      "ymax": 50,
+      "spatialReference": {
+        "wkid": 104903,
+        "latestWkid": 104903
+      }
+    },
+    "pixelSizeX": 0.25,
+    "pixelSizeY": 0.25,
+    "bandCount": 1,
+    "pixelType": "F32",
+    "minPixelSize": 0,
+    "maxPixelSize": 0,
+    "copyrightText": "",
+    "serviceDataType": "esriImageServiceDataTypeGeneric",
+    "minValues": [
+      0
+    ],
+    "maxValues": [
+      40.443771362305
+    ],
+    "meanValues": [
+      0.16812888476395
+    ],
+    "stdvValues": [
+      0.10586077696557
+    ],
+    "objectIdField": "",
+    "fields": [],
+    "capabilities": "Image,Metadata,Mensuration",
+    "defaultMosaicMethod": "Center",
+    "allowedMosaicMethods": "",
+    "sortField": "",
+    "sortValue": null,
+    "mosaicOperator": "First",
+    "defaultCompressionQuality": 75,
+    "defaultResamplingMethod": "Bilinear",
+    "maxImageHeight": 4100,
+    "maxImageWidth": 15000,
+    "allowRasterFunction": true,
+    "rasterFunctionInfos": [
+      {
+        "name": "None",
+        "description": "",
+        "help": ""
+      }
+    ],
+    "rasterTypeInfos": [
+      {
+        "name": "Raster Dataset",
+        "description": "Supports all ArcGIS Raster Datasets",
+        "help": ""
+      }
+    ],
+    "mensurationCapabilities": "Basic",
+    "hasHistograms": false,
+    "hasColormap": false,
+    "hasRasterAttributeTable": false,
+    "minScale": 0,
+    "maxScale": 0,
+    "exportTilesAllowed": false,
+    "hasMultidimensions": false,
+    "supportsStatistics": false,
+    "supportsAdvancedQueries": false,
+    "editFieldsInfo": null,
+    "ownershipBasedAccessControlForRasters": null,
+    "allowComputeTiePoints": false,
+    "useStandardizedQueries": true,
+    "advancedQueryCapabilities": {
+      "useStandardizedQueries": true,
+      "supportsStatistics": false,
+      "supportsOrderBy": false,
+      "supportsDistinct": false,
+      "supportsPagination": false
+    },
+    "spatialReference": {
+      "wkid": 104903,
+      "latestWkid": 104903
+    }
+  }
+}

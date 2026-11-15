@@ -8,3 +8,4 @@ dist/
 .env.local
 artifacts/
 /data/terrain/
+/data/surface-layers/polar-source/

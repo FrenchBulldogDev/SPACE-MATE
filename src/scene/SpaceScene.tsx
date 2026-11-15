@@ -9,11 +9,17 @@ import type { DisplayMode, Ephemeris } from '../science/types';
 import type { LunarSite } from '../science/landingTypes';
 import { loadBodyGeometry, loadBodyTexture, markedEarthTexture, pinTexture } from './assets';
 import { useLanguage } from '../i18n/LanguageProvider';
+import type { SurfaceOverlay } from '../science/surfaceLayers';
+import { surfaceTexture } from './surfaceTexture';
+import { surfaceMarkers } from './surfaceMarkers';
+import flagImage from '../../Assets/Flag.PNG?url';
+import { FLIGHT_HISTORY, type HistoricalFlight } from '../science/flightHistory';
 
 export type Body = 'earth' | 'moon' | 'system';
 type Props = {
   site: LaunchSite | null;
   landingSite: LunarSite | null;
+  overlay: SurfaceOverlay | null;
   ephemeris: Ephemeris;
   mode: DisplayMode;
   instant: number | null;
@@ -24,16 +30,18 @@ type Props = {
   onActiveBody: (body: Body) => void;
   onRangeEnd: () => void;
   onTimeChange: (time: number) => void;
+  onHistoricalSite: (mission: HistoricalFlight) => void;
 };
 type SceneAPI = { focus: (body: Body) => void; locate: (site: LaunchSite | null) => void; setInstant: (instant: number) => void };
 
 export default function SpaceScene(props: Props) {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
   const text = useRef(t);
   text.current = t;
   const host = useRef<HTMLDivElement>(null);
   const earthLabel = useRef<HTMLDivElement>(null);
   const moonLabel = useRef<HTMLDivElement>(null);
+  const historicalFlags = useRef(new Map<string, HTMLButtonElement>());
   const state = useRef(props);
   state.current = props;
   const api = useRef<SceneAPI | null>(null);
@@ -160,6 +168,17 @@ export default function SpaceScene(props: Props) {
       earthTilt.add(earth); scene.add(earthTilt);
       const moon = new THREE.Mesh(moonGeometry, new THREE.MeshPhongMaterial({ map: lunarTexture, shininess: 0 }));
       scene.add(moon);
+      // The overlay uses the original STL geometry and UVs, so it follows the
+      // same lunar orientation, libration, rotation and scale as the texture.
+      const layerMaterial = new THREE.MeshBasicMaterial({ transparent: true, depthWrite: false, toneMapped: false,
+        polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
+      const layerMesh = new THREE.Mesh(moonGeometry, layerMaterial); layerMesh.renderOrder = 1; layerMesh.visible = false; moon.add(layerMesh);
+      let previousOverlay: SurfaceOverlay | null | undefined;
+      let layerMarkers: ReturnType<typeof surfaceMarkers> | undefined;
+      const clearLayerMarkers = () => {
+        if (!layerMarkers) return;
+        moon.remove(layerMarkers); layerMarkers.geometry.dispose(); layerMarkers.material.dispose(); layerMarkers = undefined;
+      };
 
       const atmosphere = new THREE.Mesh(new THREE.SphereGeometry(C.earthRadius * 1.028, 64, 32), new THREE.ShaderMaterial({
         uniforms: { glowColor: { value: new THREE.Color('#aaaaaa') } },
@@ -266,6 +285,7 @@ export default function SpaceScene(props: Props) {
         }
       };
       if (state.current.site) locate(state.current.site);
+      if (state.current.landingSite && state.current.command.body === 'moon') focus('moon');
 
       const raycaster = new THREE.Raycaster();
       const pointer = new THREE.Vector2();
@@ -351,6 +371,14 @@ export default function SpaceScene(props: Props) {
         if (cancelled) return;
         const delta = Math.max((now - previousTime) / 1000, 0); previousTime = now;
         const settings = state.current;
+        if (settings.overlay !== previousOverlay) {
+          previousOverlay = settings.overlay;
+          clearLayerMarkers();
+          if (settings.overlay?.points.length) { layerMarkers = surfaceMarkers(settings.overlay, C.moonRadius); moon.add(layerMarkers); }
+          layerMaterial.map?.dispose(); layerMaterial.map = settings.overlay ? surfaceTexture(settings.overlay) : null;
+          layerMaterial.opacity = settings.overlay?.opacity ?? 0; layerMaterial.needsUpdate = true;
+          layerMesh.visible = !!settings.overlay;
+        }
         if (settings.playing) {
           timestamp = Math.min(timestamp + delta * settings.speed * 1000, data.stop);
           if (timestamp === data.stop) state.current.onRangeEnd();
@@ -358,7 +386,7 @@ export default function SpaceScene(props: Props) {
         simulationTime.current = { id: data.id, time: timestamp };
         if (now - previousClockUpdate >= 1000) { state.current.onTimeChange(timestamp); previousClockUpdate = now; }
         const earthTranslation = updateBodies();
-        landingPin.visible=!!settings.landingSite;
+        landingPin.visible=!!settings.landingSite&&!FLIGHT_HISTORY.some(mission=>mission.id===settings.landingSite?.id);
         if(settings.landingSite)landingPin.position.copy(surfaceDirection(settings.landingSite.latitude,settings.landingSite.longitude)).multiplyScalar(C.moonRadius*1.012);
         if (focused !== 'earth' && !transition) {
           const translation = moon.position.clone().sub(previousMoon).sub(earthTranslation);
@@ -395,6 +423,20 @@ export default function SpaceScene(props: Props) {
         const earthAnchor = labelPoint(earthCenter, C.earthRadius), moonAnchor = labelPoint(moon.position, C.moonRadius);
         const labelsOverlap = Math.abs(earthAnchor.x - moonAnchor.x) * container.clientWidth / 2 < 125 && Math.abs(earthAnchor.y - moonAnchor.y) * container.clientHeight / 2 < 44;
         updateLabel(moonLabel.current, moon.position, C.moonRadius, labelsOverlap ? 48 : 0);
+        // DOM buttons provide keyboard/touch access while their anchors follow
+        // the same body-fixed coordinates as the lunar texture and layers.
+        const moonToCamera = camera.position.clone().sub(moon.position);
+        const projectedRadius = C.moonRadius / moonToCamera.length() / Math.tan(radians(camera.fov) / 2) * container.clientHeight / 2;
+        for (const mission of FLIGHT_HISTORY) {
+          const button = historicalFlags.current.get(mission.id);
+          if (!button) continue;
+          const normal = surfaceDirection(mission.latitude, mission.longitude).applyQuaternion(moon.quaternion);
+          const point = moon.position.clone().addScaledVector(normal, C.moonRadius * 1.008).project(camera);
+          const visible = projectedRadius >= 24 && normal.dot(moonToCamera) > C.moonRadius
+            && point.z > -1 && point.z < 1 && Math.abs(point.x) < 0.96 && Math.abs(point.y) < 0.96;
+          button.hidden = !visible;
+          if (visible) button.style.transform = `translate(${(point.x * 0.5 + 0.5) * container.clientWidth}px, ${(-point.y * 0.5 + 0.5) * container.clientHeight}px) translate(-30%, -97%)`;
+        }
         frame = requestAnimationFrame(render);
       };
       setStatus('ready'); frame = requestAnimationFrame(render);
@@ -406,7 +448,7 @@ export default function SpaceScene(props: Props) {
         canvas.removeEventListener('pointercancel', onPointerUp, true);
         canvas.removeEventListener('lostpointercapture', onPointerUp, true);
         canvas.removeEventListener('keydown', onKey);
-        markedTexture?.dispose(); baseEarthTexture.dispose(); lunarTexture.dispose(); pinMap.dispose();
+        markedTexture?.dispose(); baseEarthTexture.dispose(); lunarTexture.dispose(); pinMap.dispose(); layerMaterial.map?.dispose(); clearLayerMarkers();
       };
     };
     void initialize().catch(() => { if (!cancelled) setStatus('error'); });
@@ -423,6 +465,12 @@ export default function SpaceScene(props: Props) {
   }, [retry, props.ephemeris, props.mode]);
 
   return <div className="space-scene" ref={host}>
+    {FLIGHT_HISTORY.map(mission => <button key={mission.id} ref={element => { if (element) historicalFlags.current.set(mission.id, element); else historicalFlags.current.delete(mission.id); }}
+      hidden className={`historical-flag${props.landingSite?.id === mission.id ? ' is-selected' : ''}`}
+      aria-label={`${mission.id} · ${new Intl.DateTimeFormat(locale, { dateStyle: 'medium', timeZone: 'UTC' }).format(new Date(mission.landing))}`}
+      aria-pressed={props.landingSite?.id === mission.id} onClick={() => props.onHistoricalSite(mission)}>
+      <img src={flagImage} alt="" draggable={false} /><span>{mission.id}</span>
+    </button>)}
     <div className="body-label" ref={earthLabel}><span>01 / {t.earth.toLocaleUpperCase()}</span><small>{t.origin}</small></div>
     <div className="body-label" ref={moonLabel}><span>02 / {t.moon.toLocaleUpperCase()}</span><small>{t.naturalSatellite}</small></div>
     {status !== 'ready' && <div className="scene-state" role="status">

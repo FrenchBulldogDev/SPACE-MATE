@@ -1,0 +1,34 @@
+{
+  "source": "https://zenodo.org/records/7108163/files/gridded_omat_mosaic_south_pole.tif.zip?download=1",
+  "citation": "https://zenodo.org/records/7108163",
+  "archiveMd5": "e89289739e46d2d1aea902823c2bb996",
+  "archiveSha256": "4a065ba03cf74356ea16db5181e7c69ec0212b4ae2c0c3207bafccfafad8515b",
+  "gridSha256": "0f4c1283d167435d814c240ce83344c801d7b709f0f4c63ac5b22e37bc64e96a",
+  "imageSha256": "63da51d7bee26a2fd635eb08603674b1b865567f7e1990f062b99550028772ba",
+  "wkt": "PROJCS[\"Stereographic_South_Pole\",GEOGCS[\"GCS_Moon_2000\",DATUM[\"D_Moon_2000\",SPHEROID[\"Moon_2000_IAU_IAG\",1737400.0,0.0]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Stereographic_South_Pole\"],PARAMETER[\"false_easting\",0.0],PARAMETER[\"false_northing\",0.0],PARAMETER[\"central_meridian\",0.0],PARAMETER[\"standard_parallel_1\",-90.0],UNIT[\"Meter\",1.0]]",
+  "sourceGCPs": [
+    25.29,
+    0,
+    0,
+    0,
+    0,
+    25.29,
+    25.29,
+    25.29
+  ],
+  "targetGCPs": [
+    1267472,
+    1267472,
+    -1267472,
+    1267472,
+    -1267472,
+    -1267472,
+    1267472,
+    -1267472
+  ],
+  "pixelWidthMeters": 1002.3503361012258,
+  "pixelHeightMeters": 1002.3503361012258,
+  "method": "Spherical polar stereographic on Moon 2000; nearest source cell, no gap filling",
+  "license": "CC BY 4.0",
+  "attribution": "Lemelin, Lucey & Camon (2022), version 2, doi:10.5281/zenodo.7108163"
+}

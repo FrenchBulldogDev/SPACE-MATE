@@ -20,7 +20,7 @@ test('Exactly the supported five languages are available with complete translati
       assert.ok(site.name && site.region && site.source?.startsWith('https://'));
     }
     assert.equal(translations[code].teamMembers.length, 3);
-    assert.equal(translations[code].collaborators.length, 3);
+    assert.equal(translations[code].collaborators.length, 2);
     for (const member of translations[code].teamMembers) {
       assert.ok(member.name.trim().length > 0);
       assert.ok(member.description.trim().length > 0);

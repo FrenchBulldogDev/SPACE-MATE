@@ -28,6 +28,12 @@ Escucha en `http://127.0.0.1:4173` (`HOST` y `PORT` configurables). El runtime `
 
 ## Interacciones
 
+El modo antes llamado «Escala física» ahora se llama **Público especializado**, conservando esa escala. Las nuevas **capas de superficie lunar** permiten comparar potencial solar calculado con JPL/LOLA y madurez óptica real Kaguya MI. Las capas de degradación del equipo y polvo sólo se habilitan en Público especializado al importar mediciones y calibraciones con procedencia. Consulta [modelos, fuentes, límites y formato de datos](SCIENCE_LAYERS.md). Las funciones anteriores del público general se conservan.
+
+El panel de capas del visor se puede minimizar hasta mostrar sólo su icono; conserva la selección, los datos y el mapa activo. **Spacey**, basado en `EXAMPLE.html` y con la imagen `Assets/Spacy_WOBack.png`, sustituye el antiguo botón `?`. Ofrece preguntas sugeridas y búsqueda local por palabras clave sobre el uso, colores, modo especializado, JSON y navegación. Sus controles, preguntas y respuestas están traducidos a los cinco idiomas. La conversación se conserva al cerrar y reabrir durante la sesión del explorador, sin enviarse ni guardarse; no utiliza un servicio de IA. Al abrir Spacey se minimizan las capas y al desplegar las capas se cierra Spacey para evitar que los paneles se superpongan.
+
+El lema de la portada y la descripción del documento son **ad astra per aspera**, fijos en latín en todos los idiomas.
+
 - Arrastrar sobre un astro o el espacio: orbita únicamente la cámara. No se puede modificar manualmente la orientación de los cuerpos.
 - Rueda: zoom al cuerpo debajo del cursor. En espacio vacío tiene prioridad el cuerpo más cercano a la cámara.
 - Dos dedos: zoom. Botón derecho: desplazar cámara.
@@ -40,6 +46,14 @@ Escucha en `http://127.0.0.1:4173` (`HOST` y `PORT` configurables). El runtime `
 - Aceleraciones de `60×`, `3.600×` y `86.400×` permiten recorrer las efemérides. La reproducción se detiene al final del intervalo; no extrapola ni repite una órbita artificial.
 - Seleccionar un sitio calcula todos los mínimos locales de distancia. «Ver este instante» sitúa y pausa el visor en un resultado. Los datos diarios y los cálculos pueden descargarse como JSON.
 - La **fecha estimada de aterrizaje** se elige con tres listas: año, mes y día (UTC; febrero de 1962 a diciembre de 2100). Año y mes permanecen disponibles durante la carga. Cambiarlos limpia fecha, marcador, resultados y solicitudes anteriores; se calcula únicamente el período elegido. Los días sin candidatos aceptados, incluidos los huecos entre días disponibles, quedan deshabilitados. Un mes terminado sin candidatos indica explícitamente que no hay ventanas estimadas disponibles. Los fallos de adquisición se muestran como errores.
+
+## Banderas de alunizajes históricos
+
+Los ocho sitios del catálogo histórico se marcan en la Luna con `Assets/Flag.PNG`, ancladas a sus coordenadas y ocultas cuando quedan detrás de la superficie. Se muestran al acercarse a la Luna. El selector **Sitios de alunizaje históricos** permite acceder también a lugares fuera de la vista; **Ver banderas en la Luna** centra la cámara.
+
+Al pulsar una bandera se pausa la reproducción, se centra el sitio y se abre su ficha en **Configuración actual**. `/api/historical-site` utiliza las efemérides del período elegido y el DEM LOLA para calcular visibilidad terrestre, iluminación solar, elevaciones y distancia al centro de la Tierra en ese punto exacto, aunque no sea un candidato aceptado. El instante evaluado aparece explícitamente; **Actualizar al instante del visor** permite actualizarlo si se reanuda la animación. Las llegadas estimadas se toman únicamente de candidatos en las mismas coordenadas y respetan el filtro de día y el sitio de lanzamiento actual.
+
+El switch **Ver datos históricos** muestra la misión, país, fecha y hora UTC del alunizaje y del lanzamiento, duración real del vuelo y fuentes del catálogo, conservando la configuración del explorador. La ficha y los controles están traducidos a los cinco idiomas, admiten teclado y se adaptan a pantallas pequeñas. La visibilidad sin cobertura suficiente se conserva como desconocida.
 
 ## Variables para editar
 
